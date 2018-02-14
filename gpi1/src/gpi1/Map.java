@@ -70,4 +70,31 @@ public class Map {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 */
+	public void moveHero(char c) {
+		Coordinates heroNewPos = hero.clone();
+		switch(c) {
+		case 'w':
+				heroNewPos.moveUp();
+				break;
+		case 's':
+				heroNewPos.moveDown();
+				break;
+		case 'a':
+				heroNewPos.moveLeft();
+				break;
+		case 'd':
+				heroNewPos.moveRigth();
+				break;
+		}
+		
+		// If the new coordinates are not a wall or door, update coordinates
+		if(map[heroNewPos.getX()][heroNewPos.getY()] != 'X' && map[heroNewPos.getX()][heroNewPos.getY()] != 'I') {
+			hero.setX(heroNewPos.getX());
+			hero.setY(heroNewPos.getY());
+		}
+	}
 }
