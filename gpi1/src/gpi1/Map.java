@@ -17,29 +17,46 @@ public class Map {
 	public String toString() {
 		String ret = new String();
 		
-		ret+="┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n";
+		// Make Header
+		{
+			ret += "┌─";
+			for (int i = 0; i < this.gridSize-1; i++) {
+				ret += "┬─";
+			}
+			ret += "┐\n";
+		}
 		
-		/*
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│ │ │ │ │ │ │ │ │ │ │\n" + 
-				"└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘ ";
+		
+		// Make Body
+			{
+				
+				for (int i = 0; i < this.gridSize; i++) {
+					ret += "│";
+					for(int j=0;j<this.gridSize;j++) {
+						ret+=map[i][j]+ "│";;
+					}
+					ret+="\n";
+					// -- new line
+					if(i==this.gridSize-1)
+						break; // do not draw ------ under last line
+					ret += "├─";
+					for (int j = 0; j < this.gridSize-1; j++) {
+						ret += "┼─";
+					}
+					ret += "┤\n";
+				}
+				
+			}
+			
+		// Make Footer
+			{
+				ret += "└─";
+				for (int i = 0; i < this.gridSize-1; i++) {
+					ret += "┴─";
+				}
+				ret += "┘\n";
+			}
+		return ret;
 	}
 	
 	public void print() {
