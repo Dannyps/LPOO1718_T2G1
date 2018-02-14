@@ -6,14 +6,16 @@ public class Map {
 
 	public Map(String str) {
 		// Assuming the map is a square
-		map = new char[this.gridSize][this.gridSize];
 		this.gridSize = (int) Math.sqrt(str.length());
+		map = new char[this.gridSize][this.gridSize];
 		
 		for(int i = 0; i < this.gridSize; i++) {
-			map[i] = str.substring(0, this.gridSize-1).toCharArray();
+			map[i] = str.substring(this.gridSize*i, this.gridSize*(i+1)).toCharArray();
 		}
 	}
-	
+	/**
+	 * return a string representation of the map.
+	 */
 	public String toString() {
 		String ret = new String();
 		
