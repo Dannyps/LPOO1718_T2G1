@@ -1,5 +1,7 @@
 package gpi1;
 
+import java.io.IOException;
+
 public class GPI1 {
 
 	public static void main(String[] args) {
@@ -11,11 +13,21 @@ public class GPI1 {
 			map = new Map("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX");
 			System.out.println(map);
 			
-			map.moveHero('d');
-			System.out.println(map);
-		} catch (Exception e) {
+			char input;
+
+			while((input = (char)System.in.read()) != 'i') {
+				map.moveHero(input);
+				System.out.println(map);
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		} // our board
+		
 		
 		
 
