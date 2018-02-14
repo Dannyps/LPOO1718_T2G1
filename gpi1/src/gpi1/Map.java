@@ -2,20 +2,24 @@ package gpi1;
 
 public class Map {
 	private char[][] map;
-	
+	private int gridSize;
+
 	public Map(String str) {
 		// Assuming the map is a square
-		int n = (int) Math.sqrt(str.length());
-
-		map = new char[n][n];
+		map = new char[this.gridSize][this.gridSize];
+		this.gridSize = (int) Math.sqrt(str.length());
 		
-		for(int i = 0; i < n; i++) {
-			map[i] = str.substring(i*n, (i+1)*n).toCharArray();
+		for(int i = 0; i < this.gridSize; i++) {
+			map[i] = str.substring(0, this.gridSize-1).toCharArray();
 		}
 	}
 	
 	public String toString() {
-		return  "┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n" + 
+		String ret = new String();
+		
+		ret+="┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n";
+		
+		/*
 				"│ │ │ │ │ │ │ │ │ │ │\n" + 
 				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
 				"│ │ │ │ │ │ │ │ │ │ │\n" + 
@@ -36,7 +40,6 @@ public class Map {
 				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
 				"│ │ │ │ │ │ │ │ │ │ │\n" + 
 				"└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘ ";
-	
 	}
 	
 	public void print() {
