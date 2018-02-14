@@ -76,7 +76,7 @@ public class Map {
 	
 	/**
 	 * 
-	 * @param c
+	 * @param c a character representing the way the hero should move.
 	 */
 	public void moveHero(char c) {
 		Coordinates heroNewPos = hero.clone();
