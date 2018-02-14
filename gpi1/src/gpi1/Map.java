@@ -3,15 +3,23 @@ package gpi1;
 public class Map {
 	private char[][] map;
 	private int gridSize;
-
+	private Coordinates hero;
+	
 	public Map(String str) {
 		// Assuming the map is a square
 		map = new char[this.gridSize][this.gridSize];
+		
+		// TODO check if n is perfect square number
 		this.gridSize = (int) Math.sqrt(str.length());
 		
 		for(int i = 0; i < this.gridSize; i++) {
-			map[i] = str.substring(0, this.gridSize-1).toCharArray();
+			map[i] = str.substring(i, this.gridSize*i).toCharArray();
 		}
+		
+		// Find hero position
+		int ind = str.indexOf('H');
+		hero = new Coordinates(ind/this.gridSize, ind%this.gridSize);
+		
 	}
 	
 	public String toString() {
