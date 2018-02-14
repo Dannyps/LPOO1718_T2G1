@@ -67,9 +67,4 @@ public class Map {
 		return ret;
 	}
 	
-	public void print() {
-		for(int i = 0; i < map.length; i++) {
-			System.out.println(map[i]);
-		}
-	}
 }
