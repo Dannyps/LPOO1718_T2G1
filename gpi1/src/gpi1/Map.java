@@ -96,11 +96,11 @@ public class Map {
 		}
 		
 		// If the new coordinates are not a wall or door, update coordinates
-		if(map[heroNewPos.getX()][heroNewPos.getY()] != 'X' && map[heroNewPos.getX()][heroNewPos.getY()] != 'I') {
-			map[hero.getX()][hero.getY()] = ' ';
+		if(map[heroNewPos.getY()][heroNewPos.getX()] != 'X' && map[heroNewPos.getY()][heroNewPos.getX()] != 'I') {
+			map[hero.getY()][hero.getX()] = ' ';
 			hero.setX(heroNewPos.getX());
 			hero.setY(heroNewPos.getY());
-			map[hero.getX()][hero.getY()] = 'H';
+			map[hero.getY()][hero.getX()] = 'H';
 			
 		}
 	}
