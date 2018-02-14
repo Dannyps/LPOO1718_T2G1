@@ -6,7 +6,12 @@ public class GPI1 {
 		System.out.println("Start!");
 		
 		// initialize map
-		Map map = new Map("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX"); // our board
+		try {
+			Map map = new Map("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX");
+			System.out.println(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // our board
 
 	}
 }	

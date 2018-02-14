@@ -5,13 +5,17 @@ public class Map {
 	private int gridSize;
 	private Coordinates hero;
 	
-	public Map(String str) {
+	public Map(String str) throws Exception {
+		int strlen=str.length();
 		// Assuming the map is a square
-		this.gridSize = (int) Math.sqrt(str.length());
+		this.gridSize = (int) Math.sqrt(strlen);
 		map = new char[this.gridSize][this.gridSize];
 		
-		// TODO check if n is perfect square number
-		this.gridSize = (int) Math.sqrt(str.length());
+		// check if n is perfect square number
+		this.gridSize = (int) Math.sqrt(strlen);
+		if(this.gridSize*this.gridSize!=strlen) {
+			throw new Exception("str doen't represent a square!");
+		}
 		
 		for(int i = 0; i < this.gridSize; i++) {
 			map[i] = str.substring(this.gridSize*i, this.gridSize*(i+1)).toCharArray();
