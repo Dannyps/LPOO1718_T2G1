@@ -4,7 +4,7 @@ public class Map {
 	private char[][] map;
 	
 	public Map(String str) {
-		// Assuming the map it's a square
+		// Assuming the map is a square
 		int n = (int) Math.sqrt(str.length());
 		
 		for(int i = 0; i < n; i++) {
@@ -12,9 +12,27 @@ public class Map {
 		}
 	}
 	
-	public void print() {
-		for(int i = 0; i < map.length; i++) {
-			System.out.println(map[i].toString());
-		}
+	public String toString() {
+		return  "┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
+				"│ │ │ │ │ │ │ │ │ │ │\n" + 
+				"└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘ ";
 	}
 }
