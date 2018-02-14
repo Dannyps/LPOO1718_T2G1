@@ -11,4 +11,10 @@ public class Map {
 			map[i] = str.substring(0, n-1).toCharArray();
 		}
 	}
+	
+	public void print() {
+		for(int i = 0; i < map.length; i++) {
+			System.out.println(map[i].toString());
+		}
+	}
 }
