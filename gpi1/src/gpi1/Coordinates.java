@@ -2,7 +2,11 @@ package gpi1;
 
 public class Coordinates {
 	int x, y;
-	
+	/**
+	 * a pair holding coordinates
+	 * @param x (0-based)
+	 * @param y (0-based)
+	 */
 	public Coordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
