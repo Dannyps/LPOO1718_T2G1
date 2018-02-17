@@ -1,7 +1,7 @@
 package gpi1;
 
 public class Map {
-	private char[][] map;
+	private GenericMapEntity[][] map;
 	private int gridSize;
 	private Coordinates hero;
 	
@@ -9,7 +9,7 @@ public class Map {
 		int strlen=str.length();
 		// Assuming the map is a square
 		this.gridSize = (int) Math.sqrt(strlen);
-		map = new char[this.gridSize][this.gridSize];
+		//map = new GenericMapEntity[this.gridSize][this.gridSize];
 		
 		// check if n is perfect square number
 		this.gridSize = (int) Math.sqrt(strlen);
@@ -17,14 +17,29 @@ public class Map {
 			throw new Exception("str doen't represent a square!");
 		}
 		
-		for(int i = 0; i < this.gridSize; i++) {
-			map[i] = str.substring(this.gridSize*i, this.gridSize*(i+1)).toCharArray();
+		buildMapFromString(str);
+		
+	}
+	/**
+	 * @param str
+	 */
+	private void buildMapFromString(String str) {
+		int line=0, column=0;
+		for(char c : str.toCharArray()) {
+			if(column>this.gridSize) {
+				line++;
+			}
+			map[line][column] = new GenericMapEntity(line, column, "fdsfs", this);
+			System.out.println(c);
 		}
-		
-		// Find hero position
-		int ind = str.indexOf('H');
-		hero = new Coordinates(ind/this.gridSize, ind%this.gridSize);
-		
+
+//		for(int i = 0; i < this.gridSize; i++) {
+//			map[i] = str.substring(this.gridSize*i, this.gridSize*(i+1)).toCharArray();
+//		}
+//		
+//		// Find hero position
+//		int ind = str.indexOf('H');
+//		hero = new Coordinates(ind/this.gridSize, ind%this.gridSize);
 	}
 	/**
 	 * return a string representation of the map.
