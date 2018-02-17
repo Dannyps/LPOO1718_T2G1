@@ -30,24 +30,7 @@ public class Coordinates {
 		this.y = y;
 	}
 	
-	// move methods
-	public void moveUp() {
-		this.y--;
-	}
-	
-	public void moveDown() {
-		this.y++;
-	}
-	
-	public void moveLeft() {
-		this.x--;
-	}
-	
-	public void moveRigth() {
-		this.x++;
-	}
-	
-	
+		
 	public Coordinates clone() {
 		return new Coordinates(x,y);
 	}

@@ -95,7 +95,7 @@ public class Map {
 				break;
 		}
 		
-		// If the new coordinates are not a wall or door, update coordinates
+		// If the new coordinates are not a wall nor a door, update coordinates
 		if(map[heroNewPos.getY()][heroNewPos.getX()] != 'X' && map[heroNewPos.getY()][heroNewPos.getX()] != 'I') {
 			map[hero.getY()][hero.getX()] = ' ';
 			hero.setX(heroNewPos.getX());
