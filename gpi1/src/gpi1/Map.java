@@ -15,6 +15,11 @@ public class Map {
 	 */
 	private Guard guard;
 	
+	/**
+	 * @brief Constructor
+	 * @param str A string that represents the game map
+	 * @throws Exception
+	 */
 	public Map(String str) throws Exception {
 		int strlen=str.length();
 		// Assuming the map is a square
@@ -121,6 +126,7 @@ public class Map {
 			}
 		return ret;
 	}
+	
 	public void input(char input) {
 		// TODO Auto-generated method stub
 		this.buffer = input;
@@ -133,34 +139,15 @@ public class Map {
 		}
 	}
 	
-	/**
-	 * 
-	 * @param c a character representing the way the hero should move.
-	 */
-	/*public void moveHero(char c) {
-		Coordinates heroNewPos = hero.clone();
-		switch(c) {
-		case 'w':
-				heroNewPos.moveUp();
-				break;
-		case 's':
-				heroNewPos.moveDown();
-				break;
-		case 'a':
-				heroNewPos.moveLeft();
-				break;
-		case 'd':
-				heroNewPos.moveRigth();
-				break;
-		}
-		
-		// If the new coordinates are not a wall nor a door, update coordinates
-		if(map[heroNewPos.getY()][heroNewPos.getX()] != 'X' && map[heroNewPos.getY()][heroNewPos.getX()] != 'I') {
-			map[hero.getY()][hero.getX()] = ' ';
-			hero.setX(heroNewPos.getX());
-			hero.setY(heroNewPos.getY());
-			map[hero.getY()][hero.getX()] = 'H';
-			
-		}
-	}*/
+	public boolean isHeroCaptured() {
+		return true;
+	}
+	
+	public boolean isHeroOnLever() {
+		return true;
+	}
+	
+	public boolean isHeroOnStairs() {
+		return true;
+	}
 }
