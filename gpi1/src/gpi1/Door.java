@@ -2,6 +2,8 @@ package gpi1;
 
 public class Door extends GenericMapEntity {
 
+	private boolean open;
+
 	public Door(int x, int y, Map map) {
 		super(x, y, map);
 		// TODO Auto-generated constructor stub
@@ -9,6 +11,9 @@ public class Door extends GenericMapEntity {
 
 	@Override
 	public String toString() {
-		return "I";
+		if(this.open)
+			return "S";
+		else
+			return "I";
 	}
 }

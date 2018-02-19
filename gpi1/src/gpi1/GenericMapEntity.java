@@ -9,7 +9,7 @@ package gpi1;
 public class GenericMapEntity {
 
 	private Coordinates coordinates;
-	
+	protected Map map;
 	/**
 	 * @param x the x position of the entity
 	 * @param y the y position of the entity
@@ -17,6 +17,7 @@ public class GenericMapEntity {
 	 */
 	public GenericMapEntity(int x, int y, Map map) {
 		this.coordinates = new Coordinates(x, y);
+		this.map=map;
 	}
 	
 	
@@ -51,5 +52,8 @@ public class GenericMapEntity {
 	
 	public String toString() {
 		return null;
+	}
+	public boolean tick() {
+		return true;
 	}
 }

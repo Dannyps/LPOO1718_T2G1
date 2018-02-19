@@ -16,7 +16,7 @@ public class GPI1 {
 			char input;
 
 			while((input = (char)System.in.read()) != 'i') {
-				//map.moveHero(input);
+				map.input(input);
 				System.out.println(map);
 			}
 

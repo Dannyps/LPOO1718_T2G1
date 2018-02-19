@@ -3,6 +3,7 @@ package gpi1;
 public class Map {
 	private GenericMapEntity[][] map;
 	private int gridSize;
+	protected char buffer;
 	
 	/**
 	 * A direct reference to the Hero.
@@ -119,6 +120,17 @@ public class Map {
 				ret += "┘\n";
 			}
 		return ret;
+	}
+	public void input(char input) {
+		// TODO Auto-generated method stub
+		this.buffer = input;
+		for(GenericMapEntity[] mapL: map) {
+			for(GenericMapEntity gme:mapL) {
+				if(gme==null)
+					continue;
+				gme.tick();
+			}
+		}
 	}
 	
 	/**
