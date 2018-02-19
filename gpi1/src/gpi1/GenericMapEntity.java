@@ -4,22 +4,19 @@
 package gpi1;
 
 /**
- * @author daniel
  *
  */
 public class GenericMapEntity {
 
 	private Coordinates coordinates;
-	private String type;
 	
 	/**
 	 * @param x the x position of the entity
 	 * @param y the y position of the entity
-	 * @param type the type of the entity (wall, hero, guard, etc.)
+	 * @param map a reference to the main map.
 	 */
-	public GenericMapEntity(int x, int y, String type, Map map) {
+	public GenericMapEntity(int x, int y, Map map) {
 		this.coordinates = new Coordinates(x, y);
-		this.type=type;
 	}
 	
 	
@@ -30,16 +27,10 @@ public class GenericMapEntity {
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
-
-	public String getType() {
-		return type;
+	public void setCoordinates(int[] c) {
+		this.coordinates = new Coordinates(c);
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	
 		
 	// move methods
 	public void moveUp() {
@@ -56,5 +47,9 @@ public class GenericMapEntity {
 	
 	public void moveRigth() {
 		this.coordinates.x++;
+	}
+	
+	public String toString() {
+		return null;
 	}
 }

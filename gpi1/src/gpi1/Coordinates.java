@@ -12,6 +12,11 @@ public class Coordinates {
 		this.y = y;
 	}
 	
+	public Coordinates(int[] c) {
+		this.x = c[0];
+		this.y = c[1];
+	}
+	
 	// getters
 	public int getX() {
 		return x;
@@ -28,8 +33,7 @@ public class Coordinates {
 	
 	public void setY(int y) {
 		this.y = y;
-	}
-		
+	}	
 	
 	public Coordinates clone() {
 		return new Coordinates(x,y);

@@ -3,13 +3,22 @@ package gpi1;
 public class Map {
 	private GenericMapEntity[][] map;
 	private int gridSize;
-	private Coordinates hero;
+	
+	/**
+	 * A direct reference to the Hero.
+	 */
+	private Hero hero;
+	
+	/**
+	 * A direct reference to the Guard.
+	 */
+	private Guard guard;
 	
 	public Map(String str) throws Exception {
 		int strlen=str.length();
 		// Assuming the map is a square
 		this.gridSize = (int) Math.sqrt(strlen);
-		//map = new GenericMapEntity[this.gridSize][this.gridSize];
+		map = new GenericMapEntity[this.gridSize][this.gridSize];
 		
 		// check if n is perfect square number
 		this.gridSize = (int) Math.sqrt(strlen);
@@ -26,20 +35,42 @@ public class Map {
 	private void buildMapFromString(String str) {
 		int line=0, column=0;
 		for(char c : str.toCharArray()) {
-			if(column>this.gridSize) {
+			if(column>=this.gridSize) {
 				line++;
+				column=0;
 			}
-			map[line][column] = new GenericMapEntity(line, column, "fdsfs", this);
-			System.out.println(c);
+			System.out.println(line + " " + column + "\n");
+			switch(c) {
+			case 'X':
+				map[line][column] = new Wall(line, column, this);
+				break;
+			case 'H':
+				this.hero = new Hero(line, column, this);
+				map[line][column] = this.hero;
+				break;
+			case 'I':
+				map[line][column] = new Door(line, column, this);
+				break;
+			case 'G':
+				this.guard = new Guard(line, column, this);
+				map[line][column] = this.guard;
+				break;
+			case 'O':
+				map[line][column] = new Ogre(line, column, this);
+				break;
+			case 'K':
+				map[line][column] = new Lever(line, column, this);
+				break;
+			case ' ':
+				map[line][column] = null;
+				break;
+			default:
+				System.err.println("Unrecognized char read!"); System.exit(-2);
+				break;
+			}
+			column++;
 		}
 
-//		for(int i = 0; i < this.gridSize; i++) {
-//			map[i] = str.substring(this.gridSize*i, this.gridSize*(i+1)).toCharArray();
-//		}
-//		
-//		// Find hero position
-//		int ind = str.indexOf('H');
-//		hero = new Coordinates(ind/this.gridSize, ind%this.gridSize);
 	}
 	/**
 	 * return a string representation of the map.
@@ -63,7 +94,8 @@ public class Map {
 				for (int i = 0; i < this.gridSize; i++) {
 					ret += "│";
 					for(int j=0;j<this.gridSize;j++) {
-						ret+=map[i][j]+ "│";;
+						if(map[i][j]==null) {ret+=" "; } else { ret+=map[i][j]; }
+						ret+= "│";
 					}
 					ret+="\n";
 					// -- new line
@@ -93,7 +125,7 @@ public class Map {
 	 * 
 	 * @param c a character representing the way the hero should move.
 	 */
-	public void moveHero(char c) {
+	/*public void moveHero(char c) {
 		Coordinates heroNewPos = hero.clone();
 		switch(c) {
 		case 'w':
@@ -118,5 +150,5 @@ public class Map {
 			map[hero.getY()][hero.getX()] = 'H';
 			
 		}
-	}
+	}*/
 }
