@@ -32,17 +32,22 @@ public class GenericMapEntity {
 	public void setCoordinates(int[] c) {
 		this.coordinates = new Coordinates(c);
 	}
-
+	
+	/**
+	 * Returns the neighbor at some direction
+	 * @param d
+	 * @return
+	 */
 	public GenericMapEntity getNeighbor(Direction d){
 		switch(d) {
 		case LEFT:
-			return map.map[this.coordinates.x-1][this.coordinates.y];
-		case RIGHT:
-			return map.map[this.coordinates.x+1][this.coordinates.y];
-		case TOP:
 			return map.map[this.coordinates.x][this.coordinates.y-1];
-		case BOTTOM:
+		case RIGHT:
 			return map.map[this.coordinates.x][this.coordinates.y+1];
+		case TOP:
+			return map.map[this.coordinates.x-1][this.coordinates.y];
+		case BOTTOM:
+			return map.map[this.coordinates.x+1][this.coordinates.y];
 		default:
 			return null;
 		}

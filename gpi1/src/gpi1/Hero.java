@@ -22,26 +22,33 @@ public class Hero extends GenericMapEntity {
 	 * @param c a character representing the way the hero should move.
 	 */
 	private void moveHero(char c) {
+		GenericMapEntity neighbor;
 		switch(c) {
 		case 'w':
-				GenericMapEntity top = this.getNeighbor(Direction.TOP);
-				if(top instanceof Wall)
-				break;
+			neighbor = this.getNeighbor(Direction.TOP);
+			break;
 		case 's':
-				nextPos.y++;
-				break;
+			neighbor = this.getNeighbor(Direction.BOTTOM);
+			break;
 		case 'a':
-				nextPos.x--;
-				break;
+			neighbor = this.getNeighbor(Direction.LEFT);
+			break;
 		case 'd':
-				nextPos.x++;
-				break;
+			neighbor = this.getNeighbor(Direction.RIGHT);
+			break;
+		default:
+			neighbor = null;
 		}
 		
-		// If the new coordinates are not a wall nor a door, update coordinates
-		String nextPosEntity = map.getEntityAtPos(nextPos.x, nextPos.y);
-		if(nextPosEntity != "X" && nextPosEntity != "I") {
-			this.setCoordinates(nextPos);
+		if(!(neighbor instanceof Wall || neighbor instanceof Door)) {
+			Coordinates curr, next;
+			curr = this.getCoordinates();
+			next = neighbor.getCoordinates();
+			
+			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
+			this.map.map[next.x][next.y] = this;
+			this.setCoordinates(next);
+			
 		}
 	}
 

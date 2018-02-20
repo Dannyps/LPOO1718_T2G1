@@ -6,5 +6,10 @@ public class Empty extends GenericMapEntity {
 		super(x, y, map);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@Override
+	public String toString() {
+		return " ";
+	}
 
 }

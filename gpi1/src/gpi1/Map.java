@@ -95,7 +95,7 @@ public class Map {
 				map[line][column] = this.lever;
 				break;
 			case ' ':
-				map[line][column] = null;
+				map[line][column] = new Empty(line, column, this);
 				break;
 			default:
 				System.err.println("Unrecognized char read!"); System.exit(-2);
@@ -193,11 +193,7 @@ public class Map {
 			}
 		}*/
 		
-		Coordinates oldPos = hero.getCoordinates();
 		hero.tick();
-		Coordinates newPos = hero.getCoordinates();
-		this.map[oldPos.y][oldPos.x] = null;
-		this.map[newPos.y][newPos.x] = hero;
 		
 
 	}
