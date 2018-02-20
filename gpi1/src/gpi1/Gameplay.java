@@ -7,6 +7,7 @@ public class Gameplay {
 	private String[] lvls = {"XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX"};
 	private Map map;
 	private int currentlvl;
+	public boolean gameEnd=false;
 	
 	/**
 	 * @brief Constructor
@@ -23,13 +24,18 @@ public class Gameplay {
 	 * @throws IOException 
 	 */
 	public boolean refresh() throws IOException {
+		System.out.println(map);
 		char input = (char) System.in.read();
 		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			map.input(input);
 			System.out.println(map);
+			gameEnd=map.gameIsOver;				
+		}
+		if(input == 'i') {
+			System.exit(0);
 		}
 		
-		// TODO check if hero was catched, reached level, reached door, and so on
+		// TODO check if hero was caught, reached level, reached door, and so on
 		return true;
 	}
 	

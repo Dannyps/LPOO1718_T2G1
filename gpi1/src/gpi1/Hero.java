@@ -21,34 +21,49 @@ public class Hero extends GenericMapEntity {
 	 * 
 	 * @param c a character representing the way the hero should move.
 	 */
-	private void moveHero(char c) {
-		GenericMapEntity neighbor;
+	private boolean moveHero(char c) {
+		GenericMapEntity futurePos; // the desired position's current occupier
 		switch(c) {
 		case 'w':
-			neighbor = this.getNeighbor(Direction.TOP);
+			futurePos = this.getNeighbor(Direction.TOP);
 			break;
 		case 's':
-			neighbor = this.getNeighbor(Direction.BOTTOM);
+			futurePos = this.getNeighbor(Direction.BOTTOM);
 			break;
 		case 'a':
-			neighbor = this.getNeighbor(Direction.LEFT);
+			futurePos = this.getNeighbor(Direction.LEFT);
 			break;
 		case 'd':
-			neighbor = this.getNeighbor(Direction.RIGHT);
+			futurePos = this.getNeighbor(Direction.RIGHT);
 			break;
 		default:
-			neighbor = null;
+			futurePos = null;
+			return false;
 		}
 		
-		if(!(neighbor instanceof Wall || neighbor instanceof Door)) {
+		if(futurePos instanceof Empty) {
+			
 			Coordinates curr, next;
 			curr = this.getCoordinates();
-			next = neighbor.getCoordinates();
+			next = futurePos.getCoordinates();
 			
 			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
 			this.map.map[next.x][next.y] = this;
 			this.setCoordinates(next);
-			
+			return true;
+		}else if(futurePos instanceof Lever) {
+			// unlock the exit
+			((Door) this.map.map[5][0]).open=true;
+			((Door) this.map.map[6][0]).open=true;
+			return false;
+		}
+		else if(futurePos instanceof Door && ((Door)futurePos).open) {
+			// the player has left the map, the game is prob over.
+			map.gameIsOver=true;
+			return false;
+		}
+		else {
+			return false;
 		}
 	}
 

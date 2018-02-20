@@ -32,7 +32,7 @@ public class GPI1 {
 		
 		try {
 			Gameplay game = new Gameplay();
-			while(true) game.refresh();
+			while(!game.gameEnd) game.refresh();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

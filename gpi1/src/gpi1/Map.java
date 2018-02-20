@@ -9,6 +9,7 @@ public class Map {
 	protected char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
+	boolean gameIsOver;
 	
 	/**
 	 * A direct reference to the Hero.

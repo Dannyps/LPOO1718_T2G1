@@ -2,7 +2,7 @@ package gpi1;
 
 public class Door extends GenericMapEntity {
 
-	private boolean open;
+	public boolean open;
 
 	public Door(int x, int y, Map map) {
 		super(x, y, map);
