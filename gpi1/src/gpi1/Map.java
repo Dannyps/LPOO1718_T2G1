@@ -7,6 +7,8 @@ public class Map {
 	private GenericMapEntity[][] map;
 	private int gridSize;
 	protected char buffer;
+	boolean isHeroCaptured;
+	boolean isHeroOnStairs;
 	
 	/**
 	 * A direct reference to the Hero.
@@ -44,6 +46,10 @@ public class Map {
 		if(this.gridSize*this.gridSize!=strlen) {
 			throw new Exception("str doen't represent a square!");
 		}
+		
+		// Initialize booleans
+		this.isHeroCaptured = false;
+		this.isHeroOnStairs = false;
 		
 		buildMapFromString(str);
 		
