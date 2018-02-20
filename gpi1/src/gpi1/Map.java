@@ -1,5 +1,8 @@
 package gpi1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map {
 	private GenericMapEntity[][] map;
 	private int gridSize;
@@ -14,6 +17,16 @@ public class Map {
 	 * A direct reference to the Guard.
 	 */
 	private Guard guard;
+	
+	/**
+	 * A direct reference to all doors on map
+	 */
+	private List<Door> doors;
+	
+	/**
+	 * A direct reference to lever
+	 */
+	private Lever lever;
 	
 	/**
 	 * @brief Constructor
@@ -36,10 +49,16 @@ public class Map {
 		
 	}
 	/**
-	 * @param str
+	 * @brief Constructs the map, filling it with the entities
+	 * @param str A string representing the map
 	 */
 	private void buildMapFromString(String str) {
 		int line=0, column=0;
+		
+		// initialize list
+		this.doors = new ArrayList<Door>();
+		
+		// fill matrix
 		for(char c : str.toCharArray()) {
 			if(column>=this.gridSize) {
 				line++;
@@ -55,7 +74,8 @@ public class Map {
 				map[line][column] = this.hero;
 				break;
 			case 'I':
-				map[line][column] = new Door(line, column, this);
+				this.doors.add(new Door(line, column, this));
+				map[line][column] = this.doors.get(this.doors.size() - 1);
 				break;
 			case 'G':
 				this.guard = new Guard(line, column, this);
@@ -65,7 +85,8 @@ public class Map {
 				map[line][column] = new Ogre(line, column, this);
 				break;
 			case 'K':
-				map[line][column] = new Lever(line, column, this);
+				this.lever = new Lever(line, column, this);
+				map[line][column] = this.lever;
 				break;
 			case ' ':
 				map[line][column] = null;

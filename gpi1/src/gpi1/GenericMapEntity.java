@@ -9,7 +9,8 @@ package gpi1;
 public class GenericMapEntity {
 
 	private Coordinates coordinates;
-	protected Map map;
+	protected Map map; // reference to game's map
+	
 	/**
 	 * @param x the x position of the entity
 	 * @param y the y position of the entity
@@ -19,7 +20,6 @@ public class GenericMapEntity {
 		this.coordinates = new Coordinates(x, y);
 		this.map=map;
 	}
-	
 	
 	public Coordinates getCoordinates() {
 		return coordinates;
