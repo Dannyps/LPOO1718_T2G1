@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-	private GenericMapEntity[][] map;
+	public GenericMapEntity[][] map;
 	private int gridSize;
 	protected char buffer;
 	boolean isHeroCaptured;

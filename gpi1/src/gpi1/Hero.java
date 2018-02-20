@@ -22,10 +22,10 @@ public class Hero extends GenericMapEntity {
 	 * @param c a character representing the way the hero should move.
 	 */
 	private void moveHero(char c) {
-		Coordinates nextPos = this.getCoordinates().clone();
 		switch(c) {
 		case 'w':
-				nextPos.y--;
+				GenericMapEntity top = this.getNeighbor(Direction.TOP);
+				if(top instanceof Wall)
 				break;
 		case 's':
 				nextPos.y++;

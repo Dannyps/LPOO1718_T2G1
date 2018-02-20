@@ -3,6 +3,7 @@
  */
 package gpi1;
 
+
 /**
  *
  */
@@ -32,6 +33,20 @@ public class GenericMapEntity {
 		this.coordinates = new Coordinates(c);
 	}
 
+	public GenericMapEntity getNeighbor(Direction d){
+		switch(d) {
+		case LEFT:
+			return map.map[this.coordinates.x-1][this.coordinates.y];
+		case RIGHT:
+			return map.map[this.coordinates.x+1][this.coordinates.y];
+		case TOP:
+			return map.map[this.coordinates.x][this.coordinates.y-1];
+		case BOTTOM:
+			return map.map[this.coordinates.x][this.coordinates.y+1];
+		default:
+			return null;
+		}
+	}
 		
 	// move methods
 	// TODO hmmmmm I don't know if these methods make sense here
