@@ -7,7 +7,7 @@ package gpi1;
 /**
  *
  */
-public class GenericMapEntity {
+public abstract class GenericMapEntity {
 
 	private Coordinates coordinates;
 	protected Map map; // reference to game's map
@@ -54,7 +54,9 @@ public class GenericMapEntity {
 	}
 		
 	// move methods
-	// TODO hmmmmm I don't know if these methods make sense here
+	/**
+	 * @todo hmmmmm I don't know if these methods make sense here
+	 */
 	public void moveUp() {
 		this.coordinates.y--;
 	}
