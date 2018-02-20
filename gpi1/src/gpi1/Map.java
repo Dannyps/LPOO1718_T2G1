@@ -154,6 +154,15 @@ public class Map {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return Returns the string that represents the entity at some position
+	 */
+	public String getEntityAtPos(int x, int y) {
+		return map[x][y].toString();
+	}
 	public void input(char input) {
 		// TODO Auto-generated method stub
 		this.buffer = input;
