@@ -24,8 +24,10 @@ public class Gameplay {
 	 */
 	public boolean refresh() throws IOException {
 		char input = (char) System.in.read();
-		map.input(input);
-		System.out.println(map);
+		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
+			map.input(input);
+			System.out.println(map);
+		}
 		
 		// TODO check if hero was catched, reached level, reached door, and so on
 		return true;

@@ -8,6 +8,7 @@ public class GPI1 {
 		System.out.println("Start!");
 		
 		// initialize map
+		/*
 		Map map;
 		try {
 			map = new Map("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX");
@@ -27,9 +28,15 @@ public class GPI1 {
 		catch (Exception e) {
 			e.printStackTrace();
 		} // our board
+		*/
 		
-		
-		
+		try {
+			Gameplay game = new Gameplay();
+			while(true) game.refresh();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }	

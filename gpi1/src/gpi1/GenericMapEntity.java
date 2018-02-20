@@ -34,6 +34,7 @@ public class GenericMapEntity {
 
 		
 	// move methods
+	// TODO hmmmmm I don't know if these methods make sense here
 	public void moveUp() {
 		this.coordinates.y--;
 	}

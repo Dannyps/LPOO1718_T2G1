@@ -161,18 +161,45 @@ public class Map {
 	 * @return Returns the string that represents the entity at some position
 	 */
 	public String getEntityAtPos(int x, int y) {
-		return map[x][y].toString();
+		if (map[y][x] != null)
+			return map[y][x].toString();
+		else
+			return "";
 	}
 	public void input(char input) {
 		// TODO Auto-generated method stub
 		this.buffer = input;
+		/*
 		for(GenericMapEntity[] mapL: map) {
 			for(GenericMapEntity gme:mapL) {
 				if(gme==null)
 					continue;
 				gme.tick();
 			}
-		}
+		}*/
+		
+		/*
+		for(int i = 0; i < this.gridSize; i++) {
+			for(int j = 0; j < this.gridSize; j++) {
+				GenericMapEntity gme = this.map[i][j];
+				if(gme == null)
+					continue;
+				gme.tick();
+				Coordinates newpos = gme.getCoordinates();
+				if(i != newpos.x || j != newpos.y) {
+					this.map[newpos.y][newpos.x] = gme;
+					this.map[i][j] = null;
+				}
+			}
+		}*/
+		
+		Coordinates oldPos = hero.getCoordinates();
+		hero.tick();
+		Coordinates newPos = hero.getCoordinates();
+		this.map[oldPos.y][oldPos.x] = null;
+		this.map[newPos.y][newPos.x] = hero;
+		
+
 	}
 	
 	public boolean isHeroCaptured() {
