@@ -2,6 +2,7 @@ package MapEntities;
 
 import Levels.Map;
 import gpi1.Coordinates;
+import gpi1.Direction;
 
 public class Guard extends GenericMapEntity {
 	
@@ -34,26 +35,32 @@ public class Guard extends GenericMapEntity {
 	 * @param c a character representing the way the hero should move.
 	 */
 	private void moveGuard(char c) {
-		Coordinates nextPos = this.getCoordinates().clone();
+		GenericMapEntity futurePos; // the desired position's current occupier
 		switch(c) {
 		case 'w':
-				nextPos.y--;
-				break;
+			futurePos = this.getNeighbor(Direction.TOP);
+			break;
 		case 's':
-				nextPos.y++;
-				break;
+			futurePos = this.getNeighbor(Direction.BOTTOM);
+			break;
 		case 'a':
-				nextPos.x--;
-				break;
+			futurePos = this.getNeighbor(Direction.LEFT);
+			break;
 		case 'd':
-				nextPos.x++;
-				break;
+			futurePos = this.getNeighbor(Direction.RIGHT);
+			break;
+		default:
+			futurePos = null;
 		}
 		
-		// If the new coordinates are not a wall nor a door, update coordinates
-		String nextPosEntity = map.getEntityAtPos(nextPos.x, nextPos.y);
-		if(nextPosEntity != "X" && nextPosEntity != "I") {
-			this.setCoordinates(nextPos);
+		if(futurePos instanceof Empty) {
+			Coordinates curr, next;
+			curr = this.getCoordinates();
+			next = futurePos.getCoordinates();
+			
+			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
+			this.map.map[next.x][next.y] = this;
+			this.setCoordinates(next);
 		}
 	}
 }
