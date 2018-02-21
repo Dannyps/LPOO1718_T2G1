@@ -8,7 +8,7 @@ public class Level1 extends Map {
 		
 		// specify exit doors
 		exitDoors.add((Door)this.map[5][0]);
-		exitDoors.add((Door)this.map[5][0]);
+		exitDoors.add((Door)this.map[6][0]);
 	}
 
 }

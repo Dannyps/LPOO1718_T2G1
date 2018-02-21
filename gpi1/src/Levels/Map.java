@@ -19,9 +19,14 @@ public abstract class Map {
 	protected Hero hero;
 	
 	/**
-	 * A direct reference to the Guard.
+	 * A direct reference to the Guard (if any).
 	 */
 	protected Guard guard;
+	
+	/**
+	 * A direct reference to the Ogre (if any).
+	 */
+	protected Ogre ogre;
 	
 	/**
 	 * A direct reference to all doors on map
@@ -50,9 +55,9 @@ public abstract class Map {
 			throw new Exception("str doen't represent a square!");
 		}
 		
-		// Initialize booleans
-		this.isHeroCaptured = false;
-		this.isHeroOnStairs = false;
+		// Initialize entities
+		this.guard = null;
+		this.ogre = null;
 		
 		buildMapFromString(str);
 		
@@ -90,7 +95,8 @@ public abstract class Map {
 				map[line][column] = this.guard;
 				break;
 			case 'O':
-				map[line][column] = new Ogre(line, column, this);
+				this.ogre = new Ogre(line, column, this);
+				map[line][column] = this.ogre;
 				break;
 			case 'K':
 				this.lever = new Lever(line, column, this);
