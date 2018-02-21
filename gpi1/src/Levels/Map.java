@@ -179,6 +179,7 @@ public abstract class Map {
 		else
 			return "";
 	}
+	
 	public void input(char input) {	
 		this.buffer = input;
 		hero.tick();
