@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="private" additionalparam="-J-Xmx1024m -d /home/daniel/LPOO1718_T2G1/gpi1/doc&#10;-docletpath /home/daniel/yworks-uml-doclet-3.0_02-jdk1.5/resources" author="true" classpath="." destdir="doc" doctitle="Guidade Project - Iteration 1" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="MapEntities,gpi1" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+        <javadoc access="private" additionalparam="-J-Xmx1024m -d /home/daniel/LPOO1718_T2G1/gpi1/doc&#10;-docletpath /home/daniel/yworks-uml-doclet-3.0_02-jdk1.5/resources" author="true" classpath="." destdir="doc" doctitle="Guidade Project - Iteration 1" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="MapEntities,Levels,gpi1" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
     </target>
 </project>
