@@ -2,7 +2,6 @@ package Levels;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import MapEntities.*;
 import gpi1.Direction;
 
@@ -17,22 +16,22 @@ public abstract class Map {
 	/**
 	 * A direct reference to the Hero.
 	 */
-	private Hero hero;
+	protected Hero hero;
 	
 	/**
 	 * A direct reference to the Guard.
 	 */
-	private Guard guard;
+	protected Guard guard;
 	
 	/**
 	 * A direct reference to all doors on map
 	 */
-	private List<Door> exitDoors;
+	protected List<Door> exitDoors;
 	
 	/**
 	 * A direct reference to lever
 	 */
-	private Lever lever;
+	protected Lever lever;
 	
 	/**
 	 * @brief Constructor
@@ -105,16 +104,6 @@ public abstract class Map {
 				break;
 			}
 			column++;
-		}
-		
-		// determine which doors are exit doors
-		for(GenericMapEntity[] line1 : map) {
-			for(GenericMapEntity gme : line1) {
-				if(gme instanceof Door && gme.getNeighbor(Direction.BOTTOM) instanceof Door ) {
-					exitDoors.add((Door)gme);
-					exitDoors.add((Door)gme.getNeighbor(Direction.BOTTOM));
-				}
-			}
 		}
 
 	}
