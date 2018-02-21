@@ -57,9 +57,8 @@ public abstract class GenericMapEntity {
 	}
 		
 	
-	public String toString() {
-		return null;
-	}
+	public abstract String toString();
+	
 	public boolean tick() {
 		return true;
 	}

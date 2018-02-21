@@ -3,7 +3,6 @@ package Levels;
 import java.util.ArrayList;
 import java.util.List;
 import MapEntities.*;
-import gpi1.Direction;
 
 public abstract class Map {
 	public GenericMapEntity[][] map;
@@ -83,7 +82,7 @@ public abstract class Map {
 				line++;
 				column=0;
 			}
-			System.out.println(line + " " + column + "\n");
+			System.out.println(this.getClass().getName());
 			switch(c) {
 			case 'X':
 				map[line][column] = new Wall(line, column, this);
@@ -195,5 +194,7 @@ public abstract class Map {
 	public List<Door> getExitDoors() {
 		return this.exitDoors;
 	}
+	public abstract void heroMetLeverHandler();
+	public abstract void heroMetKeyHandler();
 	
 }

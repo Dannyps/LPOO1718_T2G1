@@ -11,4 +11,17 @@ public class Level1 extends Map {
 		exitDoors.add((Door)this.map[6][0]);
 	}
 
+	@Override
+	public void heroMetLeverHandler() {
+		// TODO Auto-generated method stub
+		getExitDoors().forEach(door -> door.open = true);
+	}
+
+	@Override
+	public void heroMetKeyHandler() {
+		// this should not happen!
+		assert(1==2);
+		return;
+	}
+
 }

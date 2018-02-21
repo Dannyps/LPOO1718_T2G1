@@ -56,8 +56,11 @@ public class Hero extends GenericMapEntity {
 			this.setCoordinates(next);
 			return true;
 		}else if(futurePos instanceof Lever) {
-			// unlock the exit
-			map.getExitDoors().forEach(door -> door.open = true);
+			map.heroMetLeverHandler();
+			return false;
+		}
+		else if(futurePos instanceof Key) {
+			map.heroMetLeverHandler();
 			return false;
 		}
 		else if(futurePos instanceof Door && ((Door)futurePos).open) {

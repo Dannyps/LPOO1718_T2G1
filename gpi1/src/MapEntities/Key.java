@@ -9,4 +9,9 @@ public class Key extends GenericMapEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "K";
+	}
+
 }
