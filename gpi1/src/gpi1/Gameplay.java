@@ -2,6 +2,8 @@ package gpi1;
 
 import java.io.IOException;
 
+import Levels.Map;
+
 public class Gameplay {
 	// TODO add the second level to array
 	private String[] lvls = {"XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX",

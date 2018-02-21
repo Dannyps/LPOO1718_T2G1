@@ -1,11 +1,12 @@
-package gpi1;
+package Levels;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import MapEntities.*;
+import gpi1.Direction;
 
-public class Map {
+public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
 	public char buffer;

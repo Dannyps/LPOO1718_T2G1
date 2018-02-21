@@ -1,8 +1,8 @@
 package MapEntities;
 
+import Levels.Map;
 import gpi1.Coordinates;
 import gpi1.Direction;
-import gpi1.Map;
 
 public class Hero extends GenericMapEntity {
 
