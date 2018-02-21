@@ -12,16 +12,29 @@ public class Level1 extends Map {
 	}
 
 	@Override
-	public void heroMetLeverHandler() {
-		// TODO Auto-generated method stub
+	public boolean heroMetLeverHandler() {
 		getExitDoors().forEach(door -> door.open = true);
+		return false;
 	}
 
 	@Override
-	public void heroMetKeyHandler() {
+	public boolean heroMetKeyHandler() {
 		// this should not happen!
 		assert(1==2);
-		return;
+		return false;
+	}
+
+	@Override
+	public void input(char input) {
+		super.input(input);
+		guard.tick();
+	}
+
+	@Override
+	public boolean heroMetDoorHandler(Door door) {
+		if(door.open)
+			gameIsOver=true;
+		return false;
 	}
 
 }

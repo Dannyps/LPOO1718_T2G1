@@ -7,6 +7,10 @@ import MapEntities.*;
 public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
+	
+	public int getGridSize() {
+		return gridSize;
+	}
 	public char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
@@ -187,14 +191,17 @@ public abstract class Map {
 	
 	public void input(char input) {	
 		this.buffer = input;
-		hero.tick();
-		guard.tick();	
+		hero.tick();	
 	}
 	
 	public List<Door> getExitDoors() {
 		return this.exitDoors;
 	}
-	public abstract void heroMetLeverHandler();
-	public abstract void heroMetKeyHandler();
+	
+	/// Handlers return true or false, indicating whether the first entity should be moved to the futurePosition or not.
+	
+	public abstract boolean heroMetLeverHandler();
+	public abstract boolean heroMetKeyHandler();
+	public abstract boolean heroMetDoorHandler(Door door);
 	
 }

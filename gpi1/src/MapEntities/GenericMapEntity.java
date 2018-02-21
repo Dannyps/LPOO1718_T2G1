@@ -44,13 +44,25 @@ public abstract class GenericMapEntity {
 	public GenericMapEntity getNeighbor(Direction d){
 		switch(d) {
 		case LEFT:
-			return map.map[this.coordinates.x][this.coordinates.y-1];
+			if(this.coordinates.y-1<0)
+				return null;
+			else
+				return map.map[this.coordinates.x][this.coordinates.y-1];
 		case RIGHT:
-			return map.map[this.coordinates.x][this.coordinates.y+1];
+			if(this.coordinates.y+1>=map.getGridSize())
+				return null;
+			else
+				return map.map[this.coordinates.x][this.coordinates.y+1];
 		case TOP:
-			return map.map[this.coordinates.x-1][this.coordinates.y];
+			if(this.coordinates.x-1<0)
+				return null;
+			else
+				return map.map[this.coordinates.x-1][this.coordinates.y];
 		case BOTTOM:
-			return map.map[this.coordinates.x+1][this.coordinates.y];
+			if(this.coordinates.x+1>=map.getGridSize())
+				return null;
+			else
+				return map.map[this.coordinates.x+1][this.coordinates.y];
 		default:
 			return null;
 		}

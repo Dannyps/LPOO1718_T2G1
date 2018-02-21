@@ -13,7 +13,7 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level1();
+		this.map = new Level2();
 		this.currentlvl = 1;
 	}
 	
