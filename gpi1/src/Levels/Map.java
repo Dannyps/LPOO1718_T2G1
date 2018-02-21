@@ -39,6 +39,11 @@ public abstract class Map {
 	protected Lever lever;
 	
 	/**
+	 * A direct reference to key
+	 */
+	protected Key key;
+	
+	/**
 	 * @brief Constructor
 	 * @param str A string that represents the game map
 	 * @throws Exception
@@ -99,8 +104,14 @@ public abstract class Map {
 				map[line][column] = this.ogre;
 				break;
 			case 'K':
-				this.lever = new Lever(line, column, this);
-				map[line][column] = this.lever;
+				if(this instanceof Level1) {
+					this.lever = new Lever(line, column, this);
+					map[line][column] = this.lever;
+				}
+				else if (this instanceof Level2) {
+					this.key = new Key(line, column, this);
+					map[line][column] = this.key;
+				}
 				break;
 			case ' ':
 				map[line][column] = new Empty(line, column, this);
