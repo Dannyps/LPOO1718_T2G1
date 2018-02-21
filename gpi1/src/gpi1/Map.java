@@ -24,7 +24,7 @@ public class Map {
 	/**
 	 * A direct reference to all doors on map
 	 */
-	private List<Door> doors;
+	private List<Door> exitDoors;
 	
 	/**
 	 * A direct reference to lever
@@ -63,7 +63,7 @@ public class Map {
 		int line=0, column=0;
 		
 		// initialize list
-		this.doors = new ArrayList<Door>();
+		this.exitDoors = new ArrayList<Door>();
 		
 		// fill matrix
 		for(char c : str.toCharArray()) {
@@ -81,8 +81,7 @@ public class Map {
 				map[line][column] = this.hero;
 				break;
 			case 'I':
-				this.doors.add(new Door(line, column, this));
-				map[line][column] = this.doors.get(this.doors.size() - 1);
+				map[line][column] = new Door(line, column, this);
 				break;
 			case 'G':
 				this.guard = new Guard(line, column, this);
@@ -103,6 +102,13 @@ public class Map {
 				break;
 			}
 			column++;
+		}
+		
+		// determine which doors are exit doors
+		for(GenericMapEntity[] line : map) {
+			for(GenericMapEntity gme : line) {
+				
+			}
 		}
 
 	}
@@ -167,36 +173,10 @@ public class Map {
 		else
 			return "";
 	}
-	public void input(char input) {
-		// TODO Auto-generated method stub
+	public void input(char input) {	
 		this.buffer = input;
-		/*
-		for(GenericMapEntity[] mapL: map) {
-			for(GenericMapEntity gme:mapL) {
-				if(gme==null)
-					continue;
-				gme.tick();
-			}
-		}*/
-		
-		/*
-		for(int i = 0; i < this.gridSize; i++) {
-			for(int j = 0; j < this.gridSize; j++) {
-				GenericMapEntity gme = this.map[i][j];
-				if(gme == null)
-					continue;
-				gme.tick();
-				Coordinates newpos = gme.getCoordinates();
-				if(i != newpos.x || j != newpos.y) {
-					this.map[newpos.y][newpos.x] = gme;
-					this.map[i][j] = null;
-				}
-			}
-		}*/
-		
 		hero.tick();
-		
-
+		guard.tick();	
 	}
 	
 	public boolean isHeroCaptured() {
