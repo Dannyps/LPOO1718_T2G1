@@ -107,9 +107,12 @@ public class Map {
 		}
 		
 		// determine which doors are exit doors
-		for(GenericMapEntity[] line : map) {
-			for(GenericMapEntity gme : line) {
-				
+		for(GenericMapEntity[] line1 : map) {
+			for(GenericMapEntity gme : line1) {
+				if(gme instanceof Door && gme.getNeighbor(Direction.BOTTOM) instanceof Door ) {
+					exitDoors.add((Door)gme);
+					exitDoors.add((Door)gme.getNeighbor(Direction.BOTTOM));
+				}
 			}
 		}
 
@@ -181,15 +184,8 @@ public class Map {
 		guard.tick();	
 	}
 	
-	public boolean isHeroCaptured() {
-		return true;
+	public List<Door> getExitDoors() {
+		return this.exitDoors;
 	}
 	
-	public boolean isHeroOnLever() {
-		return true;
-	}
-	
-	public boolean isHeroOnStairs() {
-		return true;
-	}
 }
