@@ -1,7 +1,5 @@
 package gpi1;
 
-import java.io.IOException;
-
 public class GPI1 {
 
 	public static void main(String[] args) {

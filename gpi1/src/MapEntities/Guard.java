@@ -1,4 +1,7 @@
-package gpi1;
+package MapEntities;
+
+import gpi1.Coordinates;
+import gpi1.Map;
 
 public class Guard extends GenericMapEntity {
 	

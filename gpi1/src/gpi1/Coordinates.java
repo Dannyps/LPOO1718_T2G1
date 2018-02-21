@@ -1,7 +1,7 @@
 package gpi1;
 
 public class Coordinates {
-	int x, y;
+	public int x, y;
 	/**
 	 * a pair holding coordinates
 	 * @param x (0-based)
@@ -16,6 +16,9 @@ public class Coordinates {
 		this.x = c[0];
 		this.y = c[1];
 	}
+	
+	// Nobody used this anyway
+	/*
 	
 	// getters
 	public int getX() {
@@ -33,7 +36,7 @@ public class Coordinates {
 	
 	public void setY(int y) {
 		this.y = y;
-	}	
+	}	*/
 	
 	public Coordinates clone() {
 		return new Coordinates(x,y);

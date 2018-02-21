@@ -3,13 +3,15 @@ package gpi1;
 import java.util.ArrayList;
 import java.util.List;
 
+import MapEntities.*;
+
 public class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
-	protected char buffer;
+	public char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
-	boolean gameIsOver;
+	public boolean gameIsOver;
 	
 	/**
 	 * A direct reference to the Hero.

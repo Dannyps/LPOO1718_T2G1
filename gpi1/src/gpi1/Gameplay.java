@@ -45,7 +45,9 @@ public class Gameplay {
 	/**
 	 * This is suppose to load the next level, meh
 	 * @throws Exception
+	 * TODO use this
 	 */
+	@SuppressWarnings("unused")
 	private void loadNextLevel() throws Exception {
 		this.map = new Map(lvls[++currentlvl]);
 	}

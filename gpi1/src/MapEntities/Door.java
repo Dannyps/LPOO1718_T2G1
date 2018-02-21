@@ -1,4 +1,6 @@
-package gpi1;
+package MapEntities;
+
+import gpi1.Map;
 
 public class Door extends GenericMapEntity {
 
