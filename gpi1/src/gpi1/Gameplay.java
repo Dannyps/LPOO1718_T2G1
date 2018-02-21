@@ -2,7 +2,7 @@ package gpi1;
 
 import java.io.IOException;
 
-import Levels.Map;
+import Levels.*;
 
 public class Gameplay {
 	// TODO add the second level to array
@@ -18,8 +18,8 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Map(lvls[0]);
-		this.currentlvl = 0;
+		this.map = new Level1();
+		this.currentlvl = 1;
 	}
 	
 	/**
@@ -51,7 +51,8 @@ public class Gameplay {
 	 */
 	@SuppressWarnings("unused")
 	private void loadNextLevel() throws Exception {
-		this.map = new Map(lvls[++currentlvl]);
+		currentlvl=2;
+		this.map = new Level2();
 	}
 	
 	
