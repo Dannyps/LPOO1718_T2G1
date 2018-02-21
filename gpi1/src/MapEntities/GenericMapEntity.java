@@ -56,24 +56,6 @@ public abstract class GenericMapEntity {
 		}
 	}
 		
-	// move methods
-	/** TODO hmmmmm I don't know if these methods make sense here
-	*/
-	public void moveUp() {
-		this.coordinates.y--;
-	}
-	
-	public void moveDown() {
-		this.coordinates.y++;
-	}
-	
-	public void moveLeft() {
-		this.coordinates.x--;
-	}
-	
-	public void moveRigth() {
-		this.coordinates.x++;
-	}
 	
 	public String toString() {
 		return null;
