@@ -1,6 +1,6 @@
-package Levels;
-import MapEntities.*;
+package logic.Levels;
 import gpi1.Coordinates;
+import logic.MapEntities.*;
 
 public class Level2 extends Map {
 

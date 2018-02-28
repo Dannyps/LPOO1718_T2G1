@@ -1,5 +1,5 @@
-package Levels;
-import MapEntities.*;
+package logic.Levels;
+import logic.MapEntities.*;
 
 public class Level1 extends Map {
 

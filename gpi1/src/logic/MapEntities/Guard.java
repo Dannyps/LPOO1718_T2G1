@@ -1,8 +1,8 @@
-package MapEntities;
+package logic.MapEntities;
 
-import Levels.Map;
 import gpi1.Coordinates;
 import gpi1.Direction;
+import logic.Levels.Map;
 
 public class Guard extends GenericMapEntity {
 	

@@ -1,8 +1,9 @@
-package Levels;
+package logic.Levels;
 
 import java.util.ArrayList;
 import java.util.List;
-import MapEntities.*;
+
+import logic.MapEntities.*;
 
 public abstract class Map {
 	public GenericMapEntity[][] map;

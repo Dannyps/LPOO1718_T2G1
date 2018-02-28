@@ -1,6 +1,6 @@
-package MapEntities;
+package logic.MapEntities;
 
-import Levels.Map;
+import logic.Levels.Map;
 
 public class Wall extends GenericMapEntity {
 

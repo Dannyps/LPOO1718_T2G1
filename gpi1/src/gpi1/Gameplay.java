@@ -1,7 +1,8 @@
 package gpi1;
 
 import java.io.IOException;
-import Levels.*;
+
+import logic.Levels.*;
 
 public class Gameplay {
 	private Map map;
