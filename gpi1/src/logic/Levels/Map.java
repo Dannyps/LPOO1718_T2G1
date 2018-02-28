@@ -57,7 +57,7 @@ public abstract class Map {
 	protected Key key;
 	
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @param str A string that represents the game map
 	 * @throws Exception
 	 */
@@ -81,7 +81,7 @@ public abstract class Map {
 		
 	}
 	/**
-	 * @brief Constructs the map, filling it with the entities
+	 * Constructs the map, filling it with the entities
 	 * @param str A string representing the map
 	 */
 	private void buildMapFromString(String str) {

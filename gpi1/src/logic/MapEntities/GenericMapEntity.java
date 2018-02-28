@@ -38,8 +38,8 @@ public abstract class GenericMapEntity {
 	
 	/**
 	 * Returns the neighbor at some direction
-	 * @param d
-	 * @return
+	 * @param d Direction to return
+	 * @return the neighbor on the specified direction, or null if neighbor is outside of the map. 
 	 */
 	public GenericMapEntity getNeighbor(Direction d){
 		switch(d) {
@@ -67,8 +67,10 @@ public abstract class GenericMapEntity {
 			return null;
 		}
 	}
-		
 	
+	/**
+	 * @return the one-char representation of the entity
+	 */
 	public abstract String toString();
 	
 	public boolean tick() {

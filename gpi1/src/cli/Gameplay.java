@@ -10,7 +10,7 @@ public class Gameplay {
 	public boolean gameEnd=false;
 	
 	/**
-	 * @brief Constructor
+	 * Constructor
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
@@ -19,7 +19,7 @@ public class Gameplay {
 	}
 	
 	/**
-	 * @brief Refreshes game
+	 * Refreshes game
 	 * @return false if game over, true otherwise
 	 * @throws IOException 
 	 */

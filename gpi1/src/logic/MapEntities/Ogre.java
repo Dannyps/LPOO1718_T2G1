@@ -28,7 +28,6 @@ public class Ogre extends GenericMapEntity {
 		if (map.toInt() == 1) {
 			hasClub = false;
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -83,10 +82,6 @@ public class Ogre extends GenericMapEntity {
 
 	}
 
-	/**
-	 * 
-	 * @param c a character representing the way the hero should move.
-	 */
 	private void moveOgre() {
 		GenericMapEntity futurePos = null; // the desired position's current occupier
 		int i = new Random().nextInt(4);
