@@ -17,7 +17,7 @@ public class Hero extends GenericMapEntity {
 	}
 	
 	public boolean tick() {
-		this.moveHero(map.buffer);
+		this.move(map.buffer);
 		return true;
 	}
 	
@@ -26,7 +26,7 @@ public class Hero extends GenericMapEntity {
 	 * @param c a character representing the way the hero should move.
 	 * @return boolean whether the hero was indeed moved or not.
 	 */
-	private boolean moveHero(char c) {
+	private boolean move(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
 		switch(c) {
 		case 'w':

@@ -32,8 +32,18 @@ public class Level2 extends Map {
 		if(!door.open && heroHasKey) {
 			door.open=true;
 			return false;
-		}else
+		}else if(door.open) {
+			this.gameIsOver=true;
 			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public void input(char input) {
+		super.input(input);
+		ogre.tick();
 	}
 
 }

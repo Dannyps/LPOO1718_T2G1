@@ -40,7 +40,7 @@ public class Gameplay {
 	
 	
 	/**
-	 * This is suppose to load the next level, meh
+	 * This is supposed to load the next level, meh
 	 * @throws Exception
 	 * TODO use this
 	 */
