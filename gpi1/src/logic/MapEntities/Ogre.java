@@ -12,7 +12,10 @@ public class Ogre extends GenericMapEntity {
 	 * Should only be set if the ogre is over a key.
 	 */
 	private Key oldKey=null;
+	public OgreClub club=null;
 
+	private boolean hasClub = true;
+	
 	/**
 	 * 
 	 * @param x
@@ -21,6 +24,9 @@ public class Ogre extends GenericMapEntity {
 	 */
 	public Ogre(int x, int y, Map map) {
 		super(x, y, map);
+		if(map.toInt()==1) {
+			hasClub=false;
+		}
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -42,9 +48,40 @@ public class Ogre extends GenericMapEntity {
 			  }
 		}
 		
+		if(hasClub) {
+			generateClub();
+		}
+		
 		return true;
 	}
 	
+	private void generateClub() {
+		GenericMapEntity futurePos = null; // the club's next position
+		int i = new Random().nextInt(4);
+		switch(i) {
+		case 0:
+			futurePos = this.getNeighbor(Direction.TOP);
+			break;
+		case 1:
+			futurePos = this.getNeighbor(Direction.BOTTOM);
+			break;
+		case 2:
+			futurePos = this.getNeighbor(Direction.LEFT);
+			break;
+		case 3:
+			futurePos = this.getNeighbor(Direction.RIGHT);
+			break;
+		}
+		
+		if(futurePos instanceof Empty) {
+			Coordinates next;
+			next = futurePos.getCoordinates();
+			this.club=new OgreClub(next.x, next.y, map);
+			this.map.map[next.x][next.y] = this.club;
+		}
+		
+	}
+
 	/**
 	 * 
 	 * @param c a character representing the way the hero should move.

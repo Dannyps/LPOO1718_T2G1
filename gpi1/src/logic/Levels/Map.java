@@ -9,6 +9,15 @@ public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
 	
+	/**
+	 * 
+	 * @return an integer representing the level name.
+	 */
+	public int toInt() {
+		String str=this.getClass().getName();
+		return Integer.parseInt(str.substring(str.length()-1));
+	}
+	
 	public int getGridSize() {
 		return gridSize;
 	}
