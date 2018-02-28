@@ -25,21 +25,22 @@ public class Gameplay {
 	 */
 	public boolean refresh() throws IOException {
 		System.out.println(map);
+		
 		char input = (char) System.in.read();
 		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
-			
 			// Pass the char to the game
 			map.input(input);
 			
 			// Print the map
-			System.out.println(map);
+			//System.out.println(map);
 			
 			// update internal variable from map
-			gameEnd=map.gameIsOver;				
+			gameEnd=map.gameIsOver;	
 		}
 		if(input == 'i') { // interrupt
 			System.exit(0);
 		}
+		System.in.read();
 		return true;
 	}
 	

@@ -96,7 +96,6 @@ public abstract class Map {
 				line++;
 				column=0;
 			}
-			System.out.println(this.getClass().getName());
 			switch(c) {
 			case 'X':
 				map[line][column] = new Wall(line, column, this);
