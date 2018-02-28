@@ -1,5 +1,6 @@
 package logic.MapEntities;
 
+import gpi1.Direction;
 import logic.Levels.Map;
 
 public class OgreClub extends GenericMapEntity {
@@ -16,6 +17,15 @@ public class OgreClub extends GenericMapEntity {
 	
 	@Override
 	public boolean tick() {
+		// check if guard has caught the hero.
+		for (Direction dir : Direction.values()) {
+			  if(this.getNeighbor(dir) instanceof Hero) {
+			  //caught!
+			  this.map.gameIsOver=true;
+			  return true;
+			  }
+		}
+		// delete old club
 		map.map[this.getCoordinates().x][this.getCoordinates().y]=new Empty(this.getCoordinates().x, this.getCoordinates().y, map);
 		return true;
 	}
