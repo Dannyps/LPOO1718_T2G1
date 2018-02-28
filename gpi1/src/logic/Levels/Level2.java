@@ -1,5 +1,5 @@
 package logic.Levels;
-import gpi1.Coordinates;
+import logic.Coordinates;
 import logic.MapEntities.*;
 
 public class Level2 extends Map {
@@ -41,9 +41,14 @@ public class Level2 extends Map {
 	
 	@Override
 	public void input(char input) {
-		super.input(input);
+		// check club position
 		if(ogre.club!=null)
 			ogre.club.tick();
+		
+		// move hero
+		super.input(input);
+		
+		// move ogre
 		ogre.tick();
 	}
 

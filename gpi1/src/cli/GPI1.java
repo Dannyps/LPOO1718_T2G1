@@ -1,4 +1,4 @@
-package gpi1;
+package cli;
 
 public class GPI1 {
 

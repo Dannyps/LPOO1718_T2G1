@@ -1,4 +1,4 @@
-package gpi1;
+package cli;
 
 import java.io.IOException;
 
@@ -27,15 +27,19 @@ public class Gameplay {
 		System.out.println(map);
 		char input = (char) System.in.read();
 		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
+			
+			// Pass the char to the game
 			map.input(input);
+			
+			// Print the map
 			System.out.println(map);
+			
+			// update internal variable from map
 			gameEnd=map.gameIsOver;				
 		}
-		if(input == 'i') {
+		if(input == 'i') { // interrupt
 			System.exit(0);
 		}
-		
-		// TODO check if hero was caught, reached level, reached door, and so on
 		return true;
 	}
 	

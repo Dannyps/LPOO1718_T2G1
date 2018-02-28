@@ -1,6 +1,6 @@
 package logic.MapEntities;
 
-import gpi1.Direction;
+import logic.Direction;
 import logic.Levels.Map;
 
 public class OgreClub extends GenericMapEntity {
@@ -17,7 +17,7 @@ public class OgreClub extends GenericMapEntity {
 	
 	@Override
 	public boolean tick() {
-		// check if guard has caught the hero.
+		// check if club is adjacent to the hero.
 		for (Direction dir : Direction.values()) {
 			  if(this.getNeighbor(dir) instanceof Hero) {
 			  //caught!

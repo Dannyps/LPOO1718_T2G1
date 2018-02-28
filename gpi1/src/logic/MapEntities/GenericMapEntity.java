@@ -3,8 +3,8 @@
  */
 package logic.MapEntities;
 
-import gpi1.Coordinates;
-import gpi1.Direction;
+import logic.Coordinates;
+import logic.Direction;
 import logic.Levels.Map;
 
 /**

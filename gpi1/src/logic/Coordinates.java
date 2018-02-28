@@ -1,4 +1,4 @@
-package gpi1;
+package logic;
 
 public class Coordinates {
 	public int x, y;
