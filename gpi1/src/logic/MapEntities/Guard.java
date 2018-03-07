@@ -30,8 +30,8 @@ public class Guard extends GenericMapEntity {
 		// check if guard has caught the hero.
 		for (Direction dir : Direction.values()) {
 			  if(this.getNeighbor(dir) instanceof Hero) {
-			  //caught!
-			  this.map.gameIsOver=true;
+				  //caught!
+				  this.map.setGameIsOver(true);
 			  }
 		}
 		

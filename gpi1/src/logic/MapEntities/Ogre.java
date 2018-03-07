@@ -40,11 +40,12 @@ public class Ogre extends GenericMapEntity {
 
 	public boolean tick() {
 		moveOgre();
+		System.out.print("New ogre pos is: "); System.out.println(this.getCoordinates());
 		// check if ogre has caught the hero.
 		for (Direction dir : Direction.values()) {
 			if (this.getNeighbor(dir) instanceof Hero) {
 				// caught!
-				this.map.gameIsOver = true;
+				this.map.setGameIsOver(true);
 			}
 		}
 
@@ -56,7 +57,7 @@ public class Ogre extends GenericMapEntity {
 			for (Direction dir : Direction.values()) {
 				if (this.club.getNeighbor(dir) instanceof Hero) {
 					// caught!
-					this.map.gameIsOver = true;
+					this.map.setGameIsOver(true);
 				}
 			}
 		}

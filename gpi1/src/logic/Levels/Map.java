@@ -24,22 +24,34 @@ public abstract class Map {
 	public char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
-	public boolean gameIsOver;
+	boolean gameIsOver;
 	
+	public void setGameIsOver(boolean gameIsOver) {
+		this.gameIsOver = gameIsOver;
+	}
+
+	public boolean isGameOver() {
+		return gameIsOver;
+	}
 	/**
 	 * A direct reference to the Hero.
 	 */
 	protected Hero hero;
 	
 	/**
-	 * A direct reference to the Guard (if any).
+	 * A direct reference to the Ogres (if any).
 	 */
-	protected Guard guard;
+	protected List<Ogre> ogres;
+	
+	/**
+	 * A direct reference to the Ogres (if any).
+	 */
+	protected List<Guard> guards;
 	
 	/**
 	 * A direct reference to the Ogre (if any).
 	 */
-	protected Ogre ogre;
+	protected PickableClub pickableClub;
 	
 	/**
 	 * A direct reference to all doors on map
@@ -73,9 +85,10 @@ public abstract class Map {
 			throw new Exception("str doen't represent a square!");
 		}
 		
-		// Initialize entities
-		this.guard = null;
-		this.ogre = null;
+		// initialize lists
+		this.exitDoors = new ArrayList<Door>();
+		this.ogres = new ArrayList<Ogre>();
+		this.guards = new ArrayList<Guard>();
 		
 		buildMapFromString(str);
 		
@@ -86,9 +99,6 @@ public abstract class Map {
 	 */
 	private void buildMapFromString(String str) {
 		int line=0, column=0;
-		
-		// initialize list
-		this.exitDoors = new ArrayList<Door>();
 		
 		// fill matrix
 		for(char c : str.toCharArray()) {
@@ -108,19 +118,25 @@ public abstract class Map {
 				map[line][column] = new Door(line, column, this);
 				break;
 			case 'G':
-				this.guard = new Guard(line, column, this);
-				map[line][column] = this.guard;
+				Guard g = new Guard(line, column, this);
+				this.guards.add(g);
+				map[line][column] = g;
 				break;
 			case 'O':
-				this.ogre = new Ogre(line, column, this);
-				map[line][column] = this.ogre;
+				Ogre o = new Ogre(line, column, this);
+				this.ogres.add(o);
+				map[line][column] = o;
+				break;
+			case 'A':
+				this.pickableClub = new PickableClub(line, column, this);
+				map[line][column] = this.pickableClub;
 				break;
 			case 'K':
 				if(this instanceof Level1) {
 					this.lever = new Lever(line, column, this);
 					map[line][column] = this.lever;
 				}
-				else if (this instanceof Level2) {
+				else {
 					this.key = new Key(line, column, this);
 					map[line][column] = this.key;
 				}

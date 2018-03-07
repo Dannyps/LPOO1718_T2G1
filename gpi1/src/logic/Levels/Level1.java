@@ -3,6 +3,8 @@ import logic.MapEntities.*;
 
 public class Level1 extends Map {
 
+	Guard guard = guards.get(0); // there's only one guard in this level.
+	
 	public Level1() throws Exception {
 		super("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX");
 		
@@ -33,7 +35,7 @@ public class Level1 extends Map {
 	@Override
 	public boolean heroMetDoorHandler(Door door) {
 		if(door.open)
-			gameIsOver=true;
+			gameIsOver=true; 
 		return false;
 	}
 

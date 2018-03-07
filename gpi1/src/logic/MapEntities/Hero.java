@@ -6,21 +6,29 @@ import logic.Levels.Map;
 
 public class Hero extends GenericMapEntity {
 
+	public boolean hasClub = false;
+	public boolean hasKey = false;
+
 	public Hero(int x, int y, Map map) {
 		super(x, y, map);
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public String toString() {
-		return "H";
+		if (hasKey) {
+			return "K";
+		} else if(hasClub) {
+			return "A";
+		}else {
+			return "H";
+		}
 	}
-	
+
 	public boolean tick() {
 		this.move(map.buffer);
 		return true;
 	}
-	
+
 	/**
 	 * 
 	 * @param c a character representing the way the hero should move.
@@ -28,7 +36,7 @@ public class Hero extends GenericMapEntity {
 	 */
 	private boolean move(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
-		switch(c) {
+		switch (c) {
 		case 'w':
 			futurePos = this.getNeighbor(Direction.TOP);
 			break;
@@ -45,28 +53,29 @@ public class Hero extends GenericMapEntity {
 			futurePos = null;
 			return false;
 		}
-		
-		if(futurePos instanceof Empty) {
-			
+
+		if (futurePos instanceof Empty) {
+
 			moveTo(futurePos);
 			return true;
-		}else if(futurePos instanceof Lever) {
+		} else if (futurePos instanceof Lever) {
 			map.heroMetLeverHandler();
 			return false;
-		}
-		else if(futurePos instanceof Key) {
+		} else if (futurePos instanceof Key) {
 			map.heroMetKeyHandler();
 			moveTo(futurePos);
-			return false;
-		}
-		else if(futurePos instanceof Door) {
+			return true;
+		} else if (futurePos instanceof PickableClub) {
+			hasClub=true;
+			moveTo(futurePos);
+			return true;
+		} else if (futurePos instanceof Door) {
 			// the player has bumped into a closed door.
-			if(map.heroMetDoorHandler((Door)futurePos)) {
+			if (map.heroMetDoorHandler((Door) futurePos)) {
 				moveTo(futurePos);
 			}
 			return false;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -75,7 +84,7 @@ public class Hero extends GenericMapEntity {
 		Coordinates curr, next;
 		curr = this.getCoordinates();
 		next = futurePos.getCoordinates();
-		
+
 		this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
 		this.map.map[next.x][next.y] = this;
 		this.setCoordinates(next);

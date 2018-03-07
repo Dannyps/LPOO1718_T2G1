@@ -2,13 +2,10 @@ package logic.Levels;
 import logic.Coordinates;
 import logic.MapEntities.*;
 
-public class Level2 extends Map {
+public class Level4 extends Map {
 
-	Guard guard = guards.get(0); // there's only one guard in this level.
-	Ogre ogre = ogres.get(0); // there's only one ogre in this level.
-	
-	public Level2() throws Exception {
-		super("XXXXXXXXXI   O  KXX       XX       XX       XX       XX       XXH      XXXXXXXXXX");
+	public Level4() throws Exception {
+		super("XXXXXXXXXI   O  KXX       XX   O   XX   O   XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door)map[1][0]);
 	}
 
@@ -43,14 +40,18 @@ public class Level2 extends Map {
 	@Override
 	public void input(char input) {
 		// check club position
-		if(ogre.club!=null)
-			ogre.club.tick();
+		for(Ogre o : ogres) {
+			if(o.club!=null)
+				o.club.tick();
+		}
+		
 		
 		// move hero
 		super.input(input);
 		
-		// move ogre
-		ogre.tick();
+		// move ogres
+		for(Ogre o : ogres) {
+			o.tick();;
+		}
 	}
-
 }

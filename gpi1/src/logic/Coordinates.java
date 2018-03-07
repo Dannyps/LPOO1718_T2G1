@@ -25,4 +25,8 @@ public class Coordinates {
 	public boolean equals(Coordinates c) {
 		return (this.x == c.x && this.y == c.y);
 	}
+	
+	public String toString() {
+		return "{"+x+","+y+"}";
+	}
 }

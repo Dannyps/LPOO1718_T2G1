@@ -21,7 +21,7 @@ public class OgreClub extends GenericMapEntity {
 		for (Direction dir : Direction.values()) {
 			  if(this.getNeighbor(dir) instanceof Hero) {
 			  //caught!
-			  this.map.gameIsOver=true;
+				  this.map.setGameIsOver(true);
 			  return true;
 			  }
 		}

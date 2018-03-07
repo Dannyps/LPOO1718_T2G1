@@ -14,7 +14,7 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level2();
+		this.map = new Level4();
 		this.currentlvl = 1;
 		System.out.println(map);
 	}
@@ -34,7 +34,7 @@ public class Gameplay {
 			//System.out.println(map);
 			
 			// update internal variable from map
-			gameEnd=map.gameIsOver;	
+			gameEnd=map.isGameOver();	
 			System.out.println(map);
 		}
 		if(input == 'i') { // interrupt
