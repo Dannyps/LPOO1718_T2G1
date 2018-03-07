@@ -16,6 +16,7 @@ public class Gameplay {
 	public Gameplay() throws Exception {
 		this.map = new Level2();
 		this.currentlvl = 1;
+		System.out.println(map);
 	}
 	
 	/**
@@ -23,9 +24,7 @@ public class Gameplay {
 	 * @return false if game over, true otherwise
 	 * @throws IOException 
 	 */
-	public boolean refresh() throws IOException {
-		System.out.println(map);
-		
+	public boolean refresh() throws IOException {		
 		char input = (char) System.in.read();
 		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
@@ -36,11 +35,11 @@ public class Gameplay {
 			
 			// update internal variable from map
 			gameEnd=map.gameIsOver;	
+			System.out.println(map);
 		}
 		if(input == 'i') { // interrupt
 			System.exit(0);
 		}
-		System.in.read();
 		return true;
 	}
 	
