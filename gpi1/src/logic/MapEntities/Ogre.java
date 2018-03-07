@@ -50,6 +50,15 @@ public class Ogre extends GenericMapEntity {
 
 		if (hasClub) {
 			generateClub();
+			// when club lands near the user, the game is over.
+			if(this.club==null)
+				return true;
+			for (Direction dir : Direction.values()) {
+				if (this.club.getNeighbor(dir) instanceof Hero) {
+					// caught!
+					this.map.gameIsOver = true;
+				}
+			}
 		}
 
 		return true;
@@ -79,7 +88,6 @@ public class Ogre extends GenericMapEntity {
 			this.club = new OgreClub(next.x, next.y, map);
 			this.map.map[next.x][next.y] = this.club;
 		}
-
 	}
 
 	private void moveOgre() {

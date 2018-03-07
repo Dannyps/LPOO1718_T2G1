@@ -20,7 +20,7 @@ public class Level2 extends Map {
 
 	@Override
 	public boolean heroMetKeyHandler() {
-		heroHasKey=true;	
+		heroHasKey=true;
 		Coordinates cKC = key.getCoordinates(); // current Key Coordinates
 		map[cKC.x][cKC.y]= new Empty(cKC.x, cKC.y, this); // make the old Key position become empty
 		return true;
