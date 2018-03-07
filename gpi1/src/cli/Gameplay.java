@@ -15,7 +15,7 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level4();
+		this.map = new Level1();
 		this.currentlvl = 1;
 		System.out.println(map);
 	}

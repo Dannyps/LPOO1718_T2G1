@@ -22,7 +22,7 @@ public abstract class Map {
 		return gridSize;
 	}
 
-	public char buffer;
+	private char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
 	boolean gameIsOver;
@@ -39,6 +39,10 @@ public abstract class Map {
 	 * A direct reference to the Hero.
 	 */
 	protected Hero hero;
+
+	public Hero getHero() {
+		return hero;
+	}
 
 	/**
 	 * A direct reference to the Ogres (if any).
@@ -225,7 +229,7 @@ public abstract class Map {
 	}
 
 	public void input(char input) {
-		this.buffer = input;
+		this.setBuffer(input);
 		hero.tick();
 	}
 
@@ -241,5 +245,13 @@ public abstract class Map {
 	public abstract boolean heroMetKeyHandler();
 
 	public abstract boolean heroMetDoorHandler(Door door);
+
+	public char getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(char buffer) {
+		this.buffer = buffer;
+	}
 
 }
