@@ -4,7 +4,6 @@ import logic.MapEntities.*;
 
 public class Level2 extends Map {
 
-	Guard guard = guards.get(0); // there's only one guard in this level.
 	Ogre ogre = ogres.get(0); // there's only one ogre in this level.
 	
 	public Level2() throws Exception {

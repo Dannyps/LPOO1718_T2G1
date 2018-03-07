@@ -52,8 +52,7 @@ public class Ogre extends GenericMapEntity {
 		else {
 
 		}
-		System.out.print("New ogre pos is: ");
-		System.out.println(this.getCoordinates());
+		
 		// check if ogre has caught the hero.
 		for (Direction dir : Direction.values()) {
 			if (this.getNeighbor(dir) instanceof Hero) {
@@ -101,7 +100,6 @@ public class Ogre extends GenericMapEntity {
 			futurePos = this.getNeighbor(Direction.RIGHT);
 			break;
 		}
-
 		if (futurePos instanceof Empty) {
 			Coordinates next;
 			next = futurePos.getCoordinates();
