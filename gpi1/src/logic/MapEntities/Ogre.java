@@ -13,7 +13,8 @@ public class Ogre extends GenericMapEntity {
 	 */
 	private Key oldKey = null;
 	public OgreClub club = null;
-
+	boolean stunned = false;
+	int stunnedCount = 0;
 	private boolean hasClub = true;
 
 	/**
@@ -32,6 +33,9 @@ public class Ogre extends GenericMapEntity {
 
 	@Override
 	public String toString() {
+		if (stunned) {
+			return "8";
+		}
 		if (oldKey == null)
 			return "O";
 		else
@@ -39,20 +43,35 @@ public class Ogre extends GenericMapEntity {
 	}
 
 	public boolean tick() {
-		moveOgre();
-		System.out.print("New ogre pos is: "); System.out.println(this.getCoordinates());
+		stunnedCount--;
+		if (stunnedCount == 0) {
+			stunned = false;
+		}
+		if (!stunned)
+			moveOgre();
+		else {
+
+		}
+		System.out.print("New ogre pos is: ");
+		System.out.println(this.getCoordinates());
 		// check if ogre has caught the hero.
 		for (Direction dir : Direction.values()) {
 			if (this.getNeighbor(dir) instanceof Hero) {
-				// caught!
-				this.map.setGameIsOver(true);
+				Hero h = (Hero) this.getNeighbor(dir);
+				if (h.hasClub) {
+					this.stunned = true;
+					this.stunnedCount = 3;
+				} else {
+					// caught!
+					this.map.setGameIsOver(true);
+				}
 			}
 		}
 
 		if (hasClub) {
 			generateClub();
 			// when club lands near the user, the game is over.
-			if(this.club==null)
+			if (this.club == null)
 				return true;
 			for (Direction dir : Direction.values()) {
 				if (this.club.getNeighbor(dir) instanceof Hero) {

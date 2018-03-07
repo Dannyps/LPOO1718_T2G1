@@ -203,8 +203,8 @@ public abstract class Map {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param x x Coordinate
+	 * @param y y Coordinate
 	 * @return Returns the string that represents the entity at some position
 	 */
 	public String getEntityAtPos(int x, int y) {
