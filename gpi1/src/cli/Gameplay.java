@@ -24,8 +24,7 @@ public class Gameplay {
 	 * @return false if game over, true otherwise
 	 * @throws IOException
 	 */
-	public boolean refresh() throws IOException {
-		char input = (char) System.in.read();
+	public boolean refresh(char input) throws IOException {
 		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
 			map.input(input);
