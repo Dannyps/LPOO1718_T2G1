@@ -8,6 +8,9 @@ import logic.MapEntities.*;
 public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
+	
+	public abstract Map getNextLevel() throws Exception;
+	
 
 	/**
 	 * 
@@ -26,6 +29,15 @@ public abstract class Map {
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
 	boolean gameIsOver;
+	boolean levelIsOver;
+
+	public boolean isLevelOver() {
+		return levelIsOver;
+	}
+
+	public void setLevelIsOver(boolean levelIsOver) {
+		this.levelIsOver = levelIsOver;
+	}
 
 	public void setGameIsOver(boolean gameIsOver) {
 		this.gameIsOver = gameIsOver;

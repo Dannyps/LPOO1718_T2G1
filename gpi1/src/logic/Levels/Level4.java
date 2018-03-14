@@ -31,7 +31,7 @@ public class Level4 extends Map {
 			door.open = true;
 			return false;
 		} else if (door.open) {
-			this.gameIsOver = true;
+			this.levelIsOver = true;
 			return true;
 		} else {
 			return false;
@@ -52,7 +52,10 @@ public class Level4 extends Map {
 		for (Ogre o : ogres) {
 			o.tick();
 		}
-
-		
+	}
+	
+	@Override
+	public Map getNextLevel() {
+		return null;
 	}
 }

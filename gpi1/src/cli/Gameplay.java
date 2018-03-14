@@ -6,7 +6,6 @@ import logic.Levels.*;
 
 public class Gameplay {
 	private Map map;
-	private int currentlvl;
 	public boolean gameEnd = false;
 
 	/**
@@ -15,8 +14,7 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level1();
-		this.currentlvl = 1;
+		this.map = new Level2();
 		System.out.println(map);
 	}
 
@@ -37,6 +35,16 @@ public class Gameplay {
 
 			// Print the map
 			System.out.println(map);
+			
+			if(map.isLevelOver()) {
+				try {
+					loadNextLevel();
+				} catch (Exception e) {
+					// TODO understand this exception
+					e.printStackTrace();
+					
+				}
+			}
 		}
 		if (input == 'i') { // interrupt
 			System.exit(0);
@@ -50,10 +58,11 @@ public class Gameplay {
 	 * @throws Exception
 	 *             TODO use this
 	 */
-	@SuppressWarnings("unused")
 	private void loadNextLevel() throws Exception {
-		currentlvl = 2;
-		this.map = new Level2();
+		this.map = this.map.getNextLevel();
+		if(this.map==null) {
+			System.out.println("Game finished!");
+		}
 	}
 
 }

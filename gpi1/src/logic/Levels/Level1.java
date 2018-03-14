@@ -35,8 +35,19 @@ public class Level1 extends Map {
 	@Override
 	public boolean heroMetDoorHandler(Door door) {
 		if(door.open)
-			gameIsOver=true; 
+			levelIsOver=true; 
 		return false;
+	}
+
+	@Override
+	public Map getNextLevel() {
+		try {
+			return new Level2();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
