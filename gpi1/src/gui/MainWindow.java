@@ -8,19 +8,35 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.FlowLayout;
-import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import cli.Gameplay;
+
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import javax.swing.JSplitPane;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.DirectoryIteratorException;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField ogreNo;
+	private JTextArea ta;
+	
+	Gameplay game;	
 
 	/**
 	 * Launch the application.
@@ -51,13 +67,13 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 234, 461);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{432, 0};
-		gridBagLayout.rowHeights = new int[]{20, 20, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{20, 20, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		/**
@@ -70,7 +86,7 @@ public class MainWindow {
 		// Constraints to align panel with main frame
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.FIRST_LINE_START; // align top-left
-		gbc_panel.insets = new Insets(5, 5, 5, 5); // padding
+		gbc_panel.insets = new Insets(5, 5, 5, 0); // padding
 		gbc_panel.gridx = 0; // specify row
 		gbc_panel.gridy = 0; // specify column
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
@@ -87,24 +103,120 @@ public class MainWindow {
 		ogreNo.setColumns(3);
 		panel.add(ogreNo);
 		
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.anchor = GridBagConstraints.NORTH;
+		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
+		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
+		gbc_splitPane.gridx = 0;
+		gbc_splitPane.gridy = 1;
+		frame.getContentPane().add(splitPane, gbc_splitPane);
 		
-		/**
-		 * Second panel for guard personality
-		 */
+		try {
+			//UIManager.setLookAndFeel("NIMBUS");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
 		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 1;
-		gbc_panel_1.fill = GridBagConstraints.HORIZONTAL;
-		frame.getContentPane().add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		splitPane.setLeftComponent(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		// label
-		JLabel lblNewLabel = new JLabel("New label");
-		panel_1.add(lblNewLabel);
-		// combo
-		JComboBox comboBox = new JComboBox();
-		panel_1.add(comboBox);
+		JButton btnMoveRight = new JButton("Right");
+		btnMoveRight.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					game.refresh('d');
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				refreshTextArea();
+			}
+		});
+		panel_1.add(btnMoveRight, BorderLayout.EAST);
+		
+		JButton btnMoveLeft = new JButton("Left");
+		btnMoveLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					game.refresh('a');
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				refreshTextArea();
+			}
+		});
+		panel_1.add(btnMoveLeft, BorderLayout.WEST);
+		
+		JButton btnMoveDown = new JButton("Down");
+		btnMoveDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					game.refresh('s');
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				refreshTextArea();
+			}
+		});
+		panel_1.add(btnMoveDown, BorderLayout.SOUTH);
+		
+		JButton btnMoveUp = new JButton("Up");
+		btnMoveUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					game.refresh('w');
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				refreshTextArea();
+			}
+		});
+		panel_1.add(btnMoveUp, BorderLayout.NORTH);
+		
+		JButton btnStartGame = new JButton("Start Game");
+		
+		splitPane.setRightComponent(btnStartGame);
+		
+		ta = new JTextArea();
+		ta.setFont(new Font("Courier New", Font.PLAIN, 13));
+		ta.setEditable(false);
+		ta.setLineWrap(true);
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 0;
+		gbc_textArea.gridy = 2;
+		frame.getContentPane().add(ta, gbc_textArea);
+		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{label1, panel, ogreNo}));
+		
+		btnStartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					game = new Gameplay();
+				} catch (Exception e1) {
+					// TODO care bad map (internal error)
+					e1.printStackTrace();
+				}
+				
+				refreshTextArea();
+				
+				((JButton) e.getSource()).setEnabled(false); // disable start game button
+				
+//				game.refresh((char) System.in.read());
+			}
+		});
+		
 	}
-
+	public void refreshTextArea() {
+		ta.setText(game.getMapString());
+	}
+	
 }

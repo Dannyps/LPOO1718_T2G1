@@ -6,6 +6,10 @@ import logic.Levels.*;
 
 public class Gameplay {
 	private Map map;
+	public String getMapString(){
+		return map.toString();
+		// TODO if map == null (game finished...) 
+	}
 	public boolean gameEnd = false;
 
 	/**
