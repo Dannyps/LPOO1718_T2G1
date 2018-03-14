@@ -25,7 +25,7 @@ public class Hero extends GenericMapEntity {
 	}
 
 	public boolean tick() {
-		this.move(map.buffer);
+		this.move(map.getBuffer());
 		return true;
 	}
 

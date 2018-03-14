@@ -31,7 +31,7 @@ public class Level4 extends Map {
 			door.open = true;
 			return false;
 		} else if (door.open) {
-			this.gameIsOver = true;
+			this.levelIsOver = true;
 			return true;
 		} else {
 			return false;
@@ -40,19 +40,22 @@ public class Level4 extends Map {
 
 	@Override
 	public void input(char input) {
-
-		// move ogres
-		for (Ogre o : ogres) {
-			o.tick();
-			;
-		}
-
+		// move hero
+			super.input(input);
+			
 		// check club position
 		for (Ogre o : ogres) {
 			if (o.club != null)
 				o.club.tick();
 		}
-		// move hero
-		super.input(input);
+		// move ogres
+		for (Ogre o : ogres) {
+			o.tick();
+		}
+	}
+	
+	@Override
+	public Map getNextLevel() {
+		return null;
 	}
 }

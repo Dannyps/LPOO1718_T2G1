@@ -7,7 +7,7 @@ public class GPI1 {
 				
 		try {
 			Gameplay game = new Gameplay();
-			while(!game.gameEnd) game.refresh();
+			while(!game.gameEnd) game.refresh((char) System.in.read());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

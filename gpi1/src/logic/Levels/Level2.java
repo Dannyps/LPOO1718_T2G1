@@ -4,7 +4,6 @@ import logic.MapEntities.*;
 
 public class Level2 extends Map {
 
-	Guard guard = guards.get(0); // there's only one guard in this level.
 	Ogre ogre = ogres.get(0); // there's only one ogre in this level.
 	
 	public Level2() throws Exception {
@@ -33,7 +32,7 @@ public class Level2 extends Map {
 			door.open=true;
 			return false;
 		}else if(door.open) {
-			this.gameIsOver=true;
+			this.levelIsOver=true;
 			return true;
 		}else {
 			return false;
@@ -51,6 +50,17 @@ public class Level2 extends Map {
 		
 		// move ogre
 		ogre.tick();
+	}
+
+	@Override
+	public Map getNextLevel() {
+		try {
+			return new Level4();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

@@ -9,23 +9,36 @@ public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
 	
+	public abstract Map getNextLevel() throws Exception;
+	
+
 	/**
 	 * 
 	 * @return an integer representing the level name.
 	 */
 	public int toInt() {
-		String str=this.getClass().getName();
-		return Integer.parseInt(str.substring(str.length()-1));
+		String str = this.getClass().getName();
+		return Integer.parseInt(str.substring(str.length() - 1));
 	}
-	
+
 	public int getGridSize() {
 		return gridSize;
 	}
-	public char buffer;
+
+	private char buffer;
 	boolean isHeroCaptured;
 	boolean isHeroOnStairs;
 	boolean gameIsOver;
-	
+	boolean levelIsOver;
+
+	public boolean isLevelOver() {
+		return levelIsOver;
+	}
+
+	public void setLevelIsOver(boolean levelIsOver) {
+		this.levelIsOver = levelIsOver;
+	}
+
 	public void setGameIsOver(boolean gameIsOver) {
 		this.gameIsOver = gameIsOver;
 	}
@@ -33,80 +46,90 @@ public abstract class Map {
 	public boolean isGameOver() {
 		return gameIsOver;
 	}
+
 	/**
 	 * A direct reference to the Hero.
 	 */
 	protected Hero hero;
-	
+
+	public Hero getHero() {
+		return hero;
+	}
+
 	/**
 	 * A direct reference to the Ogres (if any).
 	 */
 	protected List<Ogre> ogres;
-	
+
 	/**
 	 * A direct reference to the Ogres (if any).
 	 */
 	protected List<Guard> guards;
-	
+
 	/**
 	 * A direct reference to the Ogre (if any).
 	 */
 	protected PickableClub pickableClub;
-	
+
 	/**
 	 * A direct reference to all doors on map
 	 */
 	protected List<Door> exitDoors;
-	
+
 	/**
 	 * A direct reference to lever
 	 */
 	protected Lever lever;
-	
+
 	/**
 	 * A direct reference to key
 	 */
 	protected Key key;
-	
+
 	/**
 	 * Constructor
-	 * @param str A string that represents the game map
+	 * 
+	 * @param str
+	 *            A string that represents the game map
 	 * @throws Exception
 	 */
 	public Map(String str) throws Exception {
-		int strlen=str.length();
+		int strlen = str.length();
 		// Assuming the map is a square
 		this.gridSize = (int) Math.sqrt(strlen);
 		map = new GenericMapEntity[this.gridSize][this.gridSize];
-		
+
 		// check if n is perfect square number
 		this.gridSize = (int) Math.sqrt(strlen);
-		if(this.gridSize*this.gridSize!=strlen) {
+		if (this.gridSize * this.gridSize != strlen) {
 			throw new Exception("str doen't represent a square!");
 		}
-		
+
 		// initialize lists
 		this.exitDoors = new ArrayList<Door>();
 		this.ogres = new ArrayList<Ogre>();
 		this.guards = new ArrayList<Guard>();
-		
+
 		buildMapFromString(str);
-		
+
 	}
+
 	/**
 	 * Constructs the map, filling it with the entities
-	 * @param str A string representing the map
+	 * 
+	 * @param str
+	 *            A string representing the map
 	 */
 	private void buildMapFromString(String str) {
-		int line=0, column=0;
-		
+		int line = 0, column = 0;
+
 		// fill matrix
-		for(char c : str.toCharArray()) {
-			if(column>=this.gridSize) {
+		for (char c : str.toCharArray()) {
+			if (column >= this.gridSize) {
 				line++;
-				column=0;
+				column = 0;
 			}
-			switch(c) {
+			switch (c) {
 			case 'X':
 				map[line][column] = new Wall(line, column, this);
 				break;
@@ -132,11 +155,10 @@ public abstract class Map {
 				map[line][column] = this.pickableClub;
 				break;
 			case 'K':
-				if(this instanceof Level1) {
+				if (this instanceof Level1) {
 					this.lever = new Lever(line, column, this);
 					map[line][column] = this.lever;
-				}
-				else {
+				} else {
 					this.key = new Key(line, column, this);
 					map[line][column] = this.key;
 				}
@@ -145,66 +167,70 @@ public abstract class Map {
 				map[line][column] = new Empty(line, column, this);
 				break;
 			default:
-				System.err.println("Unrecognized char read!"); System.exit(-2);
+				System.err.println("Unrecognized char read!");
+				System.exit(-2);
 				break;
 			}
 			column++;
 		}
 
 	}
+
 	/**
 	 * return a string representation of the map.
 	 */
 	public String toString() {
-		String ret = new String();
 		
+		String ret = new String();
+
 		// Make Header
 		{
 			ret += "┌─";
-			for (int i = 0; i < this.gridSize-1; i++) {
+			for (int i = 0; i < this.gridSize - 1; i++) {
 				ret += "┬─";
 			}
 			ret += "┐\n";
 		}
-		
-		
+
 		// Make Body
-			{
-				
-				for (int i = 0; i < this.gridSize; i++) {
+		{
+
+			for (int i = 0; i < this.gridSize; i++) {
+				ret += "│";
+				for (int j = 0; j < this.gridSize; j++) {
+					ret += map[i][j];
 					ret += "│";
-					for(int j=0;j<this.gridSize;j++) {
-						if(map[i][j]==null) {ret+=" "; } else { ret+=map[i][j]; }
-						ret+= "│";
-					}
-					ret+="\n";
-					// -- new line
-					if(i==this.gridSize-1)
-						break; // do not draw ------ under last line
-					ret += "├─";
-					for (int j = 0; j < this.gridSize-1; j++) {
-						ret += "┼─";
-					}
-					ret += "┤\n";
 				}
-				
+				ret += "\n";
+				// -- new line
+				if (i == this.gridSize - 1)
+					break; // do not draw ------ under last line
+				ret += "├─";
+				for (int j = 0; j < this.gridSize - 1; j++) {
+					ret += "┼─";
+				}
+				ret += "┤\n";
 			}
-			
+
+		}
+
 		// Make Footer
-			{
-				ret += "└─";
-				for (int i = 0; i < this.gridSize-1; i++) {
-					ret += "┴─";
-				}
-				ret += "┘\n";
+		{
+			ret += "└─";
+			for (int i = 0; i < this.gridSize - 1; i++) {
+				ret += "┴─";
 			}
+			ret += "┘\n";
+		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
-	 * @param x x Coordinate
-	 * @param y y Coordinate
+	 * @param x
+	 *            x Coordinate
+	 * @param y
+	 *            y Coordinate
 	 * @return Returns the string that represents the entity at some position
 	 */
 	public String getEntityAtPos(int x, int y) {
@@ -213,20 +239,31 @@ public abstract class Map {
 		else
 			return "";
 	}
-	
-	public void input(char input) {	
-		this.buffer = input;
-		hero.tick();	
+
+	public void input(char input) {
+		this.setBuffer(input);
+		hero.tick();
 	}
-	
+
 	public List<Door> getExitDoors() {
 		return this.exitDoors;
 	}
-	
-	/// Handlers return true or false, indicating whether the first entity should be moved to the futurePosition or not.
-	
+
+	/// Handlers return true or false, indicating whether the first entity should be
+	/// moved to the futurePosition or not.
+
 	public abstract boolean heroMetLeverHandler();
+
 	public abstract boolean heroMetKeyHandler();
+
 	public abstract boolean heroMetDoorHandler(Door door);
-	
+
+	public char getBuffer() {
+		return buffer;
+	}
+
+	public void setBuffer(char buffer) {
+		this.buffer = buffer;
+	}
+
 }

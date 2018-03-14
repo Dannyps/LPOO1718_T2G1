@@ -6,55 +6,62 @@ import logic.Levels.*;
 
 public class Gameplay {
 	private Map map;
-	private int currentlvl;
-	public boolean gameEnd=false;
-	
+	public boolean gameEnd = false;
+
 	/**
 	 * Constructor
+	 * 
 	 * @throws Exception
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level4();
-		this.currentlvl = 1;
+		this.map = new Level2();
 		System.out.println(map);
 	}
-	
+
 	/**
 	 * Refreshes game
+	 * 
 	 * @return false if game over, true otherwise
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	public boolean refresh() throws IOException {		
-		char input = (char) System.in.read();
-		if(input == 'a' || input == 'd' || input == 'w' || input == 's') {
+	public boolean refresh(char input) throws IOException {
+		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
 			map.input(input);
-			
-			// Print the map
-			//System.out.println(map);
-			
+
 			// update internal variable from map
-			gameEnd=map.isGameOver();	
+			gameEnd = map.isGameOver();
+
+			// Print the map
 			System.out.println(map);
+			
+			if(map.isLevelOver()) {
+				try {
+					loadNextLevel();
+				} catch (Exception e) {
+					// TODO understand this exception
+					e.printStackTrace();
+					
+				}
+			}
 		}
-		if(input == 'i') { // interrupt
+		if (input == 'i') { // interrupt
 			System.exit(0);
 		}
 		return true;
 	}
-	
-	
+
 	/**
 	 * This is supposed to load the next level, meh
+	 * 
 	 * @throws Exception
-	 * TODO use this
+	 *             TODO use this
 	 */
-	@SuppressWarnings("unused")
 	private void loadNextLevel() throws Exception {
-		currentlvl=2;
-		this.map = new Level2();
+		this.map = this.map.getNextLevel();
+		if(this.map==null) {
+			System.out.println("Game finished!");
+		}
 	}
-	
-	
-	
+
 }
