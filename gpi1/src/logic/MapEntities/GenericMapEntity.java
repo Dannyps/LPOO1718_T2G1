@@ -8,7 +8,7 @@ import logic.Direction;
 import logic.Levels.Map;
 
 /**
- *
+ * All entities in the map descent from this one.
  */
 public abstract class GenericMapEntity {
 

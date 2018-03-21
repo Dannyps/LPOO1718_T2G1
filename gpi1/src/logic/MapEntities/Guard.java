@@ -4,6 +4,9 @@ import logic.Coordinates;
 import logic.Direction;
 import logic.Levels.Map;
 
+/**
+ * A semi-self-aware entity, that will kill the hero on contact. 
+ */
 public class Guard extends GenericMapEntity {
 	
 	private char[] route;

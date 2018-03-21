@@ -1,7 +1,5 @@
 package cli;
 
-import java.io.IOException;
-
 import logic.Levels.*;
 
 public class Gameplay {
@@ -15,10 +13,10 @@ public class Gameplay {
 	/**
 	 * Constructor
 	 * 
-	 * @throws Exception
+	 * @throws Exception should the map be malformed
 	 */
 	public Gameplay() throws Exception {
-		this.map = new Level2();
+		this.map = new Level1();
 		System.out.println(map);
 	}
 
@@ -26,9 +24,9 @@ public class Gameplay {
 	 * Refreshes game
 	 * 
 	 * @return false if game over, true otherwise
-	 * @throws IOException
+	 * @param input char w, a, s or d.
 	 */
-	public boolean refresh(char input) throws IOException {
+	public boolean refresh(char input) {
 		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
 			map.input(input);

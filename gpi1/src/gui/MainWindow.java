@@ -24,7 +24,6 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -33,8 +32,8 @@ public class MainWindow {
 	private JFrame frame;
 	private JTextField ogreNo;
 	private JTextArea ta;
-	
-	Gameplay game;	
+
+	Gameplay game;
 
 	/**
 	 * Launch the application.
@@ -67,15 +66,15 @@ public class MainWindow {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 225, 495);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		/**
 		 * TOP PANEL for number of ogres input
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{393, 0};
-		gridBagLayout.rowHeights = new int[]{38, 86, 27, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 393, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 86, 27, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -87,27 +86,27 @@ public class MainWindow {
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 0;
 		frame.getContentPane().add(panel, gbc_panel);
-		
+
 		// Label
 		JLabel label1 = new JLabel("Number of ogres");
 		panel.add(label1);
-		
+
 		// Textfield
 		ogreNo = new JTextField();
 		ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
 		ogreNo.setText("2");
 		ogreNo.setColumns(3);
 		panel.add(ogreNo);
-		
+
 		try {
-			//UIManager.setLookAndFeel("NIMBUS");
+			// UIManager.setLookAndFeel("NIMBUS");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
@@ -117,72 +116,57 @@ public class MainWindow {
 		gbc_splitPane.gridx = 0;
 		gbc_splitPane.gridy = 1;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
-		
+
 		JPanel moveButtonsPanel = new JPanel();
 		splitPane.setLeftComponent(moveButtonsPanel);
 		moveButtonsPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		JButton btnMoveRight = new JButton("Right");
 		btnMoveRight.setEnabled(false);
 		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					game.refresh('d');
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				game.refresh('d');
 				refreshTextArea();
 			}
 		});
 		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
-		
+
 		JButton btnMoveLeft = new JButton("Left");
 		btnMoveLeft.setEnabled(false);
 		btnMoveLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					game.refresh('a');
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				game.refresh('a');
 				refreshTextArea();
 			}
 		});
 		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
-		
+
 		JButton btnMoveDown = new JButton("Down");
 		btnMoveDown.setEnabled(false);
 		btnMoveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					game.refresh('s');
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				game.refresh('s');
 				refreshTextArea();
 			}
 		});
 		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
-		
+
 		JButton btnMoveUp = new JButton("Up");
 		btnMoveUp.setEnabled(false);
 		btnMoveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					game.refresh('w');
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				game.refresh('w');
 				refreshTextArea();
 			}
 		});
 		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
-		
+
 		JButton btnStartGame = new JButton("Start Game");
-		
+
 		splitPane.setRightComponent(btnStartGame);
-		//frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{label1, panel, ogreNo}));
-		
+		// frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new
+		// Component[]{label1, panel, ogreNo}));
+
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -193,11 +177,11 @@ public class MainWindow {
 				}
 				enableButtons(moveButtonsPanel);
 				refreshTextArea();
-				
+
 				((JButton) e.getSource()).setEnabled(false); // disable start game button
 			}
 		});
-		
+
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -205,12 +189,12 @@ public class MainWindow {
 		gbc_panel_1.gridy = 2;
 		frame.getContentPane().add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{393, 0};
-		gbl_panel_1.rowHeights = new int[]{27, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWidths = new int[] { 393, 0 };
+		gbl_panel_1.rowHeights = new int[] { 27, 0, 0 };
+		gbl_panel_1.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
-		
+
 		ta = new JTextArea();
 		GridBagConstraints gbc_ta = new GridBagConstraints();
 		gbc_ta.insets = new Insets(0, 0, 5, 0);
@@ -221,7 +205,7 @@ public class MainWindow {
 		ta.setFont(new Font("Courier New", Font.PLAIN, 13));
 		ta.setEditable(false);
 		ta.setLineWrap(true);
-		
+
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -232,18 +216,19 @@ public class MainWindow {
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 1;
 		panel_1.add(btnNewButton, gbc_btnNewButton);
-		
+
 	}
+
 	public void refreshTextArea() {
 		ta.setText(game.getMapString());
 	}
 
 	private void enableButtons(JPanel panel_1) {
-		for(Component c : panel_1.getComponents()) {
-			if( c instanceof JButton) {
+		for (Component c : panel_1.getComponents()) {
+			if (c instanceof JButton) {
 				c.setEnabled(true);
 			}
 		}
 	}
-	
+
 }

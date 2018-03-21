@@ -4,6 +4,9 @@ import logic.Coordinates;
 import logic.Direction;
 import logic.Levels.Map;
 
+/**
+ * The Hero, aka The Player, must go through all the levels in order to win the game.
+ */
 public class Hero extends GenericMapEntity {
 
 	public boolean hasClub = false;

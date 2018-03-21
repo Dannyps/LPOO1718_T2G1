@@ -1,7 +1,10 @@
 package logic.MapEntities;
 
 import logic.Levels.Map;
-
+/**
+ * A door that can be opened by interacting with the map, or with itself. Some doors are gateways to other levels.
+ *
+ */
 public class Door extends GenericMapEntity {
 
 	public boolean open;
