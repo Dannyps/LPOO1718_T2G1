@@ -17,7 +17,6 @@ import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import cli.Gameplay;
 
@@ -122,65 +121,65 @@ public class MainWindow {
 			e2.printStackTrace();
 		}
 		
-		JPanel panel_1 = new JPanel();
-		splitPane.setLeftComponent(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel moveButtonsPanel = new JPanel();
+		splitPane.setLeftComponent(moveButtonsPanel);
+		moveButtonsPanel.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnMoveRight = new JButton("Right");
+		btnMoveRight.setEnabled(false);
 		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					game.refresh('d');
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				refreshTextArea();
 			}
 		});
-		panel_1.add(btnMoveRight, BorderLayout.EAST);
+		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
 		
 		JButton btnMoveLeft = new JButton("Left");
+		btnMoveLeft.setEnabled(false);
 		btnMoveLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					game.refresh('a');
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				refreshTextArea();
 			}
 		});
-		panel_1.add(btnMoveLeft, BorderLayout.WEST);
+		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
 		
 		JButton btnMoveDown = new JButton("Down");
+		btnMoveDown.setEnabled(false);
 		btnMoveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					game.refresh('s');
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				refreshTextArea();
 			}
 		});
-		panel_1.add(btnMoveDown, BorderLayout.SOUTH);
+		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
 		
 		JButton btnMoveUp = new JButton("Up");
+		btnMoveUp.setEnabled(false);
 		btnMoveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					game.refresh('w');
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				refreshTextArea();
 			}
 		});
-		panel_1.add(btnMoveUp, BorderLayout.NORTH);
+		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
 		
 		JButton btnStartGame = new JButton("Start Game");
 		
@@ -195,7 +194,7 @@ public class MainWindow {
 		gbc_textArea.gridx = 0;
 		gbc_textArea.gridy = 2;
 		frame.getContentPane().add(ta, gbc_textArea);
-		frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{label1, panel, ogreNo}));
+		//frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{label1, panel, ogreNo}));
 		
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -205,18 +204,24 @@ public class MainWindow {
 					// TODO care bad map (internal error)
 					e1.printStackTrace();
 				}
-				
+				enableButtons(moveButtonsPanel);
 				refreshTextArea();
 				
 				((JButton) e.getSource()).setEnabled(false); // disable start game button
-				
-//				game.refresh((char) System.in.read());
 			}
 		});
 		
 	}
 	public void refreshTextArea() {
 		ta.setText(game.getMapString());
+	}
+
+	private void enableButtons(JPanel panel_1) {
+		for(Component c : panel_1.getComponents()) {
+			if( c instanceof JButton) {
+				c.setEnabled(true);
+			}
+		}
 	}
 	
 }
