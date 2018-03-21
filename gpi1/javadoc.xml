@@ -3,4 +3,5 @@
     <target name="javadoc">
         <javadoc encoding="utf-8" access="private" additionalparam="" author="true" classpath="." destdir="doc" doctitle="Guided Project - Iteration 1" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="*" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
     </target>
+	<!--<classpath path="${env.ANT_HOME}/lib/junit.jar" />-->
 </project>

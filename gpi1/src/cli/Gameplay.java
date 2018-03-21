@@ -5,10 +5,13 @@ import logic.Levels.*;
 public class Gameplay {
 	private Map map;
 	public String getMapString(){
-		return map.toString();
-		// TODO if map == null (game finished...) 
+		if(map==null)
+			return null;
+		else
+			return map.toString();
 	}
 	public boolean gameEnd = false;
+	public boolean gameWon = false;
 
 	/**
 	 * Constructor
@@ -57,12 +60,13 @@ public class Gameplay {
 	 * This is supposed to load the next level, meh
 	 * 
 	 * @throws Exception
-	 *             TODO use this
 	 */
 	private void loadNextLevel() throws Exception {
 		this.map = this.map.getNextLevel();
 		if(this.map==null) {
 			System.out.println("Game finished!");
+			gameEnd=true;
+			gameWon =true;
 		}
 	}
 

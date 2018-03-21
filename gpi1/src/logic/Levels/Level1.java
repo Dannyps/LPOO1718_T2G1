@@ -1,6 +1,11 @@
 package logic.Levels;
 import logic.MapEntities.*;
 
+
+/**
+ * Level 1 (1 guard, no ogres)
+ * 
+ */
 public class Level1 extends Map {
 
 	Guard guard = guards.get(0); // there's only one guard in this level.

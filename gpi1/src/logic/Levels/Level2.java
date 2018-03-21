@@ -2,6 +2,10 @@ package logic.Levels;
 import logic.Coordinates;
 import logic.MapEntities.*;
 
+/**
+ * Level 2 (1 ogre, no guards)
+ * 
+ */
 public class Level2 extends Map {
 
 	Ogre ogre = ogres.get(0); // there's only one ogre in this level.

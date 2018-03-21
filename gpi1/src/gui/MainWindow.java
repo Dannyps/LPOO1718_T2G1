@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -179,6 +180,7 @@ public class MainWindow {
 				refreshTextArea();
 
 				((JButton) e.getSource()).setEnabled(false); // disable start game button
+
 			}
 		});
 
@@ -220,6 +222,14 @@ public class MainWindow {
 	}
 
 	public void refreshTextArea() {
+		if (game.gameEnd) {
+			if (game.gameWon) {
+				JOptionPane.showMessageDialog(null, "You won!");
+			} else {
+				JOptionPane.showMessageDialog(null, "You lost!");
+			}
+			System.exit(0);
+		}
 		ta.setText(game.getMapString());
 	}
 

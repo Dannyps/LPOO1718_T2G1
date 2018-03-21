@@ -4,9 +4,8 @@ import logic.Coordinates;
 import logic.MapEntities.*;
 
 /**
- * Level 3 (and last)
+ * Level 3 (several ogres, no guard)
  * 
- *
  */
 public class Level3 extends Map {
 
