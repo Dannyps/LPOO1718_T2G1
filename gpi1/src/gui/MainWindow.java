@@ -224,13 +224,20 @@ public class MainWindow {
 	public void refreshTextArea() {
 		if (game.gameEnd) {
 			if (game.gameWon) {
-				JOptionPane.showMessageDialog(null, "You won!");
+				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
-				JOptionPane.showMessageDialog(null, "You lost!");
+				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
 			System.exit(0);
 		}
 		ta.setText(game.getMapString());
+	}
+
+	/**
+	 * Display an alert-like message to the user.
+	 */
+	private void showAlertMessage(String msg, int messageType) {
+		JOptionPane.showMessageDialog(frame, msg, msg, messageType);
 	}
 
 	private void enableButtons(JPanel panel_1) {
