@@ -226,6 +226,8 @@ public class MainWindow {
 			if (game.gameWon) {
 				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
+				ta.setText(game.getMapString()); // update the text area with the current game state so that the user
+													// understands why they lost.
 				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
 			System.exit(0);

@@ -61,8 +61,6 @@ public class Level2 extends Map {
 		try {
 			return new Level3();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return null;
 		}
 	}
