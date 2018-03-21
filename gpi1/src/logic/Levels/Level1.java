@@ -40,14 +40,8 @@ public class Level1 extends Map {
 	}
 
 	@Override
-	public Map getNextLevel() {
-		try {
-			return new Level2();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public Map getNextLevel() throws Exception {
+		return new Level2();
 	}
 
 }

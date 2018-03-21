@@ -3,10 +3,15 @@ package logic.Levels;
 import logic.Coordinates;
 import logic.MapEntities.*;
 
-public class Level4 extends Map {
+/**
+ * Level 3 (and last)
+ * 
+ *
+ */
+public class Level3 extends Map {
 
-	public Level4() throws Exception {
-		super("XXXXXXXXXI   O  KXX       XX   O   XX   O   XX       XX       XXH  A   XXXXXXXXXX");
+	public Level3() throws Exception {
+		super("XXXXXXXXXI      KXX       XX       XX       XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door) map[1][0]);
 	}
 

@@ -55,7 +55,7 @@ public class Level2 extends Map {
 	@Override
 	public Map getNextLevel() {
 		try {
-			return new Level4();
+			return new Level3();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
