@@ -9,8 +9,9 @@ import logic.Levels.Map;
  */
 public class Guard extends GenericMapEntity {
 	
-	private char[] route;
-	private int index; 
+	protected char[] route;
+	protected int index;
+	
 	public Guard(int x, int y, Map map) {
 		super(x, y, map);
 		// TODO Auto-generated constructor stub
@@ -45,7 +46,7 @@ public class Guard extends GenericMapEntity {
 	 * 
 	 * @param c a character representing the way the hero should move.
 	 */
-	private void moveGuard(char c) {
+	protected void moveGuard(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
 		switch(c) {
 		case 'w':
