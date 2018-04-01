@@ -1,5 +1,6 @@
 package logic.Levels;
 import logic.MapEntities.*;
+import logic.MapEntities.Guard.Guard;
 
 
 /**

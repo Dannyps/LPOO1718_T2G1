@@ -1,4 +1,4 @@
-package logic.MapEntities;
+package logic.MapEntities.Guard;
 
 import logic.Levels.Map;
 

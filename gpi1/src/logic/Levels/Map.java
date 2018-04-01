@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logic.MapEntities.*;
+import logic.MapEntities.Guard.Guard;
 
 public abstract class Map {
 	public GenericMapEntity[][] map;

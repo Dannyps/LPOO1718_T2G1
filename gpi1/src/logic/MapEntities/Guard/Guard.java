@@ -1,8 +1,11 @@
-package logic.MapEntities;
+package logic.MapEntities.Guard;
 
 import logic.Coordinates;
 import logic.Direction;
 import logic.Levels.Map;
+import logic.MapEntities.Empty;
+import logic.MapEntities.GenericMapEntity;
+import logic.MapEntities.Hero;
 
 /**
  * A semi-self-aware entity, that will kill the hero on contact. 

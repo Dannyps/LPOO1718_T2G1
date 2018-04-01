@@ -1,9 +1,10 @@
-package logic.MapEntities;
+package logic.MapEntities.Guard;
 
 import java.util.Random;
 
 import logic.Direction;
 import logic.Levels.Map;
+import logic.MapEntities.Hero;
 
 public class DrunkenGuard extends Guard {
 	private boolean sleeping;
