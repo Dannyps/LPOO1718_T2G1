@@ -8,9 +8,8 @@ import logic.Levels.Map;
  */
 public class OgreClub extends GenericMapEntity {
 
-	public OgreClub(int x, int y, Map map) {
-		super(x, y, map);
-		// TODO Auto-generated constructor stub
+	public OgreClub(int x, int y) {
+		super(x, y);
 	}
 
 	@Override
@@ -20,6 +19,7 @@ public class OgreClub extends GenericMapEntity {
 
 	@Override
 	public boolean tick() {
+		/*
 		// check if club is adjacent to the hero.
 		for (Direction dir : Direction.values()) {
 			if (this.getNeighbor(dir) instanceof Hero) {
@@ -31,6 +31,7 @@ public class OgreClub extends GenericMapEntity {
 		// delete old club
 		map.map[this.getCoordinates().x][this.getCoordinates().y] = new Empty(this.getCoordinates().x,
 				this.getCoordinates().y, map);
+				*/
 		return true;
 	}
 
