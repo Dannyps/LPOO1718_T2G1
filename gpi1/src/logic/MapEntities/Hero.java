@@ -1,42 +1,75 @@
 package logic.MapEntities;
 
 import logic.Coordinates;
-import logic.Direction;
-import logic.Levels.Map;
 
 /**
  * The Hero, aka The Player, must go through all the levels in order to win the game.
+ * On some levels the hero must reach a lever
+ * On others it needs to grab the key
+ * Hero can also be armed. If so, where it's adjacent to an ogre it becomes stun for a while
  */
 public class Hero extends GenericMapEntity {
-
-	public boolean hasClub = false;
-	public boolean hasKey = false;
-
-	public Hero(int x, int y, Map map) {
-		super(x, y, map);
+	
+	private boolean hasClub = false;
+	private boolean hasKey = false; // needed because changes the representation
+	
+	/**
+	 * @see logic.MapEntities#GenericMapEntity(int x, int y)
+	 */
+	public Hero(int x, int y) {
+		super(x, y);
+	}
+	
+	public Hero(int x, int y, boolean hasClub) {
+		super(x, y);
+		this.hasClub = hasClub;  
+	}
+	
+	/**
+	 * Returns the next hero desired position based on user input
+	 * @param c 
+	 * @return
+	 */
+	public Coordinates nextCoordinates(char c) {
+		Coordinates next = this.coordinates.clone();
+		if(c == 'w')
+			next.moveUp();
+		else if(c == 's')
+			next.moveDown();
+		else if(c == 'a')
+			next.moveLeft();
+		else if(c == 'd')
+			next.moveRight();
+		// TODO throw if something else
+		
+		return next;
+	}
+	
+	/**
+	 * Tells if the hero has the key or not
+	 * @param hasKey
+	 */
+	public void setHasKey(boolean hasKey) {
+		this.hasKey = hasKey;
 	}
 
 	@Override
 	public String toString() {
-		if (hasKey) {
-			return "K";
-		} else if(hasClub) {
+		if (hasKey)
+			return "K"; 
+		else if(hasClub)
 			return "A";
-		}else {
+		else
 			return "H";
-		}
 	}
 
-	public boolean tick() {
-		this.move(map.getBuffer());
-		return true;
-	}
-
+	
 	/**
 	 * 
 	 * @param c a character representing the way the hero should move.
 	 * @return boolean whether the hero was indeed moved or not.
 	 */
+	/*
 	private boolean move(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
 		switch (c) {
@@ -92,5 +125,5 @@ public class Hero extends GenericMapEntity {
 		this.map.map[next.x][next.y] = this;
 		this.setCoordinates(next);
 	}
-
+	*/
 }
