@@ -1,46 +1,56 @@
-/**
- * 
- */
 package logic.MapEntities;
 
 import logic.Coordinates;
-import logic.Direction;
-import logic.Levels.Map;
 
 /**
  * All entities in the map descent from this one.
  */
 public abstract class GenericMapEntity {
 
-	private Coordinates coordinates;
-	protected Map map; // reference to game's map
+	protected Coordinates coordinates;
 	
 	/**
 	 * @param x the x position of the entity
 	 * @param y the y position of the entity
-	 * @param map a reference to the main map.
 	 */
-	public GenericMapEntity(int x, int y, Map map) {
+	public GenericMapEntity(int x, int y) {
 		this.coordinates = new Coordinates(x, y);
-		this.map=map;
 	}
 	
+	/**
+	 * @return The current coordinates
+	 */
 	public Coordinates getCoordinates() {
 		return coordinates;
 	}
-
+	
+	/**
+	 * Updates the entity coordinates
+	 * @param coordinates The new coordinates
+	 */
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
+	
+	/**
+	 * @see Updates the entity coordinates
+	 * @param c An array of integers representing the new x and y coordinates e.g. [x,y]
+	 */
 	public void setCoordinates(int[] c) {
 		this.coordinates = new Coordinates(c);
 	}
+		
+	/**
+	 * @return the one-char representation of the entity
+	 */
+	public abstract String toString();
 	
 	/**
 	 * Returns the neighbor at some direction
 	 * @param d Direction to return
 	 * @return the neighbor on the specified direction, or null if neighbor is outside of the map. 
 	 */
+	/*
 	public GenericMapEntity getNeighbor(Direction d){
 		switch(d) {
 		case LEFT:
@@ -67,12 +77,9 @@ public abstract class GenericMapEntity {
 			return null;
 		}
 	}
+	*/
 	
-	/**
-	 * @return the one-char representation of the entity
-	 */
-	public abstract String toString();
-	
+	// probably will be obsolete
 	public boolean tick() {
 		return true;
 	}
