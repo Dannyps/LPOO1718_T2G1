@@ -8,43 +8,99 @@ import logic.Levels.Map;
 
 /**
  * The Ogre is a relentless foe that will swing its club and kill the Hero on contact.
+ * On some levels, the hero is armed and the ogre can become stunned
  */
 public class Ogre extends GenericMapEntity {
 
-	/**
-	 * Should only be set if the ogre is over a key.
-	 */
-	private Key oldKey = null;
-	public OgreClub club = null;
-	boolean stunned = false;
-	int stunnedCount = 0;
-	private boolean hasClub = true;
+	private boolean stunned;
+	private boolean overKey;
+	final int STUNNED_TURNS = 2;
+	private int stunnedTurnsCount = 0;
+	
+	
+	//private Key oldKey = null; //?
+	//public OgreClub club = null; //?
+	
+	
 
 	/**
 	 * 
 	 * @param x
 	 * @param y
-	 * @param map
-	 *            reference to the map the ogre is in.
 	 */
-	public Ogre(int x, int y, Map map) {
-		super(x, y, map);
-		if (map.toInt() == 1) {
-			hasClub = false;
+	public Ogre(int x, int y) {
+		super(x, y);
+	}
+	
+	/**
+	 * Moves the ogre randomly, step by step
+	 * @return The new random coordinates
+	 */
+	private Coordinates moveOgre() {
+		Coordinates current = this.coordinates.clone();
+		int i = new Random().nextInt(4);
+
+		switch (i) {
+		case 0:
+			current.moveUp();
+			break;
+		case 1:
+			current.moveDown();
+			break;
+		case 2:
+			current.moveLeft();
+			break;
+		case 3:
+			current.moveRight();
+			break;
 		}
+		return current;
+	}
+	
+	@Override
+	public Coordinates nextCoordinates() {
+		if(stunned) {
+			if(stunnedTurnsCount == 0) {
+				// ogre is no longer stunned
+				this.stunned = false;
+			}
+			else {
+				stunnedTurnsCount--;
+				return this.coordinates;
+			}
+		}
+		
+		// move the ogre
+		return this.moveOgre();
+	}
+	
+	/**
+	 * Changes the ogre stun state
+	 * @param stunned
+	 */
+	public void setStunned(boolean stunned) {
+		this.stunned = stunned;
+	}
+	
+	/**
+	 * Sets if the ogre is over a key on the map
+	 * @param overKey
+	 */
+	public void setOverKey(boolean overKey) {
+		this.overKey = overKey;
 	}
 
 	@Override
 	public String toString() {
-		if (stunned) {
+		if (stunned) 
 			return "8";
-		}
-		if (oldKey == null)
-			return "O";
-		else
+		else if (overKey)
 			return "$";
+		else
+			return "O";
 	}
-
+	
+	/*
 	public boolean tick() {
 		stunnedCount--;
 		if (stunnedCount == 0) {
@@ -110,51 +166,8 @@ public class Ogre extends GenericMapEntity {
 			this.map.map[next.x][next.y] = this.club;
 		}
 	}
+	*/
 
-	private void moveOgre() {
-		GenericMapEntity futurePos = null; // the desired position's current occupier
-		int i = new Random().nextInt(4);
 
-		switch (i) {
-		case 0:
-			futurePos = this.getNeighbor(Direction.TOP);
-			break;
-		case 1:
-			futurePos = this.getNeighbor(Direction.BOTTOM);
-			break;
-		case 2:
-			futurePos = this.getNeighbor(Direction.LEFT);
-			break;
-		case 3:
-			futurePos = this.getNeighbor(Direction.RIGHT);
-			break;
-		}
-
-		if (futurePos instanceof Empty) {
-			Coordinates curr, next;
-			curr = this.getCoordinates();
-			next = futurePos.getCoordinates();
-
-			if (oldKey == null)
-				this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
-			else {
-				this.map.map[curr.x][curr.y] = oldKey;
-				oldKey = null;
-			}
-			this.map.map[next.x][next.y] = this;
-			this.setCoordinates(next);
-		}
-
-		if (futurePos instanceof Key) {
-			oldKey = (Key) futurePos;
-			Coordinates curr, next;
-			curr = this.getCoordinates();
-			next = futurePos.getCoordinates();
-
-			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
-			this.map.map[next.x][next.y] = this;
-			this.setCoordinates(next);
-		}
-	}
 
 }
