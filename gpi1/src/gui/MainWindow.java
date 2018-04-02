@@ -60,6 +60,18 @@ public class MainWindow {
 	}
 
 	/**
+	 * @return int 0 on yes, on no.
+	 * 
+	 */
+	private int askYesOrNo(String message, String title) {
+		Object[] options = { "Yes", "No" };
+		int n = JOptionPane.showOptionDialog(null, message, title,
+				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION, null, options, options[1]);
+
+		return n;
+	}
+
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
@@ -171,6 +183,11 @@ public class MainWindow {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					if (game != null) {
+						if (askYesOrNo("You'll lose your previous game. Are you sure?", "New Game") != 0) { // not yes
+							return;
+						}
+					}
 					game = new Gameplay();
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
@@ -179,7 +196,7 @@ public class MainWindow {
 				enableButtons(moveButtonsPanel);
 				refreshTextArea();
 
-				((JButton) e.getSource()).setEnabled(false); // disable start game button
+				// ((JButton) e.getSource()).setEnabled(false); // disable start game button
 
 			}
 		});
