@@ -8,8 +8,8 @@ import logic.Levels.Map;
  */
 public class PickableClub extends GenericMapEntity {
 
-	public PickableClub(int x, int y, Map map) {
-		super(x, y, map);
+	public PickableClub(int x, int y) {
+		super(x, y);
 	}
 
 	@Override
