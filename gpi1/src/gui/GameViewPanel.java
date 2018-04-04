@@ -4,13 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import cli.Gameplay;
+
 @SuppressWarnings("serial")
-public class SimpleGraphicsPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+public class GameViewPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	// Coordinates of the ellipse “bounding rectangle”
 	private int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+	
+	Gameplay game = null;
+
+	public void updateGame(Gameplay game) {
+		this.game = game;
+	}
 
 	// Constructor, adding mouse and keyboard listeners
-	public SimpleGraphicsPanel() {
+	public GameViewPanel() {
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addKeyListener(this);
@@ -19,8 +27,16 @@ public class SimpleGraphicsPanel extends JPanel implements MouseListener, MouseM
 	// Redraws the panel, only when requested by SWING
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo …
+		if(game!=null)
+			drawGrid(g);
 		g.setColor(Color.BLUE);
 		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+		//System.out.println(getSize());
+	}
+
+	private void drawGrid(Graphics g) {
+		
+		g.drawString(game.getMapString(), 0, 0);		
 	}
 
 	// Handling keyboard and mouse events

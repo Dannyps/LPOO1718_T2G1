@@ -33,7 +33,7 @@ public class MainWindow {
 
 	private JFrame frame;
 	private JTextField ogreNo;
-
+	JPanel gamePanel = new GameViewPanel();
 	Gameplay game;
 
 	/**
@@ -207,6 +207,7 @@ public class MainWindow {
 					}
 
 					game = new Gameplay(new MapArgs(parseOgreNumber(), comboBox.getSelectedIndex()));
+					((GameViewPanel) gamePanel).updateGame(game);
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
 					e1.printStackTrace();
@@ -230,13 +231,13 @@ public class MainWindow {
 			}
 		});
 
-		JPanel panel_1 = new SimpleGraphicsPanel();
+		
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridheight = 2;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
-		frame.getContentPane().add(panel_1, gbc_panel_1);
+		frame.getContentPane().add(gamePanel, gbc_panel_1);
 
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
