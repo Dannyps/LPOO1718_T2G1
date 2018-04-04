@@ -8,6 +8,7 @@ public class RookieGuard extends Guard {
 		super(x, y, route);
 	}
 	
+	@Override
 	public Coordinates nextCoordinates() {
 		return this.moveGuard();
 	}

@@ -8,7 +8,7 @@ import logic.MapEntities.GenericMapEntity;
 /**
  * A semi-self-aware entity, that will kill the hero on contact. 
  */
-public class Guard extends GenericMapEntity {
+public abstract class Guard extends GenericMapEntity {
 	
 	protected char[] route; // predefined route, defined with 'a', 's', 'd' and 'w'
 	protected int index; // index of next move
@@ -19,6 +19,10 @@ public class Guard extends GenericMapEntity {
 		index = 0;
 	}
 	
+	/**
+	 * Returns the next guard desired position based pre-defined route
+	 * @return
+	 */
 	protected Coordinates moveGuard() {
 		Coordinates next = this.coordinates.clone();		
 		next.move(this.route[index++]);
@@ -30,6 +34,13 @@ public class Guard extends GenericMapEntity {
 		
 		return next;
 	}
+	
+	/**
+	 * Returns the next guard desired position
+	 * Each guard personality moves differently and upon different conditions, so each must implement this method 
+	 * @return 
+	 */
+	public abstract Coordinates nextCoordinates();
 	
 	/**
 	 * Randomly reverses the guard route

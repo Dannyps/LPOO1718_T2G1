@@ -11,7 +11,8 @@ public class DrunkenGuard extends Guard {
 		super(x, y, route);
 		this.sleeping = false;
 	}
-
+	
+	@Override
 	public Coordinates nextCoordinates() {
 		// previous sleeping state
 		boolean wasSleeping = this.sleeping;
