@@ -1,11 +1,18 @@
 package logic.MapEntities.Guard;
 
-import logic.Levels.Map;
+import logic.Coordinates;
 
 public class RookieGuard extends Guard {
 
-	public RookieGuard(int x, int y, Map map) {
-		super(x, y, map);
+	public RookieGuard(int x, int y, String route) {
+		super(x, y, route);
+	}
+	
+	public Coordinates nextCoordinates() {
+		Coordinates next = this.coordinates.clone();		
+		next.move(this.route[index]);
+		index++;
+		return next;
 	}
 
 }
