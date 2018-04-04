@@ -4,10 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SimpleGraphicsDemo {
-// Main program. Lanches main window with the panel
-	// where the elipses will be drawn upon.
+
+	
 	public static void main(String[] args) {
-		JFrame f = new JFrame("Graphics Demo");
+		JFrame f = new JFrame("a fancy title"); // TODO title
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setPreferredSize(new Dimension(500, 500));
 		JPanel panel = new SimpleGraphicsPanel();
@@ -16,4 +16,5 @@ public class SimpleGraphicsDemo {
 		f.setVisible(true);
 		panel.requestFocusInWindow(); // to handle keyboard events
 	}
+	
 }
