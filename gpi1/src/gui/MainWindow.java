@@ -80,7 +80,7 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 225, 495);
+		frame.setBounds(100, 100, 225, 523);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
@@ -88,9 +88,9 @@ public class MainWindow {
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 0, 86, 27, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -147,7 +147,7 @@ public class MainWindow {
 		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
 		gbc_splitPane.gridx = 0;
-		gbc_splitPane.gridy = 3;
+		gbc_splitPane.gridy = 2;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
 
 		JPanel moveButtonsPanel = new JPanel();
@@ -236,10 +236,9 @@ public class MainWindow {
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridheight = 2;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 4;
+		gbc_panel_1.gridy = 3;
 		frame.getContentPane().add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[] { 393, 0 };
