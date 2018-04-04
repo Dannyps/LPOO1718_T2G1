@@ -3,8 +3,6 @@ package logic.MapEntities;
 import java.util.Random;
 
 import logic.Coordinates;
-import logic.Direction;
-import logic.Levels.Map;
 
 /**
  * The Ogre is a relentless foe that will swing its club and kill the Hero on contact.
@@ -57,7 +55,6 @@ public class Ogre extends GenericMapEntity {
 		return current;
 	}
 	
-	@Override
 	public Coordinates nextCoordinates() {
 		if(stunned) {
 			if(stunnedTurnsCount == 0) {

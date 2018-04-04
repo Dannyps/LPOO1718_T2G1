@@ -1,7 +1,5 @@
 package logic.MapEntities;
 
-import logic.Direction;
-import logic.Levels.Map;
 
 /**
  * The Ogre's club is a dangerous tool it uses to kill the hero.
