@@ -9,10 +9,7 @@ public class RookieGuard extends Guard {
 	}
 	
 	public Coordinates nextCoordinates() {
-		Coordinates next = this.coordinates.clone();		
-		next.move(this.route[index]);
-		index++;
-		return next;
+		return this.moveGuard();
 	}
 
 }
