@@ -8,11 +8,15 @@ import logic.MapEntities.*;
  */
 public class Level2 extends Map {
 
+	MapArgs ma;
+	
+	
 	Ogre ogre = ogres.get(0); // there's only one ogre in this level.
 	
-	public Level2() throws Exception {
+	public Level2(MapArgs ma) throws Exception {
 		super("XXXXXXXXXI   O  KXX       XX       XX       XX       XX       XXH      XXXXXXXXXX");
 		exitDoors.add((Door)map[1][0]);
+		this.ma = ma;
 	}
 
 	@Override
@@ -59,7 +63,7 @@ public class Level2 extends Map {
 	@Override
 	public Map getNextLevel() {
 		try {
-			return new Level3();
+			return new Level3(ma);
 		} catch (Exception e) {
 			return null;
 		}

@@ -23,9 +23,8 @@ public class Gameplay {
 	 * @throws Exception should the map be malformed
 	 */
 	public Gameplay(MapArgs ma) throws Exception {
-		this.map = new Level1();
+		this.map = new Level3(ma);
 		System.out.println(map);
-		this.map.setArgs(ma);
 	}
 
 	/**

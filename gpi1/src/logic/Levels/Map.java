@@ -3,15 +3,15 @@ package logic.Levels;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.Direction;
 import logic.MapEntities.*;
 import logic.MapEntities.Guard.Guard;
 
 public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
-	
+
 	public abstract Map getNextLevel() throws Exception;
-	
 
 	/**
 	 * 
@@ -25,8 +25,8 @@ public abstract class Map {
 	public int getGridSize() {
 		return gridSize;
 	}
-	
-	private MapArgs args;
+
+	protected MapArgs args;
 
 	private char buffer;
 	boolean isHeroCaptured;
@@ -92,11 +92,13 @@ public abstract class Map {
 	/**
 	 * Constructor
 	 * 
-	 * @param str
-	 *            A string that represents the game map
+	 * @param str A string that represents the game map
 	 * @throws Exception
 	 */
 	public Map(String str) throws Exception {
+		//load arguments
+		
+		
 		int strlen = str.length();
 		// Assuming the map is a square
 		this.gridSize = (int) Math.sqrt(strlen);
@@ -114,14 +116,43 @@ public abstract class Map {
 		this.guards = new ArrayList<Guard>();
 
 		buildMapFromString(str);
+		
 
+	}
+	
+	
+	/**
+	 * @return List<Empty> A list of all the positions suitable to deploy a foe.
+	 */
+	List<Empty> getEmptyPositions() {
+		List<Empty> emptySpaces = new ArrayList<Empty>();
+		
+		for (GenericMapEntity[] mapRow : map) {
+			for (GenericMapEntity ent : mapRow) {
+				if(ent instanceof Empty) {
+					boolean redFlag = false;
+					for (Direction dir : Direction.values()) {
+						//System.out.println(ent.getNeighbor(dir));
+						if(ent.getNeighbor(dir) instanceof Hero) {
+							redFlag = true;
+						}
+					}
+					
+					if(!redFlag) {
+						// this Empty position is adjacent-player-free.
+						emptySpaces.add((Empty) ent);	
+						//System.out.println(ent.getCoordinates().x + ", " + ent.getCoordinates().y);
+					}
+				}
+			}
+		}
+		return emptySpaces;
 	}
 
 	/**
 	 * Constructs the map, filling it with the entities
 	 * 
-	 * @param str
-	 *            A string representing the map
+	 * @param str A string representing the map
 	 */
 	private void buildMapFromString(String str) {
 		int line = 0, column = 0;
@@ -183,7 +214,7 @@ public abstract class Map {
 	 * return a string representation of the map.
 	 */
 	public String toString() {
-		
+
 		String ret = new String();
 
 		// Make Header
@@ -267,11 +298,9 @@ public abstract class Map {
 		this.buffer = buffer;
 	}
 
-
 	public MapArgs getArgs() {
 		return args;
 	}
-
 
 	public void setArgs(MapArgs args) {
 		this.args = args;

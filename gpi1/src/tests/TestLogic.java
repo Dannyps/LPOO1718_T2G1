@@ -21,7 +21,7 @@ class TestLogic {
 	} 
 	@Test
 	public void testHeroMovementLv1() throws Exception {
-		Map lv = new Level1();
+		Map lv = new Level1(new MapArgs(2,0));
 		Coordinates oldHeroPos = lv.getHero().getCoordinates();
 		lv.input('l');
 		Coordinates newHeroPos = lv.getHero().getCoordinates();
@@ -39,7 +39,7 @@ class TestLogic {
 	public void testHeroandLeverLv1() throws Exception {
 		Map lv;
 		char[] seq;
-		lv = new Level1();
+		lv = new Level1(new MapArgs(2,0));
 		// test game ends when hero activates the lever and goes for the exit, avoiding the guard
 		seq = "ddsswwsswssswwsssdddddssawwaaaaassaaaawwaaa".toCharArray(); // game should end
 		for(char c : seq) {
@@ -51,7 +51,7 @@ class TestLogic {
 	@Test
 	public void testHeroAndGuardLv1() throws Exception {
 		Map lv;
-		lv = new Level1();
+		lv = new Level1(new MapArgs(2,0));
 		// test game ends when hero reaches the Guard
 		char[] seq = "ddssssddddd".toCharArray(); // game should end
 		for(char c : seq) {
@@ -67,7 +67,7 @@ class TestLogic {
 	@Test
 	public void testHeroAndOgreV2() throws Exception {
 		Map lv;
-		lv = new Level2();
+		lv = new Level2(new MapArgs(2,0));
 		while(!lv.isGameOver()) {
 			lv.input(getRandomDirection());
 		}

@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 public final class MapArgs implements Serializable {
 	
+
+	private static final long serialVersionUID = -6589598135037878165L;
+
 	public MapArgs(int nOgres, int guardType) {
 		this.nOgres = nOgres;
 		this.guardType = guardType;
