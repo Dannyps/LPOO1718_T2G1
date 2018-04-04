@@ -1,5 +1,7 @@
 package logic.MapEntities.Guard;
 
+import java.util.Random;
+
 import logic.Coordinates;
 import logic.MapEntities.GenericMapEntity;
 
@@ -28,6 +30,21 @@ public class Guard extends GenericMapEntity {
 		
 		return next;
 	}
+	
+	/**
+	 * Randomly reverses the guard route
+	 */
+	protected void randomRevertRoute() {
+		if (new Random().nextBoolean()) {
+			// reverse route
+			for (int i = 0; i < route.length / 2; i++) {
+				char temp = route[i];
+				route[i] = route[route.length - i - 1];
+				route[route.length - i - 1] = temp;
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "G";

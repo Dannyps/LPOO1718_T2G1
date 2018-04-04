@@ -22,7 +22,7 @@ public class DrunkenGuard extends Guard {
 			return this.coordinates;
 		} else if (wasSleeping) {
 			// if the guard was sleeping, and now is awake, maybe revert the route?
-			randomRevertRoute();
+			this.randomRevertRoute();
 		}
 		
 		// move the guard
@@ -37,20 +37,6 @@ public class DrunkenGuard extends Guard {
 	 */
 	protected boolean randomGuardSleep() {
 		return this.sleeping = new Random().nextBoolean();
-	}
-	
-	/**
-	 * Randomly reverses the guard route
-	 */
-	protected void randomRevertRoute() {
-		if (new Random().nextBoolean()) {
-			// reverse route
-			for (int i = 0; i < route.length / 2; i++) {
-				char temp = route[i];
-				route[i] = route[route.length - i - 1];
-				route[route.length - i - 1] = temp;
-			}
-		}
 	}
 	
 	@Override
