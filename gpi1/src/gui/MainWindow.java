@@ -22,12 +22,10 @@ import java.awt.Insets;
 import cli.Gameplay;
 import logic.Levels.MapArgs;
 
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -35,7 +33,6 @@ public class MainWindow {
 
 	private JFrame frame;
 	private JTextField ogreNo;
-	private JTextArea ta;
 
 	Gameplay game;
 
@@ -80,7 +77,7 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 225, 495);
+		frame.setBounds(100, 100, 350, 606);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
@@ -88,9 +85,9 @@ public class MainWindow {
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 0, 86, 27, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -147,7 +144,7 @@ public class MainWindow {
 		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
 		gbc_splitPane.gridx = 0;
-		gbc_splitPane.gridy = 3;
+		gbc_splitPane.gridy = 2;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
 
 		JPanel moveButtonsPanel = new JPanel();
@@ -233,31 +230,13 @@ public class MainWindow {
 			}
 		});
 
-		JPanel panel_1 = new JPanel();
+		JPanel panel_1 = new SimpleGraphicsPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridheight = 2;
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 4;
+		gbc_panel_1.gridy = 3;
 		frame.getContentPane().add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 393, 0 };
-		gbl_panel_1.rowHeights = new int[] { 27, 0, 0 };
-		gbl_panel_1.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		panel_1.setLayout(gbl_panel_1);
-
-		ta = new JTextArea();
-		GridBagConstraints gbc_ta = new GridBagConstraints();
-		gbc_ta.insets = new Insets(0, 0, 5, 0);
-		gbc_ta.fill = GridBagConstraints.BOTH;
-		gbc_ta.gridx = 0;
-		gbc_ta.gridy = 0;
-		panel_1.add(ta, gbc_ta);
-		ta.setFont(new Font("Courier New", Font.PLAIN, 13));
-		ta.setEditable(false);
-		ta.setLineWrap(true);
 
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -268,7 +247,7 @@ public class MainWindow {
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 1;
-		panel_1.add(btnNewButton, gbc_btnNewButton);
+		//panel_1.add(btnNewButton, gbc_btnNewButton);
 
 	}
 
@@ -277,13 +256,12 @@ public class MainWindow {
 			if (game.gameWon) {
 				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
-				ta.setText(game.getMapString()); // update the text area with the current game state so that the user
+				// TODO update the draw area with the current game state so that the user
 													// understands why they lost.
 				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
 			System.exit(0);
 		}
-		ta.setText(game.getMapString());
 	}
 
 	/**
