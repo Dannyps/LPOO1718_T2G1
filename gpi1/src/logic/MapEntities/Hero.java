@@ -31,17 +31,8 @@ public class Hero extends GenericMapEntity {
 	 * @return
 	 */
 	public Coordinates nextCoordinates(char c) {
-		Coordinates next = this.coordinates.clone();
-		if(c == 'w')
-			next.moveUp();
-		else if(c == 's')
-			next.moveDown();
-		else if(c == 'a')
-			next.moveLeft();
-		else if(c == 'd')
-			next.moveRight();
-		// TODO throw if something else
-		
+		Coordinates next = this.coordinates.clone();		
+		next.move(c);
 		return next;
 	}
 	
