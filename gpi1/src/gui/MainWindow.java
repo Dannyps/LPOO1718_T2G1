@@ -28,6 +28,8 @@ import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MainWindow {
 
@@ -66,8 +68,8 @@ public class MainWindow {
 	 */
 	private int askYesOrNo(String message, String title) {
 		Object[] options = { "Yes", "No" };
-		int n = JOptionPane.showOptionDialog(null, message, title,
-				JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.DEFAULT_OPTION, null, options, options[1]);
+		int n = JOptionPane.showOptionDialog(null, message, title, JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.DEFAULT_OPTION, null, options, options[1]);
 
 		return n;
 	}
@@ -86,9 +88,9 @@ public class MainWindow {
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 86, 27, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 0, 86, 27, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -121,6 +123,23 @@ public class MainWindow {
 			e2.printStackTrace();
 		}
 
+		JPanel panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.anchor = GridBagConstraints.WEST;
+		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_2.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_2.gridx = 0;
+		gbc_panel_2.gridy = 1;
+		frame.getContentPane().add(panel_2, gbc_panel_2);
+
+		JLabel lblTyeOfGuard = new JLabel("Type of Guard");
+		panel_2.add(lblTyeOfGuard);
+
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Rookie", "Drunken", "Suspicious" }));
+		comboBox.setToolTipText("Select the type of Guard");
+		panel_2.add(comboBox);
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setEnabled(false);
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
@@ -128,7 +147,7 @@ public class MainWindow {
 		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
 		gbc_splitPane.gridx = 0;
-		gbc_splitPane.gridy = 1;
+		gbc_splitPane.gridy = 3;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
 
 		JPanel moveButtonsPanel = new JPanel();
@@ -189,7 +208,8 @@ public class MainWindow {
 							return;
 						}
 					}
-					game = new Gameplay(new MapArgs(Integer.parseInt(ogreNo.getText()), 0));
+
+					game = new Gameplay(new MapArgs(parseOgreNumber(), comboBox.getSelectedIndex()));
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
 					e1.printStackTrace();
@@ -197,16 +217,29 @@ public class MainWindow {
 				enableButtons(moveButtonsPanel);
 				refreshTextArea();
 
-				// ((JButton) e.getSource()).setEnabled(false); // disable start game button
+			}
 
+			/**
+			 * @return the number on the textBox, or 2 if no value can be read.
+			 */
+			private int parseOgreNumber() {
+				int nOgres;
+				try {
+					nOgres = Integer.parseInt(ogreNo.getText());
+				} catch (NumberFormatException e1) {
+					nOgres = 2; // default value
+				}
+				return nOgres;
 			}
 		});
 
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridheight = 2;
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 2;
+		gbc_panel_1.gridy = 4;
 		frame.getContentPane().add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[] { 393, 0 };
