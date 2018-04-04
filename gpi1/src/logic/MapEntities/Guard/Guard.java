@@ -1,32 +1,39 @@
 package logic.MapEntities.Guard;
 
 import logic.Coordinates;
-import logic.Direction;
-import logic.Levels.Map;
-import logic.MapEntities.Empty;
 import logic.MapEntities.GenericMapEntity;
-import logic.MapEntities.Hero;
 
 /**
  * A semi-self-aware entity, that will kill the hero on contact. 
  */
 public class Guard extends GenericMapEntity {
 	
-	protected char[] route;
-	protected int index;
+	protected char[] route; // predefined route, defined with 'a', 's', 'd' and 'w'
+	protected int index; // index of next move
 	
-	public Guard(int x, int y, Map map) {
-		super(x, y, map);
-		// TODO Auto-generated constructor stub
-		route = "assssaaaaaasdddddddwwwww".toCharArray(); // set predefined route
+	public Guard(int x, int y, String route) {
+		super(x, y);
+		this.route = route.toCharArray(); // set predefined route
 		index = 0;
 	}
-
+	
+	protected Coordinates moveGuard() {
+		Coordinates next = this.coordinates.clone();		
+		next.move(this.route[index++]);
+		
+		// reached end of route ?
+		if(index == route.length - 1) {
+			index = 0;
+		}
+		
+		return next;
+	}
 	@Override
 	public String toString() {
 		return "G";
 	}
 	
+	/*
 	public boolean tick() {
 		this.moveGuard(route[index]);
 		if(index == route.length - 1) 
@@ -44,11 +51,12 @@ public class Guard extends GenericMapEntity {
 		
 		return true;
 	}
-	
+	*/
 	/**
 	 * 
 	 * @param c a character representing the way the hero should move.
 	 */
+	/*
 	protected void moveGuard(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
 		switch(c) {
@@ -78,4 +86,5 @@ public class Guard extends GenericMapEntity {
 			this.setCoordinates(next);
 		}
 	}
+	*/
 }
