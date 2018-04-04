@@ -3,13 +3,17 @@ package cli;
 import logic.Levels.*;
 
 public class Gameplay {
-	private Map map;
+	private Map level;
 
-	public String getMapString() {
-		if (map == null)
+	public String getLevelString() {
+		if (level == null)
 			return null;
 		else
-			return map.toString();
+			return level.toString();
+	}
+	
+	public Map getLevel() {
+		return level;
 	}
 
 	public boolean gameEnd = false;
@@ -23,8 +27,8 @@ public class Gameplay {
 	 * @throws Exception should the map be malformed
 	 */
 	public Gameplay(MapArgs ma) throws Exception {
-		this.map = new Level3(ma);
-		System.out.println(map);
+		this.level = new Level3(ma);
+		System.out.println(level);
 	}
 
 	/**
@@ -36,15 +40,15 @@ public class Gameplay {
 	public boolean refresh(char input) {
 		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
-			map.input(input);
+			level.input(input);
 
 			// update internal variable from map
-			gameEnd = map.isGameOver();
+			gameEnd = level.isGameOver();
 
 			// Print the map
-			System.out.println(map);
+			System.out.println(level);
 
-			if (map.isLevelOver()) {
+			if (level.isLevelOver()) {
 				try {
 					loadNextLevel();
 				} catch (Exception e) {
@@ -66,8 +70,8 @@ public class Gameplay {
 	 * @throws Exception
 	 */
 	private void loadNextLevel() throws Exception {
-		this.map = this.map.getNextLevel();
-		if (this.map == null) {
+		this.level = this.level.getNextLevel();
+		if (this.level == null) {
 			System.out.println("Game finished!");
 			gameEnd = true;
 			gameWon = true;

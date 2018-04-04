@@ -5,12 +5,13 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import cli.Gameplay;
+import logic.MapEntities.GenericMapEntity;
 
 @SuppressWarnings("serial")
 public class GameViewPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	// Coordinates of the ellipse “bounding rectangle”
 	private int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
-	
+
 	Gameplay game = null;
 
 	public void updateGame(Gameplay game) {
@@ -27,16 +28,51 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	// Redraws the panel, only when requested by SWING
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo …
-		if(game!=null)
-			drawGrid(g);
+		if (game != null)
+			drawGrid(g, 10, 10, 30);
 		g.setColor(Color.BLUE);
 		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
-		//System.out.println(getSize());
+		// System.out.println(getSize());
 	}
 
-	private void drawGrid(Graphics g) {
-		
-		g.drawString(game.getMapString(), 0, 0);		
+	/**
+	 * Draws the gameboard on the specified coordinates
+	 * 
+	 * @param g  Graphics
+	 * @param x  int
+	 * @param y  int
+	 * @param qs int quadricule size
+	 *
+	 */
+	private void drawGrid(Graphics g, int x, int y, int qs) {
+		int ss = game.getLevel().getMap().length; // squareSide
+		qs = (int) ((getSize().width)/(ss+1)*1.05);
+
+		makeWalls(g, x, y, qs, ss);
+
+		/*
+		 * for(GenericMapEntity[] mapRows : game.getLevel().getMap()) {
+		 * for(GenericMapEntity e : mapRows) {
+		 * 
+		 * } }
+		 */
+	}
+
+	/**
+	 * @param g Graphics 
+	 * @param x int
+	 * @param y int
+	 * @param qs int
+	 * @param ss int
+	 */
+	private void makeWalls(Graphics g, int x, int y, int qs, int ss) {
+		for (int i = 0; i <= ss; i++) {
+			g.drawLine(x + i * qs, y, x + i * qs, y + ss * qs);
+		}
+
+		for (int i = 0; i <= ss; i++) {
+			g.drawLine(x, y + i * qs, x + ss * qs, y + i * qs);
+		}
 	}
 
 	// Handling keyboard and mouse events
