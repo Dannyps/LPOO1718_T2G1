@@ -46,7 +46,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 */
 	private void drawGrid(Graphics g, int x, int y, int qs) {
 		int ss = game.getLevel().getMap().length; // squareSide
-		qs = (int) ((getSize().width)/(ss+1)*1.05);
+		qs = (int) (Integer.min(getSize().width, getSize().height)/(ss+1));
 
 		makeWalls(g, x, y, qs, ss);
 
