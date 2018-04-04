@@ -1,17 +1,22 @@
 package logic.MapEntities.Guard;
 
-import java.util.Random;
-
-import logic.Direction;
-import logic.Levels.Map;
-import logic.MapEntities.Hero;
+import logic.Coordinates;
 
 public class SuspiciousGuard extends Guard {
 
-	public SuspiciousGuard(int x, int y, Map map) {
-		super(x, y, map);
+	public SuspiciousGuard(int x, int y, String route) {
+		super(x, y, route);
 	}
 	
+	@Override
+	public Coordinates nextCoordinates() {
+		this.randomRevertRoute();
+		
+		// move the guard
+		return this.moveGuard();
+	}
+	
+	/*
 	@Override
 	public boolean tick() {
 		randomRevertRoute();
@@ -32,15 +37,5 @@ public class SuspiciousGuard extends Guard {
 		
 		return true;
 	}
-	
-	protected void randomRevertRoute() {
-		if (new Random().nextBoolean()) {
-			// reverse route
-			for (int i = 0; i < route.length / 2; i++) {
-				char temp = route[i];
-				route[i] = route[route.length - i - 1];
-				route[route.length - i - 1] = temp;
-			}
-		}
-	}
+	*/
 }
