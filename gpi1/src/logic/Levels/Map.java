@@ -8,7 +8,12 @@ import logic.MapEntities.*;
 import logic.MapEntities.Guard.Guard;
 
 public abstract class Map {
-	public GenericMapEntity[][] map;
+	protected GenericMapEntity[][] map;
+	
+	public GenericMapEntity[][] getMap() {
+		return map;
+	}
+
 	private int gridSize;
 
 	public abstract Map getNextLevel() throws Exception;

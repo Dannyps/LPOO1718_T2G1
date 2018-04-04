@@ -47,22 +47,22 @@ public abstract class GenericMapEntity {
 			if(this.coordinates.y-1<0)
 				return null;
 			else
-				return map.map[this.coordinates.x][this.coordinates.y-1];
+				return map.getMap()[this.coordinates.x][this.coordinates.y-1];
 		case RIGHT:
 			if(this.coordinates.y+1>=map.getGridSize())
 				return null;
 			else
-				return map.map[this.coordinates.x][this.coordinates.y+1];
+				return map.getMap()[this.coordinates.x][this.coordinates.y+1];
 		case TOP:
 			if(this.coordinates.x-1<0)
 				return null;
 			else
-				return map.map[this.coordinates.x-1][this.coordinates.y];
+				return map.getMap()[this.coordinates.x-1][this.coordinates.y];
 		case BOTTOM:
 			if(this.coordinates.x+1>=map.getGridSize())
 				return null;
 			else
-				return map.map[this.coordinates.x+1][this.coordinates.y];
+				return map.getMap()[this.coordinates.x+1][this.coordinates.y];
 		default:
 			return null;
 		}

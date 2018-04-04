@@ -29,7 +29,7 @@ public class OgreClub extends GenericMapEntity {
 			}
 		}
 		// delete old club
-		map.map[this.getCoordinates().x][this.getCoordinates().y] = new Empty(this.getCoordinates().x,
+		map.getMap()[this.getCoordinates().x][this.getCoordinates().y] = new Empty(this.getCoordinates().x,
 				this.getCoordinates().y, map);
 		return true;
 	}
