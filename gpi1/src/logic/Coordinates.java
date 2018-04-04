@@ -35,6 +35,17 @@ public class Coordinates {
 		this.y++;
 	}
 	
+	public void move(char c) {
+		if(c == 'w')
+			this.moveUp();
+		else if(c == 's')
+			this.moveDown();
+		else if(c == 'a')
+			this.moveLeft();
+		else if(c == 'd')
+			this.moveRight();
+	}
+	
 	@Override
 	public String toString() {
 		return "{"+x+","+y+"}";
