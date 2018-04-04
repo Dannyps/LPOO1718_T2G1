@@ -4,23 +4,28 @@ import logic.Levels.*;
 
 public class Gameplay {
 	private Map map;
-	public String getMapString(){
-		if(map==null)
+
+	public String getMapString() {
+		if (map == null)
 			return null;
 		else
 			return map.toString();
 	}
+
 	public boolean gameEnd = false;
+	
 	public boolean gameWon = false;
+
 
 	/**
 	 * Constructor
 	 * 
 	 * @throws Exception should the map be malformed
 	 */
-	public Gameplay() throws Exception {
+	public Gameplay(MapArgs ma) throws Exception {
 		this.map = new Level1();
 		System.out.println(map);
+		this.map.setArgs(ma);
 	}
 
 	/**
@@ -39,14 +44,14 @@ public class Gameplay {
 
 			// Print the map
 			System.out.println(map);
-			
-			if(map.isLevelOver()) {
+
+			if (map.isLevelOver()) {
 				try {
 					loadNextLevel();
 				} catch (Exception e) {
 					// TODO understand this exception
 					e.printStackTrace();
-					
+
 				}
 			}
 		}
@@ -63,10 +68,10 @@ public class Gameplay {
 	 */
 	private void loadNextLevel() throws Exception {
 		this.map = this.map.getNextLevel();
-		if(this.map==null) {
+		if (this.map == null) {
 			System.out.println("Game finished!");
-			gameEnd=true;
-			gameWon =true;
+			gameEnd = true;
+			gameWon = true;
 		}
 	}
 

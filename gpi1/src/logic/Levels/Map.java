@@ -25,6 +25,8 @@ public abstract class Map {
 	public int getGridSize() {
 		return gridSize;
 	}
+	
+	private MapArgs args;
 
 	private char buffer;
 	boolean isHeroCaptured;
@@ -263,6 +265,16 @@ public abstract class Map {
 
 	public void setBuffer(char buffer) {
 		this.buffer = buffer;
+	}
+
+
+	public MapArgs getArgs() {
+		return args;
+	}
+
+
+	public void setArgs(MapArgs args) {
+		this.args = args;
 	}
 
 }

@@ -20,6 +20,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import cli.Gameplay;
+import logic.Levels.MapArgs;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -188,7 +189,7 @@ public class MainWindow {
 							return;
 						}
 					}
-					game = new Gameplay();
+					game = new Gameplay(new MapArgs(Integer.parseInt(ogreNo.getText()), 0));
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
 					e1.printStackTrace();
