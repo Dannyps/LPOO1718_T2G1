@@ -20,19 +20,19 @@ public class Coordinates {
 	
 	// Some useful methods to update coordinates
 	public void moveLeft() {
-		this.x--;
-	}
-	
-	public void moveRight() {
-		this.x++;
-	}
-	
-	public void moveUp() {
 		this.y--;
 	}
 	
-	public void moveDown() {
+	public void moveRight() {
 		this.y++;
+	}
+	
+	public void moveUp() {
+		this.x--;
+	}
+	
+	public void moveDown() {
+		this.x++;
 	}
 	
 	public void move(char c) {
@@ -46,6 +46,14 @@ public class Coordinates {
 			this.moveRight();
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	@Override
 	public String toString() {
 		return "{"+x+","+y+"}";

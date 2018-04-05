@@ -7,8 +7,8 @@ import logic.MapEntities.*;
  * Level 3 (several ogres, no guard)
  * 
  */
-public class Level3 extends Map {
-
+public class Level3 {//extends Map {
+	/*
 	public Level3() throws Exception {
 		super("XXXXXXXXXI      KXX       XX       XX       XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door) map[1][0]);
@@ -62,4 +62,5 @@ public class Level3 extends Map {
 	public Map getNextLevel() {
 		return null;
 	}
+	*/
 }

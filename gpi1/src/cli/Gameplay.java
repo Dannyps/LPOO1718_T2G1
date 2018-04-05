@@ -32,7 +32,7 @@ public class Gameplay {
 	public boolean refresh(char input) {
 		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
-			map.input(input);
+			map.tick(input);
 
 			// update internal variable from map
 			gameEnd = map.isGameOver();

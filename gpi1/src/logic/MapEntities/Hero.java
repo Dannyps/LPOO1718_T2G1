@@ -37,11 +37,27 @@ public class Hero extends GenericMapEntity {
 	}
 	
 	/**
-	 * Tells if the hero has the key or not
+	 * Changes the flag that tells if the hero has the key or not
 	 * @param hasKey
 	 */
-	public void setHasKey(boolean hasKey) {
-		this.hasKey = hasKey;
+	public void setHasKey() {
+		this.hasKey = true;
+	}
+	
+	/**
+	 * Changes the flag that tells if the hero has a club, i.e, it's armed
+	 * @param hasKey
+	 */
+	public void setHasClub(boolean hasClub) {
+		this.hasClub = hasClub;
+	}
+	
+	public boolean hasClub() {
+		return hasClub;
+	}
+
+	public boolean hasKey() {
+		return hasKey;
 	}
 
 	@Override

@@ -12,7 +12,7 @@ import logic.Levels.*;
 
 class TestLogic {
 
-	
+	/*
 	private char getRandomDirection() {
 		int random = new Random().nextInt(4);
 		char[] chars = {'a', 's', 'd', 'w'};
@@ -64,12 +64,15 @@ class TestLogic {
 	 * This test assumes that playing randomly will get the hero killed.
 	 * @throws Exception if the map is invalid
 	 */
-	@Test
-	public void testHeroAndOgreV2() throws Exception {
+	
+	/*
+	 @Test
+	 public void testHeroAndOgreV2() throws Exception {
 		Map lv;
 		lv = new Level2();
 		while(!lv.isGameOver()) {
 			lv.input(getRandomDirection());
 		}
 	}
+	*/
 }
