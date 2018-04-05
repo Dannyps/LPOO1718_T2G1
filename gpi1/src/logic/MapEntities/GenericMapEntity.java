@@ -6,7 +6,7 @@ import logic.Coordinates;
  * All entities in the map descent from this one.
  */
 public abstract class GenericMapEntity {
-
+	protected GenericMapEntity previousEnt = null; // a reference to the entity overlapped
 	protected Coordinates coordinates;
 	
 	/**
@@ -46,39 +46,24 @@ public abstract class GenericMapEntity {
 	public abstract String toString();
 	
 	/**
-	 * Returns the neighbor at some direction
-	 * @param d Direction to return
-	 * @return the neighbor on the specified direction, or null if neighbor is outside of the map. 
+	 * 
+	 * @param e
 	 */
-	/*
-	public GenericMapEntity getNeighbor(Direction d){
-		switch(d) {
-		case LEFT:
-			if(this.coordinates.y-1<0)
-				return null;
-			else
-				return map.map[this.coordinates.x][this.coordinates.y-1];
-		case RIGHT:
-			if(this.coordinates.y+1>=map.getGridSize())
-				return null;
-			else
-				return map.map[this.coordinates.x][this.coordinates.y+1];
-		case TOP:
-			if(this.coordinates.x-1<0)
-				return null;
-			else
-				return map.map[this.coordinates.x-1][this.coordinates.y];
-		case BOTTOM:
-			if(this.coordinates.x+1>=map.getGridSize())
-				return null;
-			else
-				return map.map[this.coordinates.x+1][this.coordinates.y];
-		default:
-			return null;
-		}
+	public void setOverlappedEntity(GenericMapEntity e) {
+		this.previousEnt = e;
 	}
-	*/
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public GenericMapEntity getOverlappedEntity() {
+		if(this.previousEnt == null)
+			this.previousEnt = new Empty(this.coordinates.getX(), this.coordinates.getY());
+		return this.previousEnt;
+	}
+	
+	// TODO
 	// probably will be obsolete
 	public boolean tick() {
 		return true;
