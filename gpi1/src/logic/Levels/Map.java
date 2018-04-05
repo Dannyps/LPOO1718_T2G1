@@ -156,11 +156,6 @@ public abstract class Map {
 		// Move guard and check if hero is captured
 		if(this.guard != null) {
 			moveGuard();
-		
-			// Verificar se hero e guard estão adjacentes
-			if(areEntitiesAdj(this.hero, this.guard)) {
-				this.gameIsOver = true;
-			}
 		}
 		
 		// Move ogres
@@ -221,6 +216,10 @@ public abstract class Map {
 		if(this.guard != null) {
 			Coordinates nextPos = this.guard.nextCoordinates();
 			moveEntity(this.guard, nextPos);
+			// Verificar se hero e guard estão adjacentes
+			if(areEntitiesAdj(this.hero, this.guard)) {
+				this.gameIsOver = true;
+			}
 		}
 	}
 	
@@ -229,10 +228,17 @@ public abstract class Map {
 			Coordinates nextPos = o.nextCoordinates();
 			moveEntity(o, nextPos);
 			
+			// check if ogre is over the key
 			if(o.getCoordinates().equals(key.getCoordinates()))
 				o.setOverKey(true);
 			else
 				o.setOverKey(false);
+			
+			// check if ogre is adjacent to hero
+			
+			if(areEntitiesAdj(this.hero, o)) {
+				this.gameIsOver = true;
+			}
 			// TODO Move the club
 		}
 	}
