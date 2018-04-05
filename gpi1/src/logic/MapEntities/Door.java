@@ -7,7 +7,7 @@ import logic.Levels.Map;
  */
 public class Door extends GenericMapEntity {
 
-	public boolean open;
+	private boolean open;
 
 	public Door(int x, int y, Map map) {
 		super(x, y, map);
@@ -16,9 +16,18 @@ public class Door extends GenericMapEntity {
 
 	@Override
 	public String toString() {
-		if(this.open)
+		if(this.isOpen())
 			return "S";
 		else
 			return "I";
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public boolean setOpen(boolean open) {
+		this.open = open;
+		return open;
 	}
 }

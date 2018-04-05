@@ -8,13 +8,24 @@ import logic.Levels.Map;
  */
 public class Lever extends GenericMapEntity {
 
+	private boolean open = false;
+
 	public Lever(int x, int y, Map map) {
 		super(x, y, map);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		return "K";
 	}
+	
+	public void setOpen() {
+		open  = true;
+	}
+	
+	public boolean isOpen() {
+		return open;
+	}
+	
+	
 }

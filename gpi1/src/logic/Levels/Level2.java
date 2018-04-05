@@ -36,10 +36,10 @@ public class Level2 extends Map {
 
 	@Override
 	public boolean heroMetDoorHandler(Door door) {
-		if(!door.open && hero.hasKey) {
-			door.open=true;
+		if(!door.isOpen() && hero.hasKey) {
+			door.setOpen(true);
 			return false;
-		}else if(door.open) {
+		}else if(door.isOpen()) {
 			this.levelIsOver=true;
 			return true;
 		}else {

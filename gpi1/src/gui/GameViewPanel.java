@@ -35,13 +35,14 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	}
 
 	private void loadImages() {
-		IHero = new ImageIcon("assets/hero.png").getImage();
-		IWall = new ImageIcon("assets/wall.png").getImage();
-		IOgre = new ImageIcon("assets/ogre.png").getImage();
-		IClub = new ImageIcon("assets/club.png").getImage();
-		IPClb = new ImageIcon("assets/pickableClub.png").getImage();
-		ISOgr = new ImageIcon("assets/stunnedOgre.png").getImage();
-		IPKey = new ImageIcon("assets/key.png").getImage();
+		IHero 	= 	new ImageIcon("assets/hero.png").getImage();
+		IWall 	= 	new ImageIcon("assets/wall.png").getImage();
+		IOgre 	= 	new ImageIcon("assets/ogre.png").getImage();
+		IClub 	= 	new ImageIcon("assets/club.png").getImage();
+		IPClb 	= 	new ImageIcon("assets/pickableClub.png").getImage();
+		ISOgr 	= 	new ImageIcon("assets/stunnedOgre.png").getImage();
+		IPKey 	= 	new ImageIcon("assets/key.png").getImage();
+		IGuard 	= 	new ImageIcon("assets/guard.png").getImage();
 
 	}
 
@@ -172,6 +173,19 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IPKey, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
+	
+	/**
+	 * Draws a Guard to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawGuard(Graphics g, int x, int y) {
+		double ratio = IGuard.getWidth(null) / IGuard.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IGuard, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
 
 	/**
 	 * Draws the specified entity onto the grid
@@ -206,6 +220,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			break;
 		case "Key":
 			drawPKey(g, coords[0], coords[1]);
+			break;
+		case "Guard":
+			drawGuard(g, coords[0], coords[1]);
 			break;
 		default:
 			break;

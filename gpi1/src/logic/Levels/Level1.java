@@ -24,7 +24,8 @@ public class Level1 extends Map {
 
 	@Override
 	public boolean heroMetLeverHandler() {
-		getExitDoors().forEach(door -> door.open = true);
+		getExitDoors().forEach(door -> door.setOpen(true));
+		lever.setOpen();
 		return false;
 	}
 
@@ -43,7 +44,7 @@ public class Level1 extends Map {
 
 	@Override
 	public boolean heroMetDoorHandler(Door door) {
-		if (door.open)
+		if (door.isOpen())
 			levelIsOver = true;
 		return false;
 	}
