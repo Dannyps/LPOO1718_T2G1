@@ -21,7 +21,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	Gameplay game = null;
 
 	int qs;
-
+	MainWindow parent;
 	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ICLever, IOLever, IPClb, ISOgr, IPKey, IODoor, ICDoor;
 
 	public void updateGame(Gameplay game) {
@@ -29,26 +29,27 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	}
 
 	// Constructor, adding mouse and keyboard listeners
-	public GameViewPanel() {
+	public GameViewPanel(MainWindow mainWindow) {
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		addKeyListener(this);
+		parent = mainWindow;
 		loadImages();
 	}
 
 	private void loadImages() {
-		IHero 	= 	new ImageIcon("assets/hero.png").getImage();
-		IWall 	= 	new ImageIcon("assets/wall.png").getImage();
-		IOgre 	= 	new ImageIcon("assets/ogre.png").getImage();
-		IClub 	= 	new ImageIcon("assets/club.png").getImage();
-		IPClb 	= 	new ImageIcon("assets/pickableClub.png").getImage();
-		ISOgr 	= 	new ImageIcon("assets/stunnedOgre.png").getImage();
-		IPKey 	= 	new ImageIcon("assets/key.png").getImage();
-		IGuard 	= 	new ImageIcon("assets/guard.png").getImage();
-		ICLever	= 	new ImageIcon("assets/lever_closed.png").getImage();
-		IOLever	= 	new ImageIcon("assets/lever_open.png").getImage();
-		ICDoor	= 	new ImageIcon("assets/door_closed.png").getImage();
-		IODoor	= 	new ImageIcon("assets/door_open.png").getImage();
+		IHero = new ImageIcon("assets/hero.png").getImage();
+		IWall = new ImageIcon("assets/wall.png").getImage();
+		IOgre = new ImageIcon("assets/ogre.png").getImage();
+		IClub = new ImageIcon("assets/club.png").getImage();
+		IPClb = new ImageIcon("assets/pickableClub.png").getImage();
+		ISOgr = new ImageIcon("assets/stunnedOgre.png").getImage();
+		IPKey = new ImageIcon("assets/key.png").getImage();
+		IGuard = new ImageIcon("assets/guard.png").getImage();
+		ICLever = new ImageIcon("assets/lever_closed.png").getImage();
+		IOLever = new ImageIcon("assets/lever_open.png").getImage();
+		ICDoor = new ImageIcon("assets/door_closed.png").getImage();
+		IODoor = new ImageIcon("assets/door_open.png").getImage();
 
 	}
 
@@ -57,9 +58,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		super.paintComponent(g); // limpa fundo …
 		if (game != null) {
 			drawGrid(g, 10, 10);
+			requestFocusInWindow();
 		}
-			
-		
+
 		g.setColor(Color.BLUE);
 		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
@@ -81,7 +82,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			for (GenericMapEntity e : mapRows) {
 				int ex = e.getCoordinates().x;
 				int ey = e.getCoordinates().y;
-				
+
 				drawOnQuadricule(g, ey, ex, e);
 			}
 		}
@@ -89,6 +90,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	/**
 	 * Draws Hero to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -99,9 +101,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IHero, x + 12, y + 10, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws Club to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -115,6 +118,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	/**
 	 * Draws Wall to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -125,9 +129,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IWall, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws Ogre to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -138,9 +143,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IOgre, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws Stunned Ogre to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -151,9 +157,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(ISOgr, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws a Pickable Club to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -164,9 +171,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IPClb, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws a Pickable Key to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -177,9 +185,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IPKey, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws a Guard to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -190,9 +199,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IGuard, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws a closed (red) lever to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -206,6 +216,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	/**
 	 * Draws an open (green) lever to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -216,9 +227,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IOLever, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws an open door to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -229,9 +241,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IODoor, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
-	
+
 	/**
 	 * Draws an open door to g
+	 * 
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -245,14 +258,15 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	/**
 	 * Draws the specified entity onto the grid
-	 * @param g Graphics
-	 * @param x int grid x
-	 * @param y int grid y
+	 * 
+	 * @param g   Graphics
+	 * @param x   int grid x
+	 * @param y   int grid y
 	 * @param ent String representing the Entity's class name.
 	 */
 	void drawOnQuadricule(Graphics g, int x, int y, GenericMapEntity ent) {
 		int coords[] = calcCoordByQuadricule(x, y);
-		//ent.substring(ent.lastIndexOf(".") + 1)) {
+		// ent.substring(ent.lastIndexOf(".") + 1)) {
 
 		switch (ent.getClass().toString().substring(ent.getClass().toString().lastIndexOf(".") + 1)) {
 		case "Hero":
@@ -262,9 +276,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			drawWall(g, coords[0], coords[1]);
 			break;
 		case "Ogre":
-			if(((Ogre) ent).isStunned()) {
+			if (((Ogre) ent).isStunned()) {
 				drawSOgr(g, coords[0], coords[1]);
-			}else {
+			} else {
 				drawOgre(g, coords[0], coords[1]);
 			}
 			break;
@@ -281,17 +295,17 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			drawGuard(g, coords[0], coords[1]);
 			break;
 		case "Lever":
-			if(((Lever) ent).isOpen()) {
+			if (((Lever) ent).isOpen()) {
 				drawOLever(g, coords[0], coords[1]);
-			}else {
+			} else {
 				drawCLever(g, coords[0], coords[1]);
 			}
 			break;
-			
+
 		case "Door":
-			if(((Door) ent).isOpen()) {
+			if (((Door) ent).isOpen()) {
 				drawODoor(g, coords[0], coords[1]);
-			}else {
+			} else {
 				drawCDoor(g, coords[0], coords[1]);
 			}
 			break;
@@ -323,44 +337,38 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	}
 
 	// Handling keyboard and mouse events
-	public void mousePressed(MouseEvent e) {
-		x2 = x1 = e.getX();
-		y2 = y1 = e.getY();
-		repaint(); // notifies SWING that it needs repainting
-	}
-
-	public void mouseDragged(MouseEvent e) {
-		x2 = e.getX();
-		y2 = e.getY();
-		repaint();
-	}
-
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
-			x1--;
-			x2--;
-			repaint();
+		switch (KeyEvent.getKeyText(e.getKeyCode())) {
+		case "Right":
+		case "D":
+			game.refresh('d');
 			break;
-		case KeyEvent.VK_RIGHT:
-			x1++;
-			x2++;
-			repaint();
+		case "Left":
+		case "A":
+			game.refresh('a');
 			break;
-		case KeyEvent.VK_UP:
-			y1--;
-			y2--;
-			repaint();
+		case "Up":
+		case "W":
+			game.refresh('w');
 			break;
-		case KeyEvent.VK_DOWN:
-			y1++;
-			y2++;
-			repaint();
+		case "Down":
+		case "S":
+			game.refresh('s');
 			break;
+
 		}
+		parent.refreshDisplay();
 	}
 
 	// Remaining listeners (not used)
+
+	public void mousePressed(MouseEvent e) {
+		requestFocusInWindow();
+	}
+
+	public void mouseDragged(MouseEvent e) {
+	}
+
 	public void mouseReleased(MouseEvent e) {
 	}
 

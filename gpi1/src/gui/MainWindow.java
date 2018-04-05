@@ -36,7 +36,7 @@ public class MainWindow {
 
 	private JFrame frame;
 	private JTextField ogreNo;
-	JPanel gamePanel = new GameViewPanel();
+	JPanel gamePanel = new GameViewPanel(this);
 	Gameplay game;
 	private JPanel footer_panel;
 
