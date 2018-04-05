@@ -20,7 +20,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	int qs;
 
-	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ILever, IPClb, ISOgr;
+	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ILever, IPClb, ISOgr, IPKey;
 
 	public void updateGame(Gameplay game) {
 		this.game = game;
@@ -41,14 +41,20 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		IClub = new ImageIcon("assets/club.png").getImage();
 		IPClb = new ImageIcon("assets/pickableClub.png").getImage();
 		ISOgr = new ImageIcon("assets/stunnedOgre.png").getImage();
+		IPKey = new ImageIcon("assets/key.png").getImage();
 
 	}
 
 	// Redraws the panel, only when requested by SWING
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo …
-		if (game != null)
+		if (game != null) {
+			System.out.println(game.gameEnd);
+			System.out.println(game.gameWon);
 			drawGrid(g, 10, 10);
+		}
+			
+		
 		g.setColor(Color.BLUE);
 		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 	}
@@ -153,6 +159,19 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IPClb, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
+	
+	/**
+	 * Draws a Pickable Key to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawPKey(Graphics g, int x, int y) {
+		double ratio = IPKey.getWidth(null) / IPKey.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IPKey, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
 
 	/**
 	 * Draws the specified entity onto the grid
@@ -184,6 +203,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			break;
 		case "PickableClub":
 			drawPClb(g, coords[0], coords[1]);
+			break;
+		case "Key":
+			drawPKey(g, coords[0], coords[1]);
 			break;
 		default:
 			break;

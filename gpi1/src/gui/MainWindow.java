@@ -217,7 +217,7 @@ public class MainWindow {
 					e1.printStackTrace();
 				}
 				enableButtons(moveButtonsPanel);
-				refreshTextArea();
+				gamePanel.repaint();
 
 			}
 

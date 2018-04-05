@@ -158,7 +158,7 @@ public class Ogre extends GenericMapEntity {
 	}
 
 	public boolean isStunned() {
-		return !(stunnedCount < 0);
+		return !(stunnedCount <= 0);
 	}
 
 }
