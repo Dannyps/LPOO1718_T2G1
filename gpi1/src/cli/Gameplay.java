@@ -40,6 +40,7 @@ public class Gameplay {
 			// update internal variable from map
 						if(map.isGameOver()) {
 							System.out.println("GAME OVER!");
+							gameEnd = true;
 							return false;
 						}
 			
