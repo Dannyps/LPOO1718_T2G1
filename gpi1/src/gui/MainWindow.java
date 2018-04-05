@@ -29,16 +29,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Color;
 import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.EtchedBorder;
 import java.awt.Rectangle;
 
 public class MainWindow {
@@ -90,7 +81,7 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 357, 512);
+		frame.setBounds(100, 100, 976, 909);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
@@ -169,7 +160,7 @@ public class MainWindow {
 		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('d');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
@@ -179,7 +170,7 @@ public class MainWindow {
 		btnMoveLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('a');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
@@ -189,7 +180,7 @@ public class MainWindow {
 		btnMoveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('s');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
@@ -199,7 +190,7 @@ public class MainWindow {
 		btnMoveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('w');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
