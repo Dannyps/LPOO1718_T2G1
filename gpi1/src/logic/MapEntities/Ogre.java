@@ -107,7 +107,7 @@ public class Ogre extends GenericMapEntity {
 			Coordinates next;
 			next = futurePos.getCoordinates();
 			this.club = new OgreClub(next.x, next.y, map);
-			this.map.map[next.x][next.y] = this.club;
+			this.map.getMap()[next.x][next.y] = this.club;
 		}
 	}
 
@@ -136,12 +136,12 @@ public class Ogre extends GenericMapEntity {
 			next = futurePos.getCoordinates();
 
 			if (oldKey == null)
-				this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
+				this.map.getMap()[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
 			else {
-				this.map.map[curr.x][curr.y] = oldKey;
+				this.map.getMap()[curr.x][curr.y] = oldKey;
 				oldKey = null;
 			}
-			this.map.map[next.x][next.y] = this;
+			this.map.getMap()[next.x][next.y] = this;
 			this.setCoordinates(next);
 		}
 
@@ -151,10 +151,14 @@ public class Ogre extends GenericMapEntity {
 			curr = this.getCoordinates();
 			next = futurePos.getCoordinates();
 
-			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
-			this.map.map[next.x][next.y] = this;
+			this.map.getMap()[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
+			this.map.getMap()[next.x][next.y] = this;
 			this.setCoordinates(next);
 		}
+	}
+
+	public boolean isStunned() {
+		return !(stunnedCount <= 0);
 	}
 
 }

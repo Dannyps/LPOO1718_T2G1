@@ -73,8 +73,8 @@ public class Guard extends GenericMapEntity {
 			curr = this.getCoordinates();
 			next = futurePos.getCoordinates();
 			
-			this.map.map[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
-			this.map.map[next.x][next.y] = this;
+			this.map.getMap()[curr.x][curr.y] = new Empty(curr.x, curr.y, map);
+			this.map.getMap()[next.x][next.y] = this;
 			this.setCoordinates(next);
 		}
 	}

@@ -22,22 +22,23 @@ import java.awt.Insets;
 import cli.Gameplay;
 import logic.Levels.MapArgs;
 
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.BevelBorder;
+import javax.swing.BoxLayout;
+import java.awt.Rectangle;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField ogreNo;
-	private JTextArea ta;
-
+	JPanel gamePanel = new GameViewPanel();
 	Gameplay game;
+	private JPanel footer_panel;
 
 	/**
 	 * Launch the application.
@@ -80,7 +81,7 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 225, 523);
+		frame.setBounds(100, 100, 976, 909);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
@@ -88,9 +89,9 @@ public class MainWindow {
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -159,7 +160,7 @@ public class MainWindow {
 		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('d');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
@@ -169,7 +170,7 @@ public class MainWindow {
 		btnMoveLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('a');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
@@ -179,7 +180,7 @@ public class MainWindow {
 		btnMoveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('s');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
@@ -189,7 +190,7 @@ public class MainWindow {
 		btnMoveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('w');
-				refreshTextArea();
+				gamePanel.repaint();
 			}
 		});
 		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
@@ -210,12 +211,13 @@ public class MainWindow {
 					}
 
 					game = new Gameplay(new MapArgs(parseOgreNumber(), comboBox.getSelectedIndex()));
+					((GameViewPanel) gamePanel).updateGame(game);
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
 					e1.printStackTrace();
 				}
 				enableButtons(moveButtonsPanel);
-				refreshTextArea();
+				gamePanel.repaint();
 
 			}
 
@@ -233,30 +235,32 @@ public class MainWindow {
 			}
 		});
 
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridheight = 2;
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 3;
-		frame.getContentPane().add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[] { 393, 0 };
-		gbl_panel_1.rowHeights = new int[] { 27, 0, 0 };
-		gbl_panel_1.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel_1.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		panel_1.setLayout(gbl_panel_1);
-
-		ta = new JTextArea();
-		GridBagConstraints gbc_ta = new GridBagConstraints();
-		gbc_ta.insets = new Insets(0, 0, 5, 0);
-		gbc_ta.fill = GridBagConstraints.BOTH;
-		gbc_ta.gridx = 0;
-		gbc_ta.gridy = 0;
-		panel_1.add(ta, gbc_ta);
-		ta.setFont(new Font("Courier New", Font.PLAIN, 13));
-		ta.setEditable(false);
-		ta.setLineWrap(true);
+		
+		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
+		gbc_footer_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_footer_panel.gridheight = 2;
+		gbc_footer_panel.fill = GridBagConstraints.BOTH;
+		gbc_footer_panel.gridx = 0;
+		gbc_footer_panel.gridy = 3;
+		frame.getContentPane().add(gamePanel, gbc_footer_panel);
+		
+		footer_panel = new JPanel();
+		footer_panel.setBounds(new Rectangle(10, 0, 0, 0));
+		footer_panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		footer_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		GridBagConstraints gbc_footer_panel1 = new GridBagConstraints();
+		gbc_footer_panel1.fill = GridBagConstraints.BOTH;
+		gbc_footer_panel1.gridx = 0;
+		gbc_footer_panel1.gridy = 5;
+		frame.getContentPane().add(footer_panel, gbc_footer_panel1);
+		footer_panel.setLayout(new BoxLayout(footer_panel, BoxLayout.X_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("Loaded Successfully");
+		lblNewLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblNewLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		footer_panel.add(lblNewLabel);
 
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -267,7 +271,7 @@ public class MainWindow {
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 1;
-		panel_1.add(btnNewButton, gbc_btnNewButton);
+		//panel_1.add(btnNewButton, gbc_btnNewButton);
 
 	}
 
@@ -276,13 +280,12 @@ public class MainWindow {
 			if (game.gameWon) {
 				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
-				ta.setText(game.getMapString()); // update the text area with the current game state so that the user
+				// TODO update the draw area with the current game state so that the user
 													// understands why they lost.
 				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
 			System.exit(0);
 		}
-		ta.setText(game.getMapString());
 	}
 
 	/**
