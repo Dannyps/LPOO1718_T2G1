@@ -15,11 +15,6 @@ public class Ogre extends GenericMapEntity {
 	final int STUNNED_TURNS = 2;
 	private int stunnedTurnsCount = 0;
 	
-	
-	//private Key oldKey = null; //?
-	//public OgreClub club = null; //?
-	
-	
 
 	/**
 	 * 
@@ -38,7 +33,7 @@ public class Ogre extends GenericMapEntity {
 		Coordinates current = this.coordinates.clone();
 		int i = new Random().nextInt(4);
 
-		switch (i) {
+		switch (3) {
 		case 0:
 			current.moveUp();
 			break;

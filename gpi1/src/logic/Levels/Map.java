@@ -43,10 +43,7 @@ public abstract class Map {
 
 	// A direct reference to key (might be null)
 	protected Key key = null;
-	
-	
-	public abstract Map getNextLevel() throws Exception; //?
-	
+
 	
 	/**
 	 * Constructor
@@ -147,7 +144,10 @@ public abstract class Map {
 	 */
 	protected abstract Guard parseGuard(int line, int column);
 	
-	
+	/**
+	 * 
+	 * @param c
+	 */
 	public void tick(char c) {
 
 		// Move hero
@@ -163,7 +163,9 @@ public abstract class Map {
 			}
 		}
 		
-		// Move the ogres
+		// Move ogres
+		moveOgres();
+		
 		
 	}
 	
@@ -221,31 +223,25 @@ public abstract class Map {
 			moveEntity(this.guard, nextPos);
 		}
 	}
+	
 	protected void moveOgres() {
 		for(Ogre o : this.ogres) {
 			Coordinates nextPos = o.nextCoordinates();
-			if(nextPos.toString().equals(" ")) {
-				moveEntity(o, nextPos);
-			}
+			moveEntity(o, nextPos);
+			
+			if(o.getCoordinates().equals(key.getCoordinates()))
+				o.setOverKey(true);
+			else
+				o.setOverKey(false);
 			// TODO Move the club
 		}
 	}
 	
-	
-	/**
-	 * 
-	 * @return an integer representing the level name.
-	 */
-	public int toInt() {
-		String str = this.getClass().getName();
-		return Integer.parseInt(str.substring(str.length() - 1));
-	}
-
+	/// Getters and setters
+	///
 	public int getGridSize() {
 		return gridSize;
 	}
-
-	
 
 	public boolean isLevelOver() {
 		return levelIsOver;
@@ -261,6 +257,23 @@ public abstract class Map {
 
 	public boolean isGameOver() {
 		return gameIsOver;
+	}
+	
+	/**
+	 * 
+	 * @param x x Coordinate
+	 * @param y y Coordinate
+	 * @return Returns the string that represents the entity at some position
+	 */
+	public String getEntityAtPos(int x, int y) {
+		if (map[y][x] != null)
+			return map[y][x].toString();
+		else
+			return "";
+	}
+	
+	public String getEntityAtPos(Coordinates c) {
+		return getEntityAtPos(c.getX(), c.getY());
 	}
 
 	
@@ -312,22 +325,14 @@ public abstract class Map {
 		}
 		return ret;
 	}
-
+	
 	/**
 	 * 
-	 * @param x x Coordinate
-	 * @param y y Coordinate
-	 * @return Returns the string that represents the entity at some position
+	 * @return an integer representing the level name.
 	 */
-	public String getEntityAtPos(int x, int y) {
-		if (map[y][x] != null)
-			return map[y][x].toString();
-		else
-			return "";
-	}
-	
-	public String getEntityAtPos(Coordinates c) {
-		return getEntityAtPos(c.getX(), c.getY());
+	public int toInt() {
+		String str = this.getClass().getName();
+		return Integer.parseInt(str.substring(str.length() - 1));
 	}
 	
 	/**
@@ -371,5 +376,11 @@ public abstract class Map {
 	 * @return True if the door is open, false otherwise
 	 */
 	public abstract boolean heroMetDoorHandler(Door door);
-
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract Map getNextLevel() throws Exception;
 }
