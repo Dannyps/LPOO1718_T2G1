@@ -28,6 +28,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Color;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.CardLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
 
 public class MainWindow {
 
@@ -35,6 +47,7 @@ public class MainWindow {
 	private JTextField ogreNo;
 	JPanel gamePanel = new GameViewPanel();
 	Gameplay game;
+	private JPanel footer_panel;
 
 	/**
 	 * Launch the application.
@@ -77,7 +90,7 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 350, 606);
+		frame.setBounds(100, 100, 357, 512);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
@@ -85,9 +98,9 @@ public class MainWindow {
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -232,12 +245,31 @@ public class MainWindow {
 		});
 
 		
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridheight = 2;
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 0;
-		gbc_panel_1.gridy = 3;
-		frame.getContentPane().add(gamePanel, gbc_panel_1);
+		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
+		gbc_footer_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_footer_panel.gridheight = 2;
+		gbc_footer_panel.fill = GridBagConstraints.BOTH;
+		gbc_footer_panel.gridx = 0;
+		gbc_footer_panel.gridy = 3;
+		frame.getContentPane().add(gamePanel, gbc_footer_panel);
+		
+		footer_panel = new JPanel();
+		footer_panel.setBounds(new Rectangle(10, 0, 0, 0));
+		footer_panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		footer_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		GridBagConstraints gbc_footer_panel1 = new GridBagConstraints();
+		gbc_footer_panel1.fill = GridBagConstraints.BOTH;
+		gbc_footer_panel1.gridx = 0;
+		gbc_footer_panel1.gridy = 5;
+		frame.getContentPane().add(footer_panel, gbc_footer_panel1);
+		footer_panel.setLayout(new BoxLayout(footer_panel, BoxLayout.X_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("Loaded Successfully");
+		lblNewLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblNewLabel.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		footer_panel.add(lblNewLabel);
 
 		JButton btnNewButton = new JButton("Exit");
 		btnNewButton.addActionListener(new ActionListener() {
