@@ -8,7 +8,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import cli.Gameplay;
+import logic.MapEntities.Door;
 import logic.MapEntities.GenericMapEntity;
+import logic.MapEntities.Lever;
 import logic.MapEntities.Ogre;
 
 @SuppressWarnings("serial")
@@ -20,7 +22,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	int qs;
 
-	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ILever, IPClb, ISOgr, IPKey;
+	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ICLever, IOLever, IPClb, ISOgr, IPKey, IODoor, ICDoor;
 
 	public void updateGame(Gameplay game) {
 		this.game = game;
@@ -43,6 +45,10 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		ISOgr 	= 	new ImageIcon("assets/stunnedOgre.png").getImage();
 		IPKey 	= 	new ImageIcon("assets/key.png").getImage();
 		IGuard 	= 	new ImageIcon("assets/guard.png").getImage();
+		ICLever	= 	new ImageIcon("assets/lever_closed.png").getImage();
+		IOLever	= 	new ImageIcon("assets/lever_open.png").getImage();
+		ICDoor	= 	new ImageIcon("assets/door_closed.png").getImage();
+		IODoor	= 	new ImageIcon("assets/door_open.png").getImage();
 
 	}
 
@@ -186,6 +192,58 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IGuard, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
+	
+	/**
+	 * Draws a closed (red) lever to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawCLever(Graphics g, int x, int y) {
+		double ratio = ICLever.getWidth(null) / ICLever.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(ICLever, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
+
+	/**
+	 * Draws an open (green) lever to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawOLever(Graphics g, int x, int y) {
+		double ratio = IOLever.getWidth(null) / IOLever.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IOLever, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
+	
+	/**
+	 * Draws an open door to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawODoor(Graphics g, int x, int y) {
+		double ratio = IODoor.getWidth(null) / IODoor.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IODoor, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
+	
+	/**
+	 * Draws an open door to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawCDoor(Graphics g, int x, int y) {
+		double ratio = ICDoor.getWidth(null) / ICDoor.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(ICDoor, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
 
 	/**
 	 * Draws the specified entity onto the grid
@@ -223,6 +281,21 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			break;
 		case "Guard":
 			drawGuard(g, coords[0], coords[1]);
+			break;
+		case "Lever":
+			if(((Lever) ent).isOpen()) {
+				drawOLever(g, coords[0], coords[1]);
+			}else {
+				drawCLever(g, coords[0], coords[1]);
+			}
+			break;
+			
+		case "Door":
+			if(((Door) ent).isOpen()) {
+				drawODoor(g, coords[0], coords[1]);
+			}else {
+				drawCDoor(g, coords[0], coords[1]);
+			}
 			break;
 		default:
 			break;
