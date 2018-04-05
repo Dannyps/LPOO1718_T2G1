@@ -34,11 +34,14 @@ public class Gameplay {
 			// Pass the char to the game
 			map.tick(input);
 
-			// update internal variable from map
-			gameEnd = map.isGameOver();
-
 			// Print the map
 			System.out.println(map);
+			
+			// update internal variable from map
+						if(map.isGameOver()) {
+							System.out.println("GAME OVER!");
+							return false;
+						}
 			
 			if(map.isLevelOver()) {
 				try {

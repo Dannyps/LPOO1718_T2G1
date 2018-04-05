@@ -8,13 +8,10 @@ import logic.MapEntities.Guard.RookieGuard;
  * Level 1 (1 guard, no ogres)
  * 
  */
-public class Level1 extends Map {
-	
+public class Level1 extends Map {	
 	public Level1() throws Exception {
 		super("XXXXXXXXXXXH  I X GXXXX XXX  XX I I X  XXXX XXX  XI        XI        XXXX XXXX XX I I XK XXXXXXXXXXX");
 		
-		// specify guards route
-		this.guardRoute = "assssaaaaaasdddddddwwwww";
 		
 		// specify exit doors
 		exitDoors.add((Door)this.map[5][0]);
@@ -52,7 +49,8 @@ public class Level1 extends Map {
 
 	@Override
 	protected Guard parseGuard(int line, int column) {
-		return new RookieGuard(line, column, guardRoute);
+		this.guard = new RookieGuard(line, column, "assssaaaaaasdddddddwwwww");
+		return this.guard;
 	}
 
 }

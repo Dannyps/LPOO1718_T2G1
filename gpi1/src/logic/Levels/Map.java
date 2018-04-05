@@ -11,7 +11,6 @@ public abstract class Map {
 	public GenericMapEntity[][] map;
 	private int gridSize;
 	
-	String guardRoute = "";
 	/**
 	 * Flags for game status
 	 */
@@ -150,48 +149,63 @@ public abstract class Map {
 	
 	
 	public void tick(char c) {
-		// Reset key 
+
+		// Move hero
 		moveHero(c);
-		moveOgres();
-		moveGuard();
+		
+		// Move guard and check if hero is captured
+		if(this.guard != null) {
+			moveGuard();
+		
+			// Verificar se hero e guard estão adjacentes
+			if(areEntitiesAdj(this.hero, this.guard)) {
+				this.gameIsOver = true;
+			}
+		}
+		
+		// Move the ogres
+		
 	}
 	
 	/**
-	 * Moves entities on map
+	 * Moves entities on map unless there's an obstacle such wall or closed door 
 	 * @param e The entity to move
 	 * @param nextPos The new entity coordinates
 	 */
 	protected void moveEntity(GenericMapEntity e, Coordinates nextPos) {
 		Coordinates currPos = e.getCoordinates();
-		
-		// Replace current entity position by an empty entity
-		this.map[currPos.getX()][currPos.getY()] = new Empty(currPos.getX(), currPos.getY());
-		 
-		this.map[nextPos.getX()][nextPos.getY()] = e;
-		e.setCoordinates(nextPos);
+		GenericMapEntity next = this.map[nextPos.getX()][nextPos.getY()];
+		if(next instanceof Door) {
+			// if it's not a closed door
+			if (!((Door) next).isOpen())
+				return;
+		}
+		else if(!(next instanceof Wall)) {
+			// and it's not a wall, move
+			this.map[currPos.getX()][currPos.getY()] = e.getOverlappedEntity();
+			e.setOverlappedEntity(this.map[nextPos.getX()][nextPos.getY()]);
+			e.setCoordinates(nextPos);
+			this.map[nextPos.getX()][nextPos.getY()] = e;
+		}
 	}
 	
 	protected void moveHero(char c) {
 		Coordinates nextPos = this.hero.nextCoordinates(c);
 		GenericMapEntity nextEntity = map[nextPos.getX()][nextPos.getY()];
 		
-		if (nextEntity instanceof Door) {
-			if (!heroMetDoorHandler((Door) nextEntity)) {
-				// Door is closed, don't move
-				return;
-			}
-		}
-		else if (nextEntity instanceof Wall)
-			return;
+		if (nextEntity instanceof Door)
+			heroMetDoorHandler((Door) nextEntity);
 		else if (nextEntity instanceof Lever)
 			heroMetLeverHandler();
 		else if (nextEntity instanceof Key)
 			heroMetKeyHandler();
+		else if (nextEntity instanceof Wall)
+			return;
 
 		// empty space, lever or key, move the hero
 		moveEntity(this.hero, nextPos);
 
-		// if the hero is armed, look for any adjacent ogres when stun them
+		// if the hero is armed, look for any adjacent ogres and stun them
 		if(this.hero.hasClub()) {
 			for(Ogre o : this.ogres) {
 				if(areEntitiesAdj(this.hero, o)) {
@@ -201,6 +215,12 @@ public abstract class Map {
 		}
 	}
 	
+	protected void moveGuard() {
+		if(this.guard != null) {
+			Coordinates nextPos = this.guard.nextCoordinates();
+			moveEntity(this.guard, nextPos);
+		}
+	}
 	protected void moveOgres() {
 		for(Ogre o : this.ogres) {
 			Coordinates nextPos = o.nextCoordinates();
@@ -208,16 +228,6 @@ public abstract class Map {
 				moveEntity(o, nextPos);
 			}
 			// TODO Move the club
-		}
-	}
-	
-	protected void moveGuard() {
-		if(this.guard != null) {
-			Coordinates nextPos = this.guard.nextCoordinates();
-			if(nextPos.toString().equals(" ")) {
-				// empty space, move the hero
-				moveEntity(this.hero, nextPos);
-			}
 		}
 	}
 	
@@ -314,6 +324,10 @@ public abstract class Map {
 			return map[y][x].toString();
 		else
 			return "";
+	}
+	
+	public String getEntityAtPos(Coordinates c) {
+		return getEntityAtPos(c.getX(), c.getY());
 	}
 	
 	/**

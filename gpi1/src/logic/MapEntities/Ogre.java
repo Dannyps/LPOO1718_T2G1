@@ -10,7 +10,7 @@ import logic.Coordinates;
  */
 public class Ogre extends GenericMapEntity {
 
-	private boolean stunned;
+	private boolean stunned = false;
 	private boolean overKey;
 	final int STUNNED_TURNS = 2;
 	private int stunnedTurnsCount = 0;
