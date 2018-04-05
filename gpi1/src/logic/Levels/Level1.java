@@ -35,22 +35,23 @@ public class Level1 extends Map {
 		if(door.isOpen())
 			levelIsOver=true; 
 		return false;
-	}
-
-	@Override
-	public Map getNextLevel() throws Exception {
-		return null; //new Level2();
-	}
+	}	
 
 	@Override
 	protected GenericMapEntity parseK(int line, int column) {
-		return new Lever(line, column);
+		this.lever = new Lever(line, column);
+		return this.lever;
 	}
 
 	@Override
 	protected Guard parseGuard(int line, int column) {
 		this.guard = new RookieGuard(line, column, "assssaaaaaasdddddddwwwww");
 		return this.guard;
+	}
+	
+	@Override
+	public Map getNextLevel() throws Exception {
+		return new Level2();
 	}
 
 }
