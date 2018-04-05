@@ -81,39 +81,18 @@ public class MainWindow {
 	private void initialize() {
 		// MAIN FRAME
 		frame = new JFrame();
-		frame.setBounds(100, 100, 976, 909);
+		frame.setBounds(100, 100, 814, 708);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/**
 		 * TOP PANEL for number of ogres input
 		 */
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 393, 0 };
+		gridBagLayout.columnWidths = new int[] { 393, 142, 0 };
 		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
-		JPanel panel = new JPanel();
-		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.anchor = GridBagConstraints.NORTH;
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 0;
-		frame.getContentPane().add(panel, gbc_panel);
-
-		// Label
-		JLabel label1 = new JLabel("Number of ogres");
-		panel.add(label1);
-
-		// Textfield
-		ogreNo = new JTextField();
-		ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		ogreNo.setText("2");
-		ogreNo.setColumns(3);
-		panel.add(ogreNo);
 
 		try {
 			// UIManager.setLookAndFeel("NIMBUS");
@@ -123,13 +102,34 @@ public class MainWindow {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		JPanel panel = new JPanel();
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.anchor = GridBagConstraints.NORTH;
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 0;
+		frame.getContentPane().add(panel, gbc_panel);
+		
+				// Label
+				JLabel label1 = new JLabel("Number of ogres");
+				panel.add(label1);
+				
+						// Textfield
+						ogreNo = new JTextField();
+						ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
+						ogreNo.setText("2");
+						ogreNo.setColumns(3);
+						panel.add(ogreNo);
 
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.anchor = GridBagConstraints.WEST;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
+		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_2.fill = GridBagConstraints.VERTICAL;
-		gbc_panel_2.gridx = 0;
+		gbc_panel_2.gridx = 1;
 		gbc_panel_2.gridy = 1;
 		frame.getContentPane().add(panel_2, gbc_panel_2);
 
@@ -146,8 +146,8 @@ public class MainWindow {
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
 		gbc_splitPane.anchor = GridBagConstraints.NORTH;
 		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
-		gbc_splitPane.gridx = 0;
+		gbc_splitPane.insets = new Insets(0, 0, 5, 5);
+		gbc_splitPane.gridx = 1;
 		gbc_splitPane.gridy = 2;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
 
@@ -160,7 +160,7 @@ public class MainWindow {
 		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('d');
-				gamePanel.repaint();
+				refreshDisplay();
 			}
 		});
 		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
@@ -170,7 +170,7 @@ public class MainWindow {
 		btnMoveLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('a');
-				gamePanel.repaint();
+				refreshDisplay();
 			}
 		});
 		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
@@ -180,7 +180,7 @@ public class MainWindow {
 		btnMoveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('s');
-				gamePanel.repaint();
+				refreshDisplay();
 			}
 		});
 		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
@@ -190,7 +190,7 @@ public class MainWindow {
 		btnMoveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				game.refresh('w');
-				gamePanel.repaint();
+				refreshDisplay();
 			}
 		});
 		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
@@ -217,7 +217,7 @@ public class MainWindow {
 					e1.printStackTrace();
 				}
 				enableButtons(moveButtonsPanel);
-				gamePanel.repaint();
+				refreshDisplay();
 
 			}
 
@@ -237,11 +237,11 @@ public class MainWindow {
 
 		
 		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
-		gbc_footer_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_footer_panel.gridheight = 2;
+		gbc_footer_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_footer_panel.gridheight = 5;
 		gbc_footer_panel.fill = GridBagConstraints.BOTH;
 		gbc_footer_panel.gridx = 0;
-		gbc_footer_panel.gridy = 3;
+		gbc_footer_panel.gridy = 0;
 		frame.getContentPane().add(gamePanel, gbc_footer_panel);
 		
 		footer_panel = new JPanel();
@@ -249,6 +249,8 @@ public class MainWindow {
 		footer_panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		footer_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GridBagConstraints gbc_footer_panel1 = new GridBagConstraints();
+		gbc_footer_panel1.gridwidth = 2;
+		gbc_footer_panel1.insets = new Insets(0, 0, 0, 5);
 		gbc_footer_panel1.fill = GridBagConstraints.BOTH;
 		gbc_footer_panel1.gridx = 0;
 		gbc_footer_panel1.gridy = 5;
@@ -275,17 +277,17 @@ public class MainWindow {
 
 	}
 
-	public void refreshTextArea() {
+	public void refreshDisplay() {
 		if (game.gameEnd) {
 			if (game.gameWon) {
 				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
-				// TODO update the draw area with the current game state so that the user
-													// understands why they lost.
+				gamePanel.repaint();
 				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
 			System.exit(0);
 		}
+		gamePanel.repaint();
 	}
 
 	/**

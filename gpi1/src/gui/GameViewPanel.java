@@ -56,8 +56,6 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo …
 		if (game != null) {
-			System.out.println(game.gameEnd);
-			System.out.println(game.gameWon);
 			drawGrid(g, 10, 10);
 		}
 			

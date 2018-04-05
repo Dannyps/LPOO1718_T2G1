@@ -47,7 +47,7 @@ public class Guard extends GenericMapEntity {
 	
 	/**
 	 * 
-	 * @param c a character representing the way the hero should move.
+	 * @param c a character representing the way the guard should move.
 	 */
 	protected void moveGuard(char c) {
 		GenericMapEntity futurePos; // the desired position's current occupier
