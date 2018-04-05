@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import cli.Gameplay;
 import logic.MapEntities.GenericMapEntity;
+import logic.MapEntities.Ogre;
 
 @SuppressWarnings("serial")
 public class GameViewPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
@@ -19,7 +20,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 	int qs;
 
-	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ILever;
+	Image IHero, IWall, IGuard, IOgre, IClub, IKey, ILever, IPClb, ISOgr;
 
 	public void updateGame(Gameplay game) {
 		this.game = game;
@@ -37,6 +38,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		IHero = new ImageIcon("assets/hero.png").getImage();
 		IWall = new ImageIcon("assets/wall.png").getImage();
 		IOgre = new ImageIcon("assets/ogre.png").getImage();
+		IClub = new ImageIcon("assets/club.png").getImage();
+		IPClb = new ImageIcon("assets/pickableClub.png").getImage();
+		ISOgr = new ImageIcon("assets/stunnedOgre.png").getImage();
 
 	}
 
@@ -67,7 +71,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 				int ex = e.getCoordinates().x;
 				int ey = e.getCoordinates().y;
 				
-				drawOnQuadricule(g, ey, ex, e.getClass().getName());
+				drawOnQuadricule(g, ey, ex, e);
 			}
 		}
 	}
@@ -84,6 +88,19 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IHero, x + 12, y + 10, (int) (lqs), (int) (lqs * ratio), null);
 	}
+	
+	/**
+	 * Draws Club to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawClub(Graphics g, int x, int y) {
+		double ratio = IClub.getWidth(null) / IClub.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IClub, x + 12, y + 10, (int) (lqs), (int) (lqs * ratio), null);
+	}
 
 	/**
 	 * Draws Wall to g
@@ -99,7 +116,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	}
 	
 	/**
-	 * Draws Wall to g
+	 * Draws Ogre to g
 	 * @param g Graphics
 	 * @param x int x coordinate
 	 * @param y int y coordinate
@@ -110,6 +127,32 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		g.drawImage(IOgre, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
+	
+	/**
+	 * Draws Stunned Ogre to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawSOgr(Graphics g, int x, int y) {
+		double ratio = ISOgr.getWidth(null) / ISOgr.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(ISOgr, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
+	
+	/**
+	 * Draws a Pickable Club to g
+	 * @param g Graphics
+	 * @param x int x coordinate
+	 * @param y int y coordinate
+	 */
+	private void drawPClb(Graphics g, int x, int y) {
+		double ratio = IPClb.getWidth(null) / IPClb.getHeight(null);
+		double lqs = qs * 0.95;
+
+		g.drawImage(IPClb, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+	}
 
 	/**
 	 * Draws the specified entity onto the grid
@@ -118,9 +161,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param y int grid y
 	 * @param ent String representing the Entity's class name.
 	 */
-	void drawOnQuadricule(Graphics g, int x, int y, String ent) {
+	void drawOnQuadricule(Graphics g, int x, int y, GenericMapEntity ent) {
 		int coords[] = calcCoordByQuadricule(x, y);
-		switch (ent.substring(ent.lastIndexOf(".") + 1)) {
+		//ent.substring(ent.lastIndexOf(".") + 1)) {
+
+		switch (ent.getClass().toString().substring(ent.getClass().toString().lastIndexOf(".") + 1)) {
 		case "Hero":
 			drawHero(g, coords[0], coords[1]);
 			break;
@@ -128,7 +173,17 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			drawWall(g, coords[0], coords[1]);
 			break;
 		case "Ogre":
-			drawOgre(g, coords[0], coords[1]);
+			if(((Ogre) ent).isStunned()) {
+				drawSOgr(g, coords[0], coords[1]);
+			}else {
+				drawOgre(g, coords[0], coords[1]);
+			}
+			break;
+		case "OgreClub":
+			drawClub(g, coords[0], coords[1]);
+			break;
+		case "PickableClub":
+			drawPClb(g, coords[0], coords[1]);
 			break;
 		default:
 			break;
