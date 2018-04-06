@@ -76,7 +76,8 @@ public class DrunkenGuard extends Guard {
 			index = 0;
 		else
 			index++;
-
+		//druken guard here
+		
 		// check if guard has caught the hero.
 		for (Direction dir : Direction.values()) {
 			if (this.getNeighbor(dir) instanceof Hero) {
