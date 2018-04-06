@@ -79,89 +79,48 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		// MAIN FRAME
-		frame = new JFrame();
-		frame.setBounds(100, 100, 814, 708);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		/**
-		 * TOP PANEL for number of ogres input
-		 */
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 393, 142, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-		frame.getContentPane().setLayout(gridBagLayout);
-
-		try {
-			// UIManager.setLookAndFeel("NIMBUS");
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		JPanel panel = new JPanel();
-		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.anchor = GridBagConstraints.NORTH;
-		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel.insets = new Insets(0, 0, 5, 0);
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 0;
-		frame.getContentPane().add(panel, gbc_panel);
-		
-		// Label
-		JLabel label1 = new JLabel("Number of ogres");
-		panel.add(label1);
-		
-		// Textfield
-		ogreNo = new JTextField();
-		ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		ogreNo.setText("2");
-		ogreNo.setColumns(3);
-		panel.add(ogreNo);
-
-		JPanel panel_2 = new JPanel();
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.anchor = GridBagConstraints.WEST;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_2.fill = GridBagConstraints.VERTICAL;
-		gbc_panel_2.gridx = 1;
-		gbc_panel_2.gridy = 1;
-		frame.getContentPane().add(panel_2, gbc_panel_2);
-
-		JLabel lblTyeOfGuard = new JLabel("Type of Guard");
-		panel_2.add(lblTyeOfGuard);
-
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Rookie", "Drunken", "Suspicious" }));
-		comboBox.setToolTipText("Select the type of Guard");
-		panel_2.add(comboBox);
-
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setEnabled(false);
-		GridBagConstraints gbc_splitPane = new GridBagConstraints();
-		gbc_splitPane.anchor = GridBagConstraints.NORTH;
-		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_splitPane.insets = new Insets(0, 0, 5, 5);
-		gbc_splitPane.gridx = 1;
-		gbc_splitPane.gridy = 2;
-		frame.getContentPane().add(splitPane, gbc_splitPane);
+		makeMainLayout();
+		makeOgrePanel();
+		JComboBox<String> comboBox = makeGuardPanel();
+		JSplitPane splitPane = makeButtonsPane();
 
 		JPanel moveButtonsPanel = new JPanel();
 		splitPane.setLeftComponent(moveButtonsPanel);
 		moveButtonsPanel.setLayout(new BorderLayout(0, 0));
-
 		addMovementButtons(moveButtonsPanel);
+		makeStartGameButton(comboBox, splitPane, moveButtonsPanel);
+		makeFooterPanel();
+		insertFooter();
+		insertExitButton();
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 1;
+		//panel_1.add(btnNewButton, gbc_btnNewButton);
 
+	}
+
+	/**
+	 * 
+	 */
+	private void makeFooterPanel() {
+		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
+		gbc_footer_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_footer_panel.gridheight = 5;
+		gbc_footer_panel.fill = GridBagConstraints.BOTH;
+		gbc_footer_panel.gridx = 0;
+		gbc_footer_panel.gridy = 0;
+		frame.getContentPane().add(gamePanel, gbc_footer_panel);
+	}
+
+	/**
+	 * @param comboBox
+	 * @param splitPane
+	 * @param moveButtonsPanel
+	 */
+	private void makeStartGameButton(JComboBox<String> comboBox, JSplitPane splitPane, JPanel moveButtonsPanel) {
 		JButton btnStartGame = new JButton("Start Game");
-
 		splitPane.setRightComponent(btnStartGame);
-		// frame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new
-		// Component[]{label1, panel, ogreNo}));
 
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,24 +155,98 @@ public class MainWindow {
 				return nOgres;
 			}
 		});
+	}
 
+	/**
+	 * @return
+	 */
+	private JSplitPane makeButtonsPane() {
+		JSplitPane splitPane = new JSplitPane();
+		splitPane.setEnabled(false);
+		GridBagConstraints gbc_splitPane = new GridBagConstraints();
+		gbc_splitPane.anchor = GridBagConstraints.NORTH;
+		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
+		gbc_splitPane.insets = new Insets(0, 0, 5, 5);
+		gbc_splitPane.gridx = 1;
+		gbc_splitPane.gridy = 2;
+		frame.getContentPane().add(splitPane, gbc_splitPane);
+		return splitPane;
+	}
+
+	/**
+	 * @return
+	 */
+	private JComboBox<String> makeGuardPanel() {
+		JPanel panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.anchor = GridBagConstraints.WEST;
+		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_2.gridx = 1;
+		gbc_panel_2.gridy = 1;
+		frame.getContentPane().add(panel_2, gbc_panel_2);
+
+		JLabel lblTyeOfGuard = new JLabel("Type of Guard");
+		panel_2.add(lblTyeOfGuard);
+
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Rookie", "Drunken", "Suspicious" }));
+		comboBox.setToolTipText("Select the type of Guard");
+		panel_2.add(comboBox);
+		return comboBox;
+	}
+
+	/**
+	 * 
+	 */
+	private void makeOgrePanel() {
+		JPanel panel = new JPanel();
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.anchor = GridBagConstraints.NORTH;
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 0;
+		frame.getContentPane().add(panel, gbc_panel);
 		
-		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
-		gbc_footer_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_footer_panel.gridheight = 5;
-		gbc_footer_panel.fill = GridBagConstraints.BOTH;
-		gbc_footer_panel.gridx = 0;
-		gbc_footer_panel.gridy = 0;
-		frame.getContentPane().add(gamePanel, gbc_footer_panel);
+		// Label
+		JLabel label1 = new JLabel("Number of ogres");
+		panel.add(label1);
 		
-		insertFooter();
+		// Textfield
+		ogreNo = new JTextField();
+		ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		ogreNo.setText("2");
+		ogreNo.setColumns(3);
+		panel.add(ogreNo);
+	}
 
-		insertExitButton();
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 1;
-		//panel_1.add(btnNewButton, gbc_btnNewButton);
+	/**
+	 * 
+	 */
+	private void makeMainLayout() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 814, 708);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 393, 142, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		frame.getContentPane().setLayout(gridBagLayout);
+
+		try {
+			// UIManager.setLookAndFeel("NIMBUS");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 	}
 
 	/**

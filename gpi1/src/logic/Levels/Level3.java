@@ -83,7 +83,7 @@ public class Level3 extends Map {
 				o.club.tick();
 		}
 		// move ogres
-		for (Ogre o : ogres) {
+		for (GenericMapEntity o : ogres) {
 			o.tick();
 		}
 	}

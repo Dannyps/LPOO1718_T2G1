@@ -51,7 +51,7 @@ public class Ogre extends GenericMapEntity {
 			stunned = false;
 		}
 		if (!stunned)
-			moveOgre();
+			move();
 		else {
 
 		}
@@ -111,25 +111,11 @@ public class Ogre extends GenericMapEntity {
 		}
 	}
 
-	private void moveOgre() {
-		GenericMapEntity futurePos = null; // the desired position's current occupier
-		int i = new Random().nextInt(4);
-
-		switch (i) {
-		case 0:
-			futurePos = this.getNeighbor(Direction.TOP);
-			break;
-		case 1:
-			futurePos = this.getNeighbor(Direction.BOTTOM);
-			break;
-		case 2:
-			futurePos = this.getNeighbor(Direction.LEFT);
-			break;
-		case 3:
-			futurePos = this.getNeighbor(Direction.RIGHT);
-			break;
-		}
-
+	private void move() {
+		
+		
+		GenericMapEntity futurePos = getRandomFuturePosOccupier();
+		
 		if (futurePos instanceof Empty) {
 			Coordinates curr, next;
 			curr = this.getCoordinates();

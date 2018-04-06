@@ -3,6 +3,8 @@
  */
 package logic.MapEntities;
 
+import java.util.Random;
+
 import logic.Coordinates;
 import logic.Direction;
 import logic.Levels.Map;
@@ -75,5 +77,36 @@ public abstract class GenericMapEntity {
 	
 	public boolean tick() {
 		return true;
+	}
+
+	/**
+	 * @param c
+	 * @return
+	 */
+	protected GenericMapEntity getFuturePosOccupier(char c) {
+		GenericMapEntity futurePos; // the desired position's current occupier
+		switch (c) {
+		case 'w':
+			futurePos = this.getNeighbor(Direction.TOP);
+			break;
+		case 's':
+			futurePos = this.getNeighbor(Direction.BOTTOM);
+			break;
+		case 'a':
+			futurePos = this.getNeighbor(Direction.LEFT);
+			break;
+		case 'd':
+			futurePos = this.getNeighbor(Direction.RIGHT);
+			break;
+		default:
+			futurePos = null;
+		}
+		return futurePos;
+	}
+
+	protected GenericMapEntity getRandomFuturePosOccupier() {
+		int i = new Random().nextInt(4);
+		return getFuturePosOccupier((new char[] {'w', 's', 'a', 'd'})[i]);
+		
 	}
 }

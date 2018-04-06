@@ -1,11 +1,11 @@
 package logic.MapEntities;
 
 import logic.Coordinates;
-import logic.Direction;
 import logic.Levels.Map;
 
 /**
- * The Hero, aka The Player, must go through all the levels in order to win the game.
+ * The Hero, aka The Player, must go through all the levels in order to win the
+ * game.
  */
 public class Hero extends GenericMapEntity {
 
@@ -20,9 +20,9 @@ public class Hero extends GenericMapEntity {
 	public String toString() {
 		if (hasKey) {
 			return "K";
-		} else if(hasClub) {
+		} else if (hasClub) {
 			return "A";
-		}else {
+		} else {
 			return "H";
 		}
 	}
@@ -38,27 +38,12 @@ public class Hero extends GenericMapEntity {
 	 * @return boolean whether the hero was indeed moved or not.
 	 */
 	private boolean move(char c) {
-		GenericMapEntity futurePos; // the desired position's current occupier
-		switch (c) {
-		case 'w':
-			futurePos = this.getNeighbor(Direction.TOP);
-			break;
-		case 's':
-			futurePos = this.getNeighbor(Direction.BOTTOM);
-			break;
-		case 'a':
-			futurePos = this.getNeighbor(Direction.LEFT);
-			break;
-		case 'd':
-			futurePos = this.getNeighbor(Direction.RIGHT);
-			break;
-		default:
-			futurePos = null;
+		GenericMapEntity futurePos = getFuturePosOccupier(c);
+
+		if (futurePos == null)
 			return false;
-		}
 
 		if (futurePos instanceof Empty) {
-
 			moveTo(futurePos);
 			return true;
 		} else if (futurePos instanceof Lever) {
@@ -69,7 +54,7 @@ public class Hero extends GenericMapEntity {
 			moveTo(futurePos);
 			return true;
 		} else if (futurePos instanceof PickableClub) {
-			hasClub=true;
+			hasClub = true;
 			moveTo(futurePos);
 			return true;
 		} else if (futurePos instanceof Door) {

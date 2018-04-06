@@ -276,11 +276,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			drawWall(g, coords[0], coords[1]);
 			break;
 		case "Ogre":
-			if (((Ogre) ent).isStunned()) {
-				drawSOgr(g, coords[0], coords[1]);
-			} else {
-				drawOgre(g, coords[0], coords[1]);
-			}
+			drawOgre(g, ent, coords);
 			break;
 		case "OgreClub":
 			drawClub(g, coords[0], coords[1]);
@@ -295,24 +291,52 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 			drawGuard(g, coords[0], coords[1]);
 			break;
 		case "Lever":
-			if (((Lever) ent).isOpen()) {
-				drawOLever(g, coords[0], coords[1]);
-			} else {
-				drawCLever(g, coords[0], coords[1]);
-			}
+			drawLever(g, ent, coords);
 			break;
-
 		case "Door":
-			if (((Door) ent).isOpen()) {
-				drawODoor(g, coords[0], coords[1]);
-			} else {
-				drawCDoor(g, coords[0], coords[1]);
-			}
-			break;
-		default:
+			drawDoor(g, ent, coords);
 			break;
 		}
 
+	}
+
+	/**
+	 * @param g
+	 * @param ent
+	 * @param coords
+	 */
+	private void drawDoor(Graphics g, GenericMapEntity ent, int[] coords) {
+		if (((Door) ent).isOpen()) {
+			drawODoor(g, coords[0], coords[1]);
+		} else {
+			drawCDoor(g, coords[0], coords[1]);
+		}
+	}
+
+	/**
+	 * @param g
+	 * @param ent
+	 * @param coords
+	 */
+	private void drawLever(Graphics g, GenericMapEntity ent, int[] coords) {
+		if (((Lever) ent).isOpen()) {
+			drawOLever(g, coords[0], coords[1]);
+		} else {
+			drawCLever(g, coords[0], coords[1]);
+		}
+	}
+
+	/**
+	 * @param g
+	 * @param ent
+	 * @param coords
+	 */
+	private void drawOgre(Graphics g, GenericMapEntity ent, int[] coords) {
+		if (((Ogre) ent).isStunned()) {
+			drawSOgr(g, coords[0], coords[1]);
+		} else {
+			drawOgre(g, coords[0], coords[1]);
+		}
 	}
 
 	private int[] calcCoordByQuadricule(int x, int y) {

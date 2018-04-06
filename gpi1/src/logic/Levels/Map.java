@@ -60,7 +60,7 @@ public abstract class Map {
 	 */
 	protected Hero hero;
 
-	public Hero getHero() {
+	public GenericMapEntity getHero() {
 		return hero;
 	}
 
