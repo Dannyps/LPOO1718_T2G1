@@ -1,13 +1,6 @@
 package logic.Levels;
 
-import java.util.List;
-import java.util.Random;
-
 import logic.MapEntities.*;
-import logic.MapEntities.Guard.DrunkenGuard;
-import logic.MapEntities.Guard.Guard;
-import logic.MapEntities.Guard.RookieGuard;
-import logic.MapEntities.Guard.SuspiciousGuard;
 
 /**
  * Level 1 (1 guard, no ogres)

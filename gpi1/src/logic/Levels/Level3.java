@@ -4,10 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import logic.MapEntities.*;
-import logic.MapEntities.Guard.DrunkenGuard;
-import logic.MapEntities.Guard.Guard;
-import logic.MapEntities.Guard.RookieGuard;
-import logic.MapEntities.Guard.SuspiciousGuard;
 
 /**
  * Level 3 (several ogres, no guard)
