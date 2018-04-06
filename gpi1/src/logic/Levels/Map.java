@@ -182,37 +182,25 @@ public abstract class Map {
 	private void buildMapFromStringSwitch(int line, int column, char c) {
 		switch (c) {
 		case 'X':
-			map[line][column] = new Wall(line, column, this);
+			makeWall(line, column);
 			break;
 		case 'H':
-			this.hero = new Hero(line, column, this);
-			map[line][column] = this.hero;
+			makeHero(line, column);
 			break;
 		case 'I':
-			map[line][column] = new Door(line, column, this);
+			makeDoor(line, column);
 			break;
 		case 'G':
-			Guard g = new Guard(line, column, this);
-			this.guards.add(g);
-			map[line][column] = g;
+			makeGuard(line, column);
 			break;
 		case 'O':
-			Ogre o = new Ogre(line, column, this);
-			this.ogres.add(o);
-			map[line][column] = o;
+			makeOgre(line, column);
 			break;
 		case 'A':
-			this.pickableClub = new PickableClub(line, column, this);
-			map[line][column] = this.pickableClub;
+			makePickableClub(line, column);
 			break;
 		case 'K':
-			if (this instanceof Level1) {
-				this.lever = new Lever(line, column, this);
-				map[line][column] = this.lever;
-			} else {
-				this.key = new Key(line, column, this);
-				map[line][column] = this.key;
-			}
+			makeLeverOrKey(line, column);
 			break;
 		case ' ':
 			map[line][column] = new Empty(line, column, this);
@@ -222,6 +210,74 @@ public abstract class Map {
 			System.exit(-2);
 			break;
 		}
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeLeverOrKey(int line, int column) {
+		if (this instanceof Level1) {
+			this.lever = new Lever(line, column, this);
+			map[line][column] = this.lever;
+		} else {
+			this.key = new Key(line, column, this);
+			map[line][column] = this.key;
+		}
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makePickableClub(int line, int column) {
+		this.pickableClub = new PickableClub(line, column, this);
+		map[line][column] = this.pickableClub;
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeOgre(int line, int column) {
+		Ogre o = new Ogre(line, column, this);
+		this.ogres.add(o);
+		map[line][column] = o;
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeGuard(int line, int column) {
+		Guard g = new Guard(line, column, this);
+		this.guards.add(g);
+		map[line][column] = g;
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeDoor(int line, int column) {
+		map[line][column] = new Door(line, column, this);
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeHero(int line, int column) {
+		this.hero = new Hero(line, column, this);
+		map[line][column] = this.hero;
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 */
+	private void makeWall(int line, int column) {
+		map[line][column] = new Wall(line, column, this);
 	}
 
 	/**
