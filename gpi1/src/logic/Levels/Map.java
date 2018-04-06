@@ -462,4 +462,8 @@ public abstract class Map {
 		return guards;
 	}
 
+	public Lever getLever() {
+		return lever;
+	}
+
 }
