@@ -14,7 +14,7 @@ public class Ogre extends GenericMapEntity {
 	private boolean overKey;
 	final int STUNNED_TURNS = 2;
 	private int stunnedTurnsCount = 0;
-	
+	private OgreClub ogreClub = null;
 
 	/**
 	 * 
@@ -23,6 +23,7 @@ public class Ogre extends GenericMapEntity {
 	 */
 	public Ogre(int x, int y) {
 		super(x, y);
+		ogreClub = new OgreClub(x, y);
 	}
 	
 	/**
@@ -33,7 +34,7 @@ public class Ogre extends GenericMapEntity {
 		Coordinates current = this.coordinates.clone();
 		int i = new Random().nextInt(4);
 
-		switch (3) {
+		switch (i) {
 		case 0:
 			current.moveUp();
 			break;
@@ -80,6 +81,14 @@ public class Ogre extends GenericMapEntity {
 	 */
 	public void setOverKey(boolean overKey) {
 		this.overKey = overKey;
+	}
+	
+	public OgreClub getOgreClub() {
+		return ogreClub;
+	}
+
+	public void setOgreClub(OgreClub ogreClub) {
+		this.ogreClub = ogreClub;
 	}
 
 	@Override

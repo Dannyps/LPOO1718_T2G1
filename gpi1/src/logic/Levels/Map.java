@@ -169,21 +169,23 @@ public abstract class Map {
 	 * @param e The entity to move
 	 * @param nextPos The new entity coordinates
 	 */
-	protected void moveEntity(GenericMapEntity e, Coordinates nextPos) {
+	protected boolean moveEntity(GenericMapEntity e, Coordinates nextPos) {
 		Coordinates currPos = e.getCoordinates();
 		GenericMapEntity next = this.map[nextPos.getX()][nextPos.getY()];
 		if(next instanceof Door) {
-			// if it's not a closed door
+			// if it's a closed door
 			if (!((Door) next).isOpen())
-				return;
+				return false;
 		}
-		else if(!(next instanceof Wall)) {
+		if(!(next instanceof Wall)) {
 			// and it's not a wall, move
 			this.map[currPos.getX()][currPos.getY()] = e.getOverlappedEntity();
 			e.setOverlappedEntity(this.map[nextPos.getX()][nextPos.getY()]);
 			e.setCoordinates(nextPos);
 			this.map[nextPos.getX()][nextPos.getY()] = e;
+			return true;
 		}
+		return false;
 	}
 	
 	protected void moveHero(char c) {
@@ -225,6 +227,9 @@ public abstract class Map {
 	
 	protected void moveOgres() {
 		for(Ogre o : this.ogres) {
+			// Delete this ogre club on map
+			Coordinates ogreClub = o.getOgreClub().getCoordinates();
+			map[ogreClub.getX()][ogreClub.getY()] = new Empty(ogreClub.getX(), ogreClub.getY());
 			Coordinates nextPos = o.nextCoordinates();
 			moveEntity(o, nextPos);
 			
@@ -235,12 +240,37 @@ public abstract class Map {
 				o.setOverKey(false);
 			
 			// check if ogre is adjacent to hero
-			
 			if(areEntitiesAdj(this.hero, o)) {
 				this.gameIsOver = true;
 			}
+			
 			// TODO Move the club
+			moveOgreClub(o);
 		}
+	}
+	
+	protected void moveOgreClub(Ogre o) {
+		OgreClub oc = o.getOgreClub();
+		
+		if(oc != null) {
+			// restore previous entity
+			map[oc.getCoordinates().getX()][oc.getCoordinates().getY()] = oc.getOverlappedEntity();
+		}
+		else {
+			
+		}
+		
+		System.out.println(o.getCoordinates().toString());
+		System.out.println(oc.getOverlappedEntity().toString());
+		// Move the club
+		Coordinates next = oc.nextCoordinates(o.getCoordinates());
+
+		while(!moveEntity(oc, next)) {
+			oc.nextCoordinates(o.getCoordinates());
+		}
+		
+		System.out.println(oc.getCoordinates().toString());
+		
 	}
 	
 	/// Getters and setters
