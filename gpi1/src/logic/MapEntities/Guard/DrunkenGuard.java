@@ -99,18 +99,7 @@ public class DrunkenGuard extends Guard {
 		} else
 			return "G";
 	}
-
-	protected void randomRevertRoute() {
-		if (new Random().nextBoolean()) {
-			// reverse route
-			for (int i = 0; i < route.length / 2; i++) {
-				char temp = route[i];
-				route[i] = route[route.length - i - 1];
-				route[route.length - i - 1] = temp;
-			}
-		}
-	}
-
+	
 	public boolean isSleeping() {
 		return sleeping;
 	}
