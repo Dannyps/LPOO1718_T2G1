@@ -19,6 +19,8 @@ public class Gameplay {
 	public boolean gameEnd = false;
 	
 	public boolean gameWon = false;
+	
+	public boolean newLevel = false;
 
 
 	/**
@@ -38,6 +40,9 @@ public class Gameplay {
 	 * @param input char w, a, s or d.
 	 */
 	public boolean refresh(char input) {
+		if(gameEnd)
+			return false;
+		
 		if (input == 'a' || input == 'd' || input == 'w' || input == 's') {
 			// Pass the char to the game
 			level.input(input);
@@ -51,11 +56,15 @@ public class Gameplay {
 			if (level.isLevelOver()) {
 				try {
 					loadNextLevel();
+					newLevel = true;
 				} catch (Exception e) {
 					// TODO understand this exception
 					e.printStackTrace();
 
 				}
+			}
+			else {
+				newLevel = false;
 			}
 		}
 		if (input == 'i') { // interrupt

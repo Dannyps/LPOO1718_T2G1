@@ -38,7 +38,9 @@ public class MainWindow {
 	private JTextField ogreNo;
 	JPanel gamePanel = new GameViewPanel(this);
 	Gameplay game;
-	private JPanel footer_panel;
+	private JPanel footer_panel; 
+	private JPanel moveButtonsPanel; // a reference to the panel containing move buttons
+	private JLabel lbl_gameStatus; // a reference to the game status label
 
 	/**
 	 * Launch the application.
@@ -85,7 +87,7 @@ public class MainWindow {
 		JComboBox<String> comboBox = makeGuardPanel();
 		JSplitPane splitPane = makeButtonsPane();
 
-		JPanel moveButtonsPanel = new JPanel();
+		moveButtonsPanel = new JPanel();
 		splitPane.setLeftComponent(moveButtonsPanel);
 		moveButtonsPanel.setLayout(new BorderLayout(0, 0));
 		addMovementButtons(moveButtonsPanel);
@@ -130,8 +132,11 @@ public class MainWindow {
 							return;
 						}
 					}
-
-					game = new Gameplay(new MapArgs(parseOgreNumber(), comboBox.getSelectedIndex()));
+					// Validate number of ogres
+					int nOgres = parseOgreNumber();
+					if(nOgres == -1)
+						return;
+					game = new Gameplay(new MapArgs(nOgres, comboBox.getSelectedIndex()));
 					((GameViewPanel) gamePanel).updateGame(game);
 				} catch (Exception e1) {
 					// TODO care bad map (internal error)
@@ -143,14 +148,19 @@ public class MainWindow {
 			}
 
 			/**
-			 * @return the number on the textBox, or 2 if no value can be read.
+			 * @return the number on the textBox, -1 if number is invalid or out of range
 			 */
 			private int parseOgreNumber() {
 				int nOgres;
 				try {
 					nOgres = Integer.parseInt(ogreNo.getText());
+					if(nOgres < 1 || nOgres > 5) {
+						showAlertMessage("The number of ogres permitted is [1,5]", JOptionPane.INFORMATION_MESSAGE);
+						return -1;
+					}
 				} catch (NumberFormatException e1) {
-					nOgres = 2; // default value
+					showAlertMessage("Invalid number format!", JOptionPane.ERROR_MESSAGE);
+					return -1;
 				}
 				return nOgres;
 			}
@@ -286,12 +296,13 @@ public class MainWindow {
 		frame.getContentPane().add(footer_panel, gbc_footer_panel1);
 		footer_panel.setLayout(new BoxLayout(footer_panel, BoxLayout.X_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("Loaded Successfully");
-		lblNewLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		lblNewLabel.setHorizontalTextPosition(SwingConstants.LEFT);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		footer_panel.add(lblNewLabel);
+		JLabel lblSatus = new JLabel("Loaded Successfully");
+		lblSatus.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblSatus.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblSatus.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSatus.setVerticalAlignment(SwingConstants.TOP);
+		footer_panel.add(lblSatus);
+		this.lbl_gameStatus = lblSatus;
 	}
 
 	/**
@@ -342,13 +353,20 @@ public class MainWindow {
 	public void refreshDisplay() {
 		if (game.gameEnd) {
 			if (game.gameWon) {
+				this.lbl_gameStatus.setText("You won!");
 				showAlertMessage("You won!", JOptionPane.CLOSED_OPTION);
 			} else {
+				this.lbl_gameStatus.setText("You lost!");
+				disableButtons(moveButtonsPanel);
 				gamePanel.repaint();
 				showAlertMessage("You lost!", JOptionPane.ERROR_MESSAGE);
 			}
-			System.exit(0);
 		}
+		else if (game.newLevel)
+			this.lbl_gameStatus.setText("Hurray, level");
+		else
+			this.lbl_gameStatus.setText("Playing...");
+			
 		gamePanel.repaint();
 	}
 
@@ -359,10 +377,18 @@ public class MainWindow {
 		JOptionPane.showMessageDialog(frame, msg, msg, messageType);
 	}
 
-	private void enableButtons(JPanel panel_1) {
-		for (Component c : panel_1.getComponents()) {
+	private void enableButtons(JPanel panel) {
+		for (Component c : panel.getComponents()) {
 			if (c instanceof JButton) {
 				c.setEnabled(true);
+			}
+		}
+	}
+	
+	private void disableButtons(JPanel panel) {
+		for (Component c : panel.getComponents()) {
+			if (c instanceof JButton) {
+				c.setEnabled(false);
 			}
 		}
 	}
