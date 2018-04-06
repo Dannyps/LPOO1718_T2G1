@@ -4,24 +4,47 @@ import java.util.Random;
 
 import logic.Direction;
 import logic.Levels.Map;
+import logic.MapEntities.GenericMapEntity;
 import logic.MapEntities.Hero;
 
 public class DrunkenGuard extends Guard {
+	// flag to tell if the guard is sleeping
 	private boolean sleeping;
-
+	
+	/**
+	 * @see GenericMapEntity#GenericMapEntity(int x, int y, Map map)
+	 */
 	public DrunkenGuard(int x, int y, Map map) {
 		super(x, y, map);
 		this.sleeping = false;
 	}
+	
 
-	@Override
-	public String toString() {
-		if (sleeping) {
-			return "g";
-		} else
-			return "G";
+	/**
+	 * Randomly wakes up the guard or set it to sleep
+	 * @return true if the guard is now sleeping, false otherwise
+	 */
+	protected boolean randomGuardSleep() {
+		return this.sleeping = new Random().nextBoolean();
 	}
-
+	
+	/**
+	 * Randomly reverts the guard route
+	 */
+	protected void randomRevertRoute() {
+		if (new Random().nextBoolean()) {
+			// reverse route
+			for (int i = 0; i < route.length / 2; i++) {
+				char temp = route[i];
+				route[i] = route[route.length - i - 1];
+				route[route.length - i - 1] = temp;
+			}
+		}
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean tick() {
 		/**
@@ -64,24 +87,17 @@ public class DrunkenGuard extends Guard {
 
 		return true;
 	}
-
+	
 	/**
-	 * Randomly wakes up the guard or set it to sleep
-	 * It changes the flag sleeping
-	 * @return true if the guard is now sleeping
+	 * {@inheritDoc}
+	 * @return "g" if the guard is sleeping, else "G"
 	 */
-	protected boolean randomGuardSleep() {
-		return this.sleeping = new Random().nextBoolean();
+	@Override
+	public String toString() {
+		if (sleeping) {
+			return "g";
+		} else
+			return "G";
 	}
 
-	protected void randomRevertRoute() {
-		if (new Random().nextBoolean()) {
-			// reverse route
-			for (int i = 0; i < route.length / 2; i++) {
-				char temp = route[i];
-				route[i] = route[route.length - i - 1];
-				route[route.length - i - 1] = temp;
-			}
-		}
-	}
 }

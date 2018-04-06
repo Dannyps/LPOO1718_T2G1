@@ -7,11 +7,17 @@ import logic.Levels.Map;
  *
  */
 public class PickableClub extends GenericMapEntity {
-
+	/**
+	 * @see GenericMapEntity#GenericMapEntity(int x, int y, Map map)
+	 */
 	public PickableClub(int x, int y, Map map) {
 		super(x, y, map);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 * @return "A"
+	 */
 	@Override
 	public String toString() {
 		return "A";

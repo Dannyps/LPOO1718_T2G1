@@ -4,17 +4,15 @@ import logic.Direction;
 import logic.Levels.Map;
 
 /**
- * The Ogre's club is a dangerous tool it uses to kill the hero.
+ * The Ogre's club is a dangerous tool used to kill the hero.
  */
 public class OgreClub extends GenericMapEntity {
-
+	
+	/**
+	 * @see GenericMapEntity#GenericMapEntity(int x, int y, Map map)
+	 */
 	public OgreClub(int x, int y, Map map) {
 		super(x, y, map);
-	}
-
-	@Override
-	public String toString() {
-		return "*";
 	}
 
 	@Override
@@ -31,6 +29,15 @@ public class OgreClub extends GenericMapEntity {
 		map.getMap()[this.getCoordinates().x][this.getCoordinates().y] = new Empty(this.getCoordinates().x,
 				this.getCoordinates().y, map);
 		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @return "*"
+	 */
+	@Override
+	public String toString() {
+		return "*";
 	}
 
 }

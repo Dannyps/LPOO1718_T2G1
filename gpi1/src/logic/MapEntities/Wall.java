@@ -7,11 +7,17 @@ import logic.Levels.Map;
  */
 public class Wall extends GenericMapEntity {
 
-		
+	/**
+	 * @see GenericMapEntity#GenericMapEntity(int x, int y, Map map)
+	 */	
 	public Wall(int x, int y, Map map) {
 		super(x, y, map);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * @return "X"
+	 */
 	@Override
 	public String toString() {
 		return "X";
