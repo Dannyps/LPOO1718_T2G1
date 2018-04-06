@@ -77,7 +77,7 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		int ss = game.getLevel().getMap().length; // squareSide
 		qs = (int) (Integer.min(getSize().width, getSize().height) / (ss + 1));
 
-		makeGrid(g, x, y, qs, ss);
+		makeGrid(g, new int[] {x, y}, qs, ss);
 		for (GenericMapEntity[] mapRows : game.getLevel().getMap()) {
 			for (GenericMapEntity e : mapRows) {
 				int ex = e.getCoordinates().x;
@@ -350,7 +350,8 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param qs int
 	 * @param ss int
 	 */
-	private void makeGrid(Graphics g, int x, int y, int qs, int ss) {
+	private void makeGrid(Graphics g, int c[], int qs, int ss) {
+		int x = c[0], y = c[1];
 		for (int i = 0; i <= ss; i++) {
 			g.drawLine(x + i * qs, y, x + i * qs, y + ss * qs);
 		}
