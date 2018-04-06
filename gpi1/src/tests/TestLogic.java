@@ -84,7 +84,7 @@ class TestLogic {
 		lv = new Level1(new MapArgs(2,1));
 		Coordinates lastC = new Coordinates(0,0);
 		Coordinates currC = lv.getGuards().get(0).getCoordinates();
-		// test game ends when hero activates the lever and goes for the exit, avoiding the guard
+
 		
 		boolean guardStopped =false;
 		while(!guardStopped && c <1000) {
@@ -99,6 +99,35 @@ class TestLogic {
 		}
 		
 		fail("Could not verify the guard stops after 1000 iterations.");
+	}
+	
+	/**
+	 * This test ensures the drunken guard eventually falls asleep.
+	 * @throws Exception if the map is invalid
+	 */
+	@Test
+	public void testSuspiciousGuardLooksBack() throws Exception {
+		int c = 0;
+		Map lv;
+		lv = new Level1(new MapArgs(2,2));
+		Coordinates lastC = new Coordinates(0,0);
+		Coordinates lastC2 = new Coordinates(0,0);
+		Coordinates currC = lv.getGuards().get(0).getCoordinates();
+		
+		boolean guardStopped =false;
+		while(!guardStopped && c <1000) {
+			lv.input('a'); // do not leave the spawn point
+			currC = lv.getGuards().get(0).getCoordinates();
+			if(currC == lastC2) {
+				assertTrue(true);
+				return;
+			}
+			lastC = currC;
+			lastC2=lastC;
+			c++;
+		}
+		
+		fail("Could not verify the guard looks back after 1000 iterations.");
 	}
 	
 }
