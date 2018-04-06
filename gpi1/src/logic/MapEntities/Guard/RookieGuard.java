@@ -4,6 +4,7 @@ import logic.Levels.Map;
 
 /**
  * @see Guard
+ * This guard follows the pre-defined route no matter what.
  *
  */
 public class RookieGuard extends Guard {

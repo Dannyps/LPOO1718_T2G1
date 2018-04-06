@@ -4,12 +4,14 @@ import java.io.Serializable;
 
 /**
  * A JavaBean to store Map Arguments
- * @param nOgres int The number of ogres passed to the map, should it require it. Defaults to 0.
- * @param guardType int The type of guard passed to the map, should it require it. Defaults to 0.
+ * 
+ * @param nOgres    int The number of ogres passed to the map, should it require
+ *                  it. Defaults to 0.
+ * @param guardType int The type of guard passed to the map, should it require
+ *                  it. Defaults to 0.
  *
  */
 public final class MapArgs implements Serializable {
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -35,16 +37,25 @@ public final class MapArgs implements Serializable {
 		this.guardType = guardType;
 	}
 
-	private int nOgres=0;
-	
+	/**
+	 * The number of Ogres on the keep level
+	 */
+	private int nOgres = 0;
+
 	public int getnOgres() {
 		return nOgres;
 	}
-	
-	private int guardType=0;
-	
+
+	/**
+	 * The type of guard on the first level:<br>
+	 * 0 - Rookie <br>
+	 * 1 - Drunken <br>
+	 * 2 - Suspicious
+	 */
+	private int guardType = 0;
+
 	public int getGuardType() {
 		return guardType;
 	}
-	
+
 }

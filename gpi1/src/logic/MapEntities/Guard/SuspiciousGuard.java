@@ -7,6 +7,10 @@ import logic.Levels.Map;
 import logic.MapEntities.GenericMapEntity;
 import logic.MapEntities.Hero;
 
+
+/**
+ * This guard is Mister big ears! Will turn around for anything.
+ */
 public class SuspiciousGuard extends Guard {
 	
 	/**

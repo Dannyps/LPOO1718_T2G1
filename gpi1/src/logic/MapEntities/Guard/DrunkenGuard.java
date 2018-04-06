@@ -7,6 +7,9 @@ import logic.Levels.Map;
 import logic.MapEntities.GenericMapEntity;
 import logic.MapEntities.Hero;
 
+/**
+ * This guard is rather confused about its route.
+ */
 public class DrunkenGuard extends Guard {
 	// flag to tell if the guard is sleeping
 	private boolean sleeping;

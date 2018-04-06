@@ -11,6 +11,9 @@ import logic.MapEntities.Guard.Guard;
 import logic.MapEntities.Guard.RookieGuard;
 import logic.MapEntities.Guard.SuspiciousGuard;
 
+/**
+ * All levels must be extensions of this.
+ */
 public abstract class Map {
 	protected GenericMapEntity[][] map;
 	
