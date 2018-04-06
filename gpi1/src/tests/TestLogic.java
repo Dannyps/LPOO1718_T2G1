@@ -72,4 +72,33 @@ class TestLogic {
 			lv.input(getRandomDirection());
 		}
 	}
+	
+	/**
+	 * This test ensures the drunken guard eventually falls asleep.
+	 * @throws Exception if the map is invalid
+	 */
+	@Test
+	public void testDrunkenGuardFallsAsleep() throws Exception {
+		int c = 0;
+		Map lv;
+		lv = new Level1(new MapArgs(2,1));
+		Coordinates lastC = new Coordinates(0,0);
+		Coordinates currC = lv.getGuards().get(0).getCoordinates();
+		// test game ends when hero activates the lever and goes for the exit, avoiding the guard
+		
+		boolean guardStopped =false;
+		while(!guardStopped && c <1000) {
+			lv.input('a'); // do not leave the spawn point
+			currC = lv.getGuards().get(0).getCoordinates();
+			if(currC == lastC) {
+				assertTrue(true);
+				return;
+			}
+			lastC = currC;
+			c++;
+		}
+		
+		fail("Could not verify the guard stops after 1000 iterations.");
+	}
+	
 }

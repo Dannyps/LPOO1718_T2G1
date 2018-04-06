@@ -421,4 +421,8 @@ public abstract class Map {
 		}
 	}
 
+	public List<Guard> getGuards() {
+		return guards;
+	}
+
 }
