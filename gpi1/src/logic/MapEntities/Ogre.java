@@ -57,18 +57,7 @@ public class Ogre extends GenericMapEntity {
 		}
 		
 		// check if ogre has caught the hero.
-		for (Direction dir : Direction.values()) {
-			if (this.getNeighbor(dir) instanceof Hero) {
-				Hero h = (Hero) this.getNeighbor(dir);
-				if (h.hasClub) {
-					this.stunned = true;
-					this.stunnedCount = 3;
-				} else {
-					// caught!
-					this.map.setGameIsOver(true);
-				}
-			}
-		}
+		checkOgreCaughtHero_adj();
 
 		if (hasClub) {
 			generateClub();
@@ -84,6 +73,24 @@ public class Ogre extends GenericMapEntity {
 		}
 
 		return true;
+	}
+
+	/**
+	 * 
+	 */
+	private void checkOgreCaughtHero_adj() {
+		for (Direction dir : Direction.values()) {
+			if (this.getNeighbor(dir) instanceof Hero) {
+				Hero h = (Hero) this.getNeighbor(dir);
+				if (h.hasClub) {
+					this.stunned = true;
+					this.stunnedCount = 3;
+				} else {
+					// caught!
+					this.map.setGameIsOver(true);
+				}
+			}
+		}
 	}
 
 	private void generateClub() {

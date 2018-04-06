@@ -286,16 +286,33 @@ public abstract class Map {
 	public String toString() {
 
 		String ret = new String();
+		ret = makeStringMapHeader(ret);
+		ret = makeStringMapBody(ret);
+		ret = makeStringMapFooter(ret);
+		return ret;
+	}
 
-		// Make Header
+	/**
+	 * @param ret
+	 * @return
+	 */
+	private String makeStringMapFooter(String ret) {
+		// Make Footer
 		{
-			ret += "┌─";
+			ret += "└─";
 			for (int i = 0; i < this.gridSize - 1; i++) {
-				ret += "┬─";
+				ret += "┴─";
 			}
-			ret += "┐\n";
+			ret += "┘\n";
 		}
+		return ret;
+	}
 
+	/**
+	 * @param ret
+	 * @return
+	 */
+	private String makeStringMapBody(String ret) {
 		// Make Body
 		{
 
@@ -317,14 +334,21 @@ public abstract class Map {
 			}
 
 		}
+		return ret;
+	}
 
-		// Make Footer
+	/**
+	 * @param ret
+	 * @return
+	 */
+	private String makeStringMapHeader(String ret) {
+		// Make Header
 		{
-			ret += "└─";
+			ret += "┌─";
 			for (int i = 0; i < this.gridSize - 1; i++) {
-				ret += "┴─";
+				ret += "┬─";
 			}
-			ret += "┘\n";
+			ret += "┐\n";
 		}
 		return ret;
 	}

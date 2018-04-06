@@ -50,23 +50,7 @@ public class Guard extends GenericMapEntity {
 	 * @param c a character representing the way the guard should move.
 	 */
 	protected void moveGuard(char c) {
-		GenericMapEntity futurePos; // the desired position's current occupier
-		switch(c) {
-		case 'w':
-			futurePos = this.getNeighbor(Direction.TOP);
-			break;
-		case 's':
-			futurePos = this.getNeighbor(Direction.BOTTOM);
-			break;
-		case 'a':
-			futurePos = this.getNeighbor(Direction.LEFT);
-			break;
-		case 'd':
-			futurePos = this.getNeighbor(Direction.RIGHT);
-			break;
-		default:
-			futurePos = null;
-		}
+		GenericMapEntity futurePos = getFuturePosOccupier(c);
 		
 		if(futurePos instanceof Empty) {
 			Coordinates curr, next;
