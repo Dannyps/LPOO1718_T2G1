@@ -12,7 +12,12 @@ import logic.MapEntities.*;
 public class Level3 extends Map {
 	
 	MapArgs ma;
-
+	
+	/**
+	 * Constructor
+	 * @param ma The arguments defined by user on GUI
+	 * @throws Exception Exception If the pre-defined is not a valid map
+	 */
 	public Level3(MapArgs ma) throws Exception {
 		super("XXXXXXXXXI      KXX       XX       XX       XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door) map[1][0]);
@@ -43,6 +48,9 @@ public class Level3 extends Map {
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void input(char input) {
 		// move hero
@@ -59,6 +67,9 @@ public class Level3 extends Map {
 		}
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map getNextLevel() {
 		return null;

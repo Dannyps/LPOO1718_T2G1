@@ -15,101 +15,41 @@ import logic.MapEntities.Guard.SuspiciousGuard;
  * All levels must be extensions of this.
  */
 public abstract class Map {
-	protected GenericMapEntity[][] map;
+	protected GenericMapEntity[][] map; // matrix of entities
+	private int gridSize; // assuming the grid is a square, this represents the side length
+	private char buffer; // a buffer for the user input (used to control the hero)
 	
+	//
+	// Flags for game status
+	boolean isHeroCaptured; 
+	boolean isHeroOnStairs;
+	boolean gameIsOver;
+	boolean levelIsOver;
+	
+	protected MapArgs args; // A class representing the user options on GUI
 	public GenericMapEntity[][] getMap() {
 		return map;
 	}
 
-	private int gridSize;
+	// 
+	// References to entities on map
+	protected Hero hero; // A direct reference to the Hero
+	protected List<Ogre> ogres; // A direct reference to the Ogres (if any).
+	protected List<Guard> guards; // A direct reference to the Ogres (if any).
+	protected PickableClub pickableClub; // A direct reference to the Ogre (if any).
+	protected List<Door> exitDoors; // A direct reference to all doors on map
+	protected Lever lever; // A direct reference to lever
+	protected Key key; // A direct reference to key
 
-	public abstract Map getNextLevel() throws Exception;
-
-	/**
-	 * 
-	 * @return an integer representing the level name.
-	 */
-	public int toInt() {
-		String str = this.getClass().getName();
-		return Integer.parseInt(str.substring(str.length() - 1));
-	}
-
-	public int getGridSize() {
-		return gridSize;
-	}
-
-	protected MapArgs args;
-
-	private char buffer;
-	boolean isHeroCaptured;
-	boolean isHeroOnStairs;
-	boolean gameIsOver;
-	boolean levelIsOver;
-
-	public boolean isLevelOver() {
-		return levelIsOver;
-	}
-
-	public void setLevelIsOver(boolean levelIsOver) {
-		this.levelIsOver = levelIsOver;
-	}
-
-	public void setGameIsOver(boolean gameIsOver) {
-		this.gameIsOver = gameIsOver;
-	}
-
-	public boolean isGameOver() {
-		return gameIsOver;
-	}
-
-	/**
-	 * A direct reference to the Hero.
-	 */
-	protected Hero hero;
-
-	public GenericMapEntity getHero() {
-		return hero;
-	}
-
-	/**
-	 * A direct reference to the Ogres (if any).
-	 */
-	protected List<Ogre> ogres;
-
-	/**
-	 * A direct reference to the Ogres (if any).
-	 */
-	protected List<Guard> guards;
-
-	/**
-	 * A direct reference to the Ogre (if any).
-	 */
-	protected PickableClub pickableClub;
-
-	/**
-	 * A direct reference to all doors on map
-	 */
-	protected List<Door> exitDoors;
-
-	/**
-	 * A direct reference to lever
-	 */
-	protected Lever lever;
-
-	/**
-	 * A direct reference to key
-	 */
-	protected Key key;
-
+	
 	/**
 	 * Constructor
 	 * 
 	 * @param str A string that represents the game map
-	 * @throws Exception
+	 * @throws Exception If the string is not a valid map
 	 */
 	public Map(String str) throws Exception {
 		//load arguments
-		
 		
 		int strlen = str.length();
 		// Assuming the map is a square
@@ -131,10 +71,8 @@ public abstract class Map {
 	}
 	
 	/**
-	 * Constructor
-	 * 
-	 * @param str A string that represents the game map
-	 * @throws Exception
+	 * @see Map#Map(String)
+	 * @param args The arguments defined by user on GUI
 	 */
 	public Map(String str, MapArgs args) throws Exception {
 		this.args = args;
@@ -157,38 +95,8 @@ public abstract class Map {
 		buildMapFromString(str);
 	}
 	
-	
-	/**
-	 * @return List<Empty> A list of all the positions suitable to deploy a foe.
-	 */
-	public List<Empty> getEmptyPositions() {
-		List<Empty> emptySpaces = new ArrayList<Empty>();
-		
-		for (GenericMapEntity[] mapRow : map) {
-			for (GenericMapEntity ent : mapRow) {
-				if(ent instanceof Empty) {
-					boolean redFlag = false;
-					for (Direction dir : Direction.values()) {
-						//System.out.println(ent.getNeighbor(dir));
-						if(ent.getNeighbor(dir) instanceof Hero) {
-							redFlag = true;
-						}
-					}
-					
-					if(!redFlag) {
-						// this Empty position is adjacent-player-free.
-						emptySpaces.add((Empty) ent);	
-						//System.out.println(ent.getCoordinates().x + ", " + ent.getCoordinates().y);
-					}
-				}
-			}
-		}
-		return emptySpaces;
-	}
-
 	/**
 	 * Constructs the map, filling it with the entities
-	 * 
 	 * @param str A string representing the map
 	 */
 	private void buildMapFromString(String str) {
@@ -205,11 +113,12 @@ public abstract class Map {
 		}
 
 	}
-
+	
 	/**
-	 * @param line
-	 * @param column
-	 * @param c
+	 * This method is responsible of interpreting the map string and create the entities
+	 * 
+	 * @param coords Array of the entity coordinates [x,y]
+	 * @param c The entity char representation
 	 */
 	private void buildMapFromStringSwitch(int coords[], char c) {
 		int line = coords[0], column = coords[1];
@@ -246,6 +155,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets a lever/key on the map
 	 * @param line
 	 * @param column
 	 */
@@ -260,6 +170,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets the hero pickable club on the map
 	 * @param line
 	 * @param column
 	 */
@@ -269,6 +180,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets the ogre on the map
 	 * @param line
 	 * @param column
 	 */
@@ -279,6 +191,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets the guard on the map
 	 * @param line
 	 * @param column
 	 */
@@ -298,6 +211,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets doors on the map
 	 * @param line
 	 * @param column
 	 */
@@ -306,6 +220,7 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets the hero on the map
 	 * @param line
 	 * @param column
 	 */
@@ -315,25 +230,57 @@ public abstract class Map {
 	}
 
 	/**
+	 * Sets walls on the map
 	 * @param line
 	 * @param column
 	 */
 	private void makeWall(int line, int column) {
 		map[line][column] = new Wall(line, column, this);
 	}
-
+	
+	/// Handlers return true or false, indicating whether the first entity should be
+	/// moved to the futurePosition or not.
+	
 	/**
-	 * return a string representation of the map.
+	 * Handler called when the hero reaches the key. It updates the hero status and backs-up a reference to the key
+	 * @return
 	 */
-	public String toString() {
-
-		String ret = new String();
-		ret = makeStringMapHeader(ret);
-		ret = makeStringMapBody(ret);
-		ret = makeStringMapFooter(ret);
-		return ret;
+	public boolean heroMetKeyHandler() {
+		hero.hasKey = true;
+		Coordinates cKC = key.getCoordinates(); // current Key Coordinates
+		map[cKC.x][cKC.y] = new Empty(cKC.x, cKC.y, this); // make the old Key position become empty
+		return true;
 	}
-
+	
+	/**
+	 * Handler called when the hero reaches the lever. It opens all exit doors
+	 * @return
+	 */
+	public boolean heroMetLeverHandler() {
+		getExitDoors().forEach(door -> door.setOpen(true));
+		lever.setOpen();
+		return false;
+	}
+	
+	/**
+	 * Handler called when the hero reaches a door. 
+	 * @param door
+	 * @return
+	 */
+	public boolean heroMetDoorHandler(Door door) {
+		if(!door.isOpen() && hero.hasKey) {
+			door.setOpen(true);
+			return false;
+		}else if(door.isOpen()) {
+			this.levelIsOver=true;
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	/// functions to build a string representing the map
+	
 	/**
 	 * @param ret
 	 * @return
@@ -394,7 +341,28 @@ public abstract class Map {
 		}
 		return ret;
 	}
+	
+	/**
+	 * return a string representation of the map.
+	 */
+	public String toString() {
 
+		String ret = new String();
+		ret = makeStringMapHeader(ret);
+		ret = makeStringMapBody(ret);
+		ret = makeStringMapFooter(ret);
+		return ret;
+	}
+	
+	/**
+	 * Handles user input (to control the hero)
+	 * @param input
+	 */
+	public void input(char input) {
+		this.setBuffer(input);
+		hero.tick();
+	}
+	
 	/**
 	 * 
 	 * @param x x Coordinate
@@ -407,66 +375,153 @@ public abstract class Map {
 		else
 			return "";
 	}
-
-	public void input(char input) {
-		this.setBuffer(input);
-		hero.tick();
-	}
-
+	
+	/**
+	 * A list of all exit doors on this map
+	 * @return List<Door> of exit doors
+	 */
 	public List<Door> getExitDoors() {
 		return this.exitDoors;
 	}
-
-	/// Handlers return true or false, indicating whether the first entity should be
-	/// moved to the futurePosition or not.
-
-	public char getBuffer() {
-		return buffer;
+	
+	/**
+	 * Returns a reference to the hero
+	 * @return
+	 */
+	public GenericMapEntity getHero() {
+		return hero;
 	}
-
-	public void setBuffer(char buffer) {
-		this.buffer = buffer;
-	}
-
-	public MapArgs getArgs() {
-		return args;
-	}
-
-	public void setArgs(MapArgs args) {
-		this.args = args;
-	}
-
-	public boolean heroMetKeyHandler() {
-		hero.hasKey = true;
-		Coordinates cKC = key.getCoordinates(); // current Key Coordinates
-		map[cKC.x][cKC.y] = new Empty(cKC.x, cKC.y, this); // make the old Key position become empty
-		return true;
-	}
-
-	public boolean heroMetLeverHandler() {
-		getExitDoors().forEach(door -> door.setOpen(true));
-		lever.setOpen();
-		return false;
-	}
-
-	public boolean heroMetDoorHandler(Door door) {
-		if(!door.isOpen() && hero.hasKey) {
-			door.setOpen(true);
-			return false;
-		}else if(door.isOpen()) {
-			this.levelIsOver=true;
-			return true;
-		}else {
-			return false;
-		}
-	}
-
+	
+	/**
+	 * Returns a list of all guards
+	 * @return
+	 */
 	public List<Guard> getGuards() {
 		return guards;
 	}
 
+	/**
+	 * Returns a reference to lever
+	 * @return
+	 */
 	public Lever getLever() {
 		return lever;
 	}
+	
+	/**
+	 * Returns the char on the buffer (hero next move direction)
+	 * @return hero next move direction from buffer
+	 */
+	public char getBuffer() {
+		return buffer;
+	}
+	
+	/**
+	 * Sets the char on the buffer (hero next move direction)
+	 * @param buffer Next hero move direction
+	 */
+	public void setBuffer(char buffer) {
+		this.buffer = buffer;
+	}
+	
+	/**
+	 * Returns an object with GUI user defined settings for this game
+	 * @return
+	 */
+	public MapArgs getArgs() {
+		return args;
+	}
+	
+	/**
+	 * Set this map's user defined settings on GUI
+	 * @param args
+	 */
+	public void setArgs(MapArgs args) {
+		this.args = args;
+	}
+
+	/**
+	 * @return an integer representing the level name.
+	 */
+	public int toInt() {
+		String str = this.getClass().getName();
+		return Integer.parseInt(str.substring(str.length() - 1));
+	}
+	
+	/**
+	 * Returns the map sides length (the square side length)
+	 * @return
+	 */
+	public int getGridSize() {
+		return gridSize;
+	}
+	
+	/**
+	 * Tells this level is over
+	 * @return True if level is over, false otherwise
+	 */
+	public boolean isLevelOver() {
+		return levelIsOver;
+	}
+	
+	/**
+	 * Sets the level status (over or not over)
+	 * @param levelIsOver True if over, else false
+	 */
+	public void setLevelIsOver(boolean levelIsOver) {
+		this.levelIsOver = levelIsOver;
+	}
+
+	/**
+	 * Sets the game status (if it's over or not)
+	 * @param gameIsOver True if game is over, false otherwise
+	 */
+	public void setGameIsOver(boolean gameIsOver) {
+		this.gameIsOver = gameIsOver;
+	}
+
+	/**
+	 * Tells if the game is over
+	 * @return True if it's over, else false
+	 */
+	public boolean isGameOver() {
+		return gameIsOver;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract Map getNextLevel() throws Exception;
+	
+	/**
+	 * @return List<Empty> A list of all the positions suitable to deploy a foe.
+	 */
+	public List<Empty> getEmptyPositions() {
+		List<Empty> emptySpaces = new ArrayList<Empty>();
+		
+		for (GenericMapEntity[] mapRow : map) {
+			for (GenericMapEntity ent : mapRow) {
+				if(ent instanceof Empty) {
+					boolean redFlag = false;
+					for (Direction dir : Direction.values()) {
+						//System.out.println(ent.getNeighbor(dir));
+						if(ent.getNeighbor(dir) instanceof Hero) {
+							redFlag = true;
+						}
+					}
+					
+					if(!redFlag) {
+						// this Empty position is adjacent-player-free.
+						emptySpaces.add((Empty) ent);	
+						//System.out.println(ent.getCoordinates().x + ", " + ent.getCoordinates().y);
+					}
+				}
+			}
+		}
+		return emptySpaces;
+	}
+
 
 }
