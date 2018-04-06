@@ -57,9 +57,6 @@ public class Level3 extends Map {
 		for (GenericMapEntity o : ogres) {
 			o.tick();
 		}
-		
-		// move guard
-		this.guards.get(0).tick();
 	}
 	
 	@Override

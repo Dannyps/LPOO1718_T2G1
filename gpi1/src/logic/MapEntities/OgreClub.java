@@ -10,7 +10,6 @@ public class OgreClub extends GenericMapEntity {
 
 	public OgreClub(int x, int y, Map map) {
 		super(x, y, map);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

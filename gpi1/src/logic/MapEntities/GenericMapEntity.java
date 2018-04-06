@@ -34,9 +34,7 @@ public abstract class GenericMapEntity {
 	public void setCoordinates(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
-	public void setCoordinates(int[] c) {
-		this.coordinates = new Coordinates(c);
-	}
+
 	
 	/**
 	 * Returns the neighbor at some direction

@@ -250,11 +250,9 @@ public class MainWindow {
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		try {
-			// UIManager.setLookAndFeel("NIMBUS");
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 	}
