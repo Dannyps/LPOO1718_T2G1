@@ -18,6 +18,7 @@ import logic.Coordinates;
 import logic.Direction;
 import logic.Levels.*;
 import logic.MapEntities.*;
+import logic.MapEntities.Guard.DrunkenGuard;
 
 public class TestLogic {
 
@@ -91,7 +92,7 @@ public class TestLogic {
 			lv.input(getRandomDirection());
 		}
 	}
-	
+
 	/**
 	 * This test assumes that playing randomly will get the hero killed.
 	 * 
@@ -177,7 +178,7 @@ public class TestLogic {
 		assertNotEquals(c4, c3);
 		assertNotEquals(c2, null);
 		assertNotEquals(c2, new MapArgs(2, 2));
-		
+
 		assertTrue(c1.equals(c3));
 		assertFalse(c1.equals(c2));
 
@@ -255,13 +256,6 @@ public class TestLogic {
 	public void testHero() throws Exception {
 		Level3 l3 = new Level3(new MapArgs(0, 0)); // no ogres
 		Hero e = (Hero) l3.getHero();
-		if (e.hasKey) {
-			assertEquals(e.toString(), "K");
-		}
-
-		if (!e.hasKey && e.hasClub) {
-			assertEquals(e.toString(), "A");
-		}
 
 		if (!e.hasKey && !e.hasClub) {
 			assertEquals(e.toString(), "H");
@@ -277,21 +271,27 @@ public class TestLogic {
 		assertTrue(e.move('d'));
 		assertTrue(e.move('d'));
 
-		Level1 l1 = new Level1(new MapArgs(0, 0));
+		if (!e.hasKey && e.hasClub) {
+			assertEquals(e.toString(), "A");
+		}
+
+		Map l1 = new Level1(new MapArgs(0, 0));
 		e = (Hero) l1.getHero();
 		e.setCoordinates(new Coordinates(8, 8)); // should be next to the lever
 		assertFalse(e.move('a'));
+		assertTrue(l1.getLever().isOpen());
 
 		Level2 l2 = new Level2(new MapArgs(0, 0));
 		e = (Hero) l2.getHero();
-		e.setCoordinates(new Coordinates(7, 1)); // should be next to the key
-		System.out.println(l2);
+		
+		e.setCoordinates(new Coordinates(1, 6)); // should be next to the key
 		assertTrue(e.move('d'));
+		assertEquals(e.toString(), "K");
 	}
 
 	@Test
 	public void testGenericMapEntity() throws Exception {
-		Level1 l = new Level1(new MapArgs(0, 0));
+		Map l = new Level1(new MapArgs(0, 0));
 
 		GenericMapEntity g = l.getMap()[0][0]; // upper-left corner entity
 
@@ -316,7 +316,7 @@ public class TestLogic {
 
 	@Test
 	public void testMap() throws Exception {
-		Level1 l = new Level1(new MapArgs(0, 0));
+		Map l = new Level1(new MapArgs(0, 0));
 		assertEquals(l.toInt(), 1);
 
 		List<Empty> epl = l.getEmptyPositions();
@@ -338,6 +338,64 @@ public class TestLogic {
 
 		assertEquals(l.getArgs(), new MapArgs(0, 0));
 
+	}
+	
+	@Test
+	public void testDrunkenGuard1() throws Exception {
+		Map l = new Level1(new MapArgs(0, 1));
+		DrunkenGuard g = (DrunkenGuard) l.getGuards().get(0);
+		
+		boolean checkg = false, checkG = false;
+		while(!(checkg && checkG)) {
+			if(g.isSleeping()) {
+				assertEquals(g.toString(), "g");
+				checkg=true;
+			}else {
+				assertEquals(g.toString(), "G");
+				checkG=true;
+			}
+			assertTrue(g.tick());
+		}		
+	}
+	
+	@Test
+	public void testDrunkenGuard2() throws Exception {
+		Map l = new Level1(new MapArgs(0, 1));
+		DrunkenGuard g = (DrunkenGuard) l.getGuards().get(0);
+		Hero h = (Hero) l.getHero();
+		
+		l.getMap()[g.getCoordinates().x+1][g.getCoordinates().y] = h;
+		h.setCoordinates(new Coordinates(g.getCoordinates().x+1, g.getCoordinates().y));
+		while(!l.isGameOver()) {
+			g.tick();
+		}
+		assertTrue(l.isGameOver());
+	}
+	
+	@Test
+	public void testDrunkenGuard3() throws Exception {
+		Map l = new Level1(new MapArgs(0, 1));
+		DrunkenGuard g = (DrunkenGuard) l.getGuards().get(0);
+		Hero h = (Hero) l.getHero();
+		
+		while(!l.isGameOver()) {
+			System.out.println(l);
+			g.tick();
+		}
+		
+		boolean neighborHero = false;
+		for (Direction dir : Direction.values()) {
+			if(g.getNeighbor(dir) instanceof Hero)
+				neighborHero=true;
+				
+		}
+		
+		assertTrue(neighborHero);
+	}
+	
+	@Test
+	public void testSuspiciousGuard() throws Exception {
+		Map l = new Level1(new MapArgs(0, 2));
 	}
 
 }

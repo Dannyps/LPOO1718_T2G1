@@ -84,4 +84,9 @@ public class DrunkenGuard extends Guard {
 			}
 		}
 	}
+
+	public boolean isSleeping() {
+		return sleeping;
+	}
+
 }
