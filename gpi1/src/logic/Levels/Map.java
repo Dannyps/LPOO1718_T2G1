@@ -168,51 +168,60 @@ public abstract class Map {
 				line++;
 				column = 0;
 			}
-			switch (c) {
-			case 'X':
-				map[line][column] = new Wall(line, column, this);
-				break;
-			case 'H':
-				this.hero = new Hero(line, column, this);
-				map[line][column] = this.hero;
-				break;
-			case 'I':
-				map[line][column] = new Door(line, column, this);
-				break;
-			case 'G':
-				Guard g = new Guard(line, column, this);
-				this.guards.add(g);
-				map[line][column] = g;
-				break;
-			case 'O':
-				Ogre o = new Ogre(line, column, this);
-				this.ogres.add(o);
-				map[line][column] = o;
-				break;
-			case 'A':
-				this.pickableClub = new PickableClub(line, column, this);
-				map[line][column] = this.pickableClub;
-				break;
-			case 'K':
-				if (this instanceof Level1) {
-					this.lever = new Lever(line, column, this);
-					map[line][column] = this.lever;
-				} else {
-					this.key = new Key(line, column, this);
-					map[line][column] = this.key;
-				}
-				break;
-			case ' ':
-				map[line][column] = new Empty(line, column, this);
-				break;
-			default:
-				System.err.println("Unrecognized char read!");
-				System.exit(-2);
-				break;
-			}
+			buildMapFromStringSwitch(line, column, c);
 			column++;
 		}
 
+	}
+
+	/**
+	 * @param line
+	 * @param column
+	 * @param c
+	 */
+	private void buildMapFromStringSwitch(int line, int column, char c) {
+		switch (c) {
+		case 'X':
+			map[line][column] = new Wall(line, column, this);
+			break;
+		case 'H':
+			this.hero = new Hero(line, column, this);
+			map[line][column] = this.hero;
+			break;
+		case 'I':
+			map[line][column] = new Door(line, column, this);
+			break;
+		case 'G':
+			Guard g = new Guard(line, column, this);
+			this.guards.add(g);
+			map[line][column] = g;
+			break;
+		case 'O':
+			Ogre o = new Ogre(line, column, this);
+			this.ogres.add(o);
+			map[line][column] = o;
+			break;
+		case 'A':
+			this.pickableClub = new PickableClub(line, column, this);
+			map[line][column] = this.pickableClub;
+			break;
+		case 'K':
+			if (this instanceof Level1) {
+				this.lever = new Lever(line, column, this);
+				map[line][column] = this.lever;
+			} else {
+				this.key = new Key(line, column, this);
+				map[line][column] = this.key;
+			}
+			break;
+		case ' ':
+			map[line][column] = new Empty(line, column, this);
+			break;
+		default:
+			System.err.println("Unrecognized char read!");
+			System.exit(-2);
+			break;
+		}
 	}
 
 	/**

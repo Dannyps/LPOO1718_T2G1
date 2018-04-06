@@ -113,16 +113,16 @@ public class MainWindow {
 		gbc_panel.gridy = 0;
 		frame.getContentPane().add(panel, gbc_panel);
 		
-				// Label
-				JLabel label1 = new JLabel("Number of ogres");
-				panel.add(label1);
-				
-						// Textfield
-						ogreNo = new JTextField();
-						ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
-						ogreNo.setText("2");
-						ogreNo.setColumns(3);
-						panel.add(ogreNo);
+		// Label
+		JLabel label1 = new JLabel("Number of ogres");
+		panel.add(label1);
+		
+		// Textfield
+		ogreNo = new JTextField();
+		ogreNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		ogreNo.setText("2");
+		ogreNo.setColumns(3);
+		panel.add(ogreNo);
 
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
@@ -155,45 +155,7 @@ public class MainWindow {
 		splitPane.setLeftComponent(moveButtonsPanel);
 		moveButtonsPanel.setLayout(new BorderLayout(0, 0));
 
-		JButton btnMoveRight = new JButton("Right");
-		btnMoveRight.setEnabled(false);
-		btnMoveRight.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.refresh('d');
-				refreshDisplay();
-			}
-		});
-		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
-
-		JButton btnMoveLeft = new JButton("Left");
-		btnMoveLeft.setEnabled(false);
-		btnMoveLeft.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.refresh('a');
-				refreshDisplay();
-			}
-		});
-		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
-
-		JButton btnMoveDown = new JButton("Down");
-		btnMoveDown.setEnabled(false);
-		btnMoveDown.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.refresh('s');
-				refreshDisplay();
-			}
-		});
-		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
-
-		JButton btnMoveUp = new JButton("Up");
-		btnMoveUp.setEnabled(false);
-		btnMoveUp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				game.refresh('w');
-				refreshDisplay();
-			}
-		});
-		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
+		addMovementButtons(moveButtonsPanel);
 
 		JButton btnStartGame = new JButton("Start Game");
 
@@ -244,6 +206,32 @@ public class MainWindow {
 		gbc_footer_panel.gridy = 0;
 		frame.getContentPane().add(gamePanel, gbc_footer_panel);
 		
+		insertFooter();
+
+		insertExitButton();
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.gridx = 0;
+		gbc_btnNewButton.gridy = 1;
+		//panel_1.add(btnNewButton, gbc_btnNewButton);
+
+	}
+
+	/**
+	 * 
+	 */
+	private void insertExitButton() {
+		JButton btnNewButton = new JButton("Exit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+	}
+
+	/**
+	 * 
+	 */
+	private void insertFooter() {
 		footer_panel = new JPanel();
 		footer_panel.setBounds(new Rectangle(10, 0, 0, 0));
 		footer_panel.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -263,18 +251,51 @@ public class MainWindow {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		footer_panel.add(lblNewLabel);
+	}
 
-		JButton btnNewButton = new JButton("Exit");
-		btnNewButton.addActionListener(new ActionListener() {
+	/**
+	 * @param moveButtonsPanel
+	 */
+	private void addMovementButtons(JPanel moveButtonsPanel) {
+		JButton btnMoveRight = new JButton("Right");
+		btnMoveRight.setEnabled(false);
+		btnMoveRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				game.refresh('d');
+				refreshDisplay();
 			}
 		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 1;
-		//panel_1.add(btnNewButton, gbc_btnNewButton);
+		moveButtonsPanel.add(btnMoveRight, BorderLayout.EAST);
 
+		JButton btnMoveLeft = new JButton("Left");
+		btnMoveLeft.setEnabled(false);
+		btnMoveLeft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.refresh('a');
+				refreshDisplay();
+			}
+		});
+		moveButtonsPanel.add(btnMoveLeft, BorderLayout.WEST);
+
+		JButton btnMoveDown = new JButton("Down");
+		btnMoveDown.setEnabled(false);
+		btnMoveDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.refresh('s');
+				refreshDisplay();
+			}
+		});
+		moveButtonsPanel.add(btnMoveDown, BorderLayout.SOUTH);
+
+		JButton btnMoveUp = new JButton("Up");
+		btnMoveUp.setEnabled(false);
+		btnMoveUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				game.refresh('w');
+				refreshDisplay();
+			}
+		});
+		moveButtonsPanel.add(btnMoveUp, BorderLayout.NORTH);
 	}
 
 	public void refreshDisplay() {
