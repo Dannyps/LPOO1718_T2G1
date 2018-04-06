@@ -12,9 +12,6 @@ https://dannyps.github.io/LPOO1718_T2G1/index.html
 ### PIT: 
 ![PIT](https://i.imgur.com/7k9lR2j.png)
 
-## Better Code Hub
-![BCH](https://i.imgur.com/TJDmk0B.png)
-
 ## Authors
- - Daniel Pereira da Silva - up201503212
- - Fábio Daniel Reis Gaspar - up201503823
+ - Daniel Pereira da Silva - up201503212 - up201503212@fe.up.pt
+ - Fábio Daniel Reis Gaspar - up201503823 - up201503823@fe.up.pt
