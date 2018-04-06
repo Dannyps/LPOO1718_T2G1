@@ -21,7 +21,6 @@ public class Level3 extends Map {
 		super("XXXXXXXXXI      KXX       XX       XX       XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door) map[1][0]);
 		distributeOgres(ma.getnOgres());
-		distributeGuard(ma.getGuardType());
 		this.ma = ma;
 	}
 
@@ -47,32 +46,6 @@ public class Level3 extends Map {
 		}
 		
 	}
-	
-	private void distributeGuard(int index) {
-		List<Empty> emptySpaces = getEmptyPositions();
-		if(emptySpaces.size() > 1) {
-			Random r = new Random();
-			Empty chosen = emptySpaces.get(r.nextInt(emptySpaces.size()));
-			Guard g;
-			switch (index) {
-			case 0:
-				g = new RookieGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
-				break;
-			case 1:
-				g = new DrunkenGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
-				break;
-			case 2:
-				g = new SuspiciousGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
-				break;
-			default:
-				g = null;
-			}
-			
-			map[chosen.getCoordinates().x][chosen.getCoordinates().y] = g;
-			this.guards.add(g);
-		}
-	}
-
 
 	@Override
 	public void input(char input) {

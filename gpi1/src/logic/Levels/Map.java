@@ -6,7 +6,10 @@ import java.util.List;
 import logic.Coordinates;
 import logic.Direction;
 import logic.MapEntities.*;
+import logic.MapEntities.Guard.DrunkenGuard;
 import logic.MapEntities.Guard.Guard;
+import logic.MapEntities.Guard.RookieGuard;
+import logic.MapEntities.Guard.SuspiciousGuard;
 
 public abstract class Map {
 	protected GenericMapEntity[][] map;
@@ -122,8 +125,33 @@ public abstract class Map {
 		this.guards = new ArrayList<Guard>();
 
 		buildMapFromString(str);
-		
+	}
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param str A string that represents the game map
+	 * @throws Exception
+	 */
+	public Map(String str, MapArgs args) throws Exception {
+		this.args = args;
+		int strlen = str.length();
+		// Assuming the map is a square
+		this.gridSize = (int) Math.sqrt(strlen);
+		map = new GenericMapEntity[this.gridSize][this.gridSize];
 
+		// check if n is perfect square number
+		this.gridSize = (int) Math.sqrt(strlen);
+		if (this.gridSize * this.gridSize != strlen) {
+			throw new Exception("str doen't represent a square!");
+		}
+
+		// initialize lists
+		this.exitDoors = new ArrayList<Door>();
+		this.ogres = new ArrayList<Ogre>();
+		this.guards = new ArrayList<Guard>();
+
+		buildMapFromString(str);
 	}
 	
 	
@@ -252,9 +280,18 @@ public abstract class Map {
 	 * @param column
 	 */
 	private void makeGuard(int line, int column) {
-		Guard g = new Guard(line, column, this);
-		this.guards.add(g);
-		map[line][column] = g;
+		switch (args.getGuardType()) {
+		case 0:
+			this.guards.add(new RookieGuard(line, column, this));
+			break;
+		case 1:
+			this.guards.add(new DrunkenGuard(line, column, this));
+			break;
+		case 2:
+			this.guards.add(new SuspiciousGuard(line, column, this));
+			break;
+		}
+		map[line][column] = this.guards.get(0);
 	}
 
 	/**
