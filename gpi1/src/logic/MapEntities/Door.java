@@ -25,8 +25,7 @@ public class Door extends GenericMapEntity {
 		return open;
 	}
 
-	public boolean setOpen(boolean open) {
+	public void setOpen(boolean open) {
 		this.open = open;
-		return open;
 	}
 }

@@ -83,8 +83,7 @@ public class Ogre extends GenericMapEntity {
 			if (this.getNeighbor(dir) instanceof Hero) {
 				Hero h = (Hero) this.getNeighbor(dir);
 				if (h.hasClub) {
-					this.stunned = true;
-					this.stunnedCount = 3;
+					setStunned();
 				} else {
 					// caught!
 					this.map.setGameIsOver(true);
@@ -152,6 +151,19 @@ public class Ogre extends GenericMapEntity {
 
 	public boolean isStunned() {
 		return !(stunnedCount <= 0);
+	}
+
+	public Key getOldKey() {
+		return oldKey;
+	}
+
+	public void setStunned() {
+		this.stunned = true;
+		this.stunnedCount = 3;	
+	}
+
+	public boolean hasClub() {
+		return hasClub;
 	}
 
 }

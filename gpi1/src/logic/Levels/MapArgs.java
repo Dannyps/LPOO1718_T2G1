@@ -11,6 +11,22 @@ import java.io.Serializable;
 public final class MapArgs implements Serializable {
 	
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MapArgs other = (MapArgs) obj;
+		if (guardType != other.guardType)
+			return false;
+		if (nOgres != other.nOgres)
+			return false;
+		return true;
+	}
+
 	private static final long serialVersionUID = -6589598135037878165L;
 
 	public MapArgs(int nOgres, int guardType) {

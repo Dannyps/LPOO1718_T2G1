@@ -63,9 +63,8 @@ public abstract class GenericMapEntity {
 				return null;
 			else
 				return map.getMap()[this.coordinates.x+1][this.coordinates.y];
-		default:
-			return null;
 		}
+		return null;
 	}
 	
 	/**
@@ -102,7 +101,7 @@ public abstract class GenericMapEntity {
 		return futurePos;
 	}
 
-	protected GenericMapEntity getRandomFuturePosOccupier() {
+	public GenericMapEntity getRandomFuturePosOccupier() {
 		int i = new Random().nextInt(4);
 		return getFuturePosOccupier((new char[] {'w', 's', 'a', 'd'})[i]);
 		

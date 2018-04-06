@@ -38,4 +38,8 @@ public class Coordinates {
 	public String toString() {
 		return "{" + x + "," + y + "}";
 	}
+	
+	static public double distance(Coordinates c1, Coordinates c2) {
+	    return  Math.hypot(c1.x-c2.x, c1.y-c2.y);		
+	}
 }

@@ -158,7 +158,7 @@ public abstract class Map {
 	/**
 	 * @return List<Empty> A list of all the positions suitable to deploy a foe.
 	 */
-	List<Empty> getEmptyPositions() {
+	public List<Empty> getEmptyPositions() {
 		List<Empty> emptySpaces = new ArrayList<Empty>();
 		
 		for (GenericMapEntity[] mapRow : map) {
