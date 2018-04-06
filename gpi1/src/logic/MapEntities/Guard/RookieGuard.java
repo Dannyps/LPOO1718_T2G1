@@ -3,8 +3,8 @@ package logic.MapEntities.Guard;
 import logic.Levels.Map;
 
 /**
- * @see Guard
  * This guard follows the pre-defined route no matter what.
+ * @see Guard
  *
  */
 public class RookieGuard extends Guard {
