@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import logic.MapEntities.*;
+import logic.MapEntities.Guard.DrunkenGuard;
+import logic.MapEntities.Guard.Guard;
+import logic.MapEntities.Guard.RookieGuard;
+import logic.MapEntities.Guard.SuspiciousGuard;
 
 /**
  * Level 3 (several ogres, no guard)
@@ -17,6 +21,7 @@ public class Level3 extends Map {
 		super("XXXXXXXXXI      KXX       XX       XX       XX       XX       XXH  A   XXXXXXXXXX");
 		exitDoors.add((Door) map[1][0]);
 		distributeOgres(ma.getnOgres());
+		distributeGuard(ma.getGuardType());
 		this.ma = ma;
 	}
 
@@ -42,12 +47,37 @@ public class Level3 extends Map {
 		}
 		
 	}
+	
+	private void distributeGuard(int index) {
+		List<Empty> emptySpaces = getEmptyPositions();
+		if(emptySpaces.size() > 1) {
+			Random r = new Random();
+			Empty chosen = emptySpaces.get(r.nextInt(emptySpaces.size()));
+			Guard g;
+			switch (index) {
+			case 0:
+				g = new RookieGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
+				break;
+			case 1:
+				g = new DrunkenGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
+				break;
+			case 2:
+				g = new SuspiciousGuard(chosen.getCoordinates().x, chosen.getCoordinates().y, this);
+				break;
+			default:
+				g = null;
+			}
+			
+			map[chosen.getCoordinates().x][chosen.getCoordinates().y] = g;
+			this.guards.add(g);
+		}
+	}
 
 
 	@Override
 	public void input(char input) {
 		// move hero
-			super.input(input);
+		super.input(input);
 			
 		// check club position
 		for (Ogre o : ogres) {
@@ -58,6 +88,9 @@ public class Level3 extends Map {
 		for (GenericMapEntity o : ogres) {
 			o.tick();
 		}
+		
+		// move guard
+		this.guards.get(0).tick();
 	}
 	
 	@Override

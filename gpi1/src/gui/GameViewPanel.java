@@ -287,6 +287,15 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		case "Key":
 			drawPKey(g, coords);
 			break;
+		case "DrunkenGuard":
+			drawGuard(g, coords);
+			break;
+		case "RookieGuard":
+			drawGuard(g, coords);
+			break;
+		case "SuspiciousGuard":
+			drawGuard(g, coords);
+			break;
 		case "Guard":
 			drawGuard(g, coords);
 			break;
