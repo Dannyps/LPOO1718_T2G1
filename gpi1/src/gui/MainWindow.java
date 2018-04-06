@@ -106,7 +106,7 @@ public class MainWindow {
 	private void makeFooterPanel() {
 		GridBagConstraints gbc_footer_panel = new GridBagConstraints();
 		gbc_footer_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_footer_panel.gridheight = 5;
+		gbc_footer_panel.gridheight = 6;
 		gbc_footer_panel.fill = GridBagConstraints.BOTH;
 		gbc_footer_panel.gridx = 0;
 		gbc_footer_panel.gridy = 0;
@@ -166,7 +166,7 @@ public class MainWindow {
 		GridBagConstraints gbc_splitPane = new GridBagConstraints();
 		gbc_splitPane.anchor = GridBagConstraints.NORTH;
 		gbc_splitPane.fill = GridBagConstraints.HORIZONTAL;
-		gbc_splitPane.insets = new Insets(0, 0, 5, 5);
+		gbc_splitPane.insets = new Insets(0, 0, 5, 0);
 		gbc_splitPane.gridx = 1;
 		gbc_splitPane.gridy = 2;
 		frame.getContentPane().add(splitPane, gbc_splitPane);
@@ -180,7 +180,7 @@ public class MainWindow {
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.anchor = GridBagConstraints.WEST;
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_2.fill = GridBagConstraints.VERTICAL;
 		gbc_panel_2.gridx = 1;
 		gbc_panel_2.gridy = 1;
@@ -234,9 +234,9 @@ public class MainWindow {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 393, 142, 0 };
-		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 27, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 38, 0, 86, 0, 27, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 		frame.getContentPane().setLayout(gridBagLayout);
 
 		try {
@@ -253,12 +253,21 @@ public class MainWindow {
 	 * 
 	 */
 	private void insertExitButton() {
-		JButton btnNewButton = new JButton("Exit");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnExit = new JButton("Exit");
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnExit.insets = new Insets(0, 0, 5, 0);
+		gbc_btnExit.gridx = 1;
+		gbc_btnExit.gridy = 3;
+
+		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				if(askYesOrNo("Are you sure you want to leave the game ?", "Exit") == 0)
+						System.exit(0);
 			}
 		});
+		
+		frame.getContentPane().add(btnExit, gbc_btnExit);
 	}
 
 	/**
@@ -271,10 +280,9 @@ public class MainWindow {
 		footer_panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		GridBagConstraints gbc_footer_panel1 = new GridBagConstraints();
 		gbc_footer_panel1.gridwidth = 2;
-		gbc_footer_panel1.insets = new Insets(0, 0, 0, 5);
 		gbc_footer_panel1.fill = GridBagConstraints.BOTH;
 		gbc_footer_panel1.gridx = 0;
-		gbc_footer_panel1.gridy = 5;
+		gbc_footer_panel1.gridy = 6;
 		frame.getContentPane().add(footer_panel, gbc_footer_panel1);
 		footer_panel.setLayout(new BoxLayout(footer_panel, BoxLayout.X_AXIS));
 		
