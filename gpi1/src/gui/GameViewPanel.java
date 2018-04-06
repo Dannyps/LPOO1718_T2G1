@@ -95,11 +95,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawHero(Graphics g, int x, int y) {
+	private void drawHero(Graphics g, int c[]) {
 		double ratio = IHero.getWidth(null) / IHero.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IHero, x + 12, y + 10, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IHero, c[0] + 12, c[1] + 10, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -109,11 +109,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawClub(Graphics g, int x, int y) {
+	private void drawClub(Graphics g, int c[]) {
 		double ratio = IClub.getWidth(null) / IClub.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IClub, x + 12, y + 10, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IClub, c[0] + 12, c[1] + 10, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -123,11 +123,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawWall(Graphics g, int x, int y) {
+	private void drawWall(Graphics g, int c[]) {
 		double ratio = IWall.getWidth(null) / IWall.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IWall, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IWall, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -137,11 +137,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawOgre(Graphics g, int x, int y) {
+	private void drawOgre(Graphics g, int c[]) {
 		double ratio = IWall.getWidth(null) / IWall.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IOgre, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IOgre, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -151,11 +151,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawSOgr(Graphics g, int x, int y) {
+	private void drawSOgr(Graphics g, int c[]) {
 		double ratio = ISOgr.getWidth(null) / ISOgr.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(ISOgr, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(ISOgr, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -165,11 +165,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawPClb(Graphics g, int x, int y) {
+	private void drawPClb(Graphics g, int c[]) {
 		double ratio = IPClb.getWidth(null) / IPClb.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IPClb, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IPClb, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -179,11 +179,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawPKey(Graphics g, int x, int y) {
+	private void drawPKey(Graphics g, int c[]) {
 		double ratio = IPKey.getWidth(null) / IPKey.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IPKey, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IPKey, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -193,11 +193,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawGuard(Graphics g, int x, int y) {
+	private void drawGuard(Graphics g, int c[]) {
 		double ratio = IGuard.getWidth(null) / IGuard.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IGuard, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IGuard, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -207,11 +207,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawCLever(Graphics g, int x, int y) {
+	private void drawCLever(Graphics g, int c[]) {
 		double ratio = ICLever.getWidth(null) / ICLever.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(ICLever, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(ICLever, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -221,11 +221,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawOLever(Graphics g, int x, int y) {
+	private void drawOLever(Graphics g, int c[]) {
 		double ratio = IOLever.getWidth(null) / IOLever.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IOLever, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IOLever, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -235,11 +235,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawODoor(Graphics g, int x, int y) {
+	private void drawODoor(Graphics g, int c[]) {
 		double ratio = IODoor.getWidth(null) / IODoor.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(IODoor, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(IODoor, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -249,11 +249,11 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param x int x coordinate
 	 * @param y int y coordinate
 	 */
-	private void drawCDoor(Graphics g, int x, int y) {
+	private void drawCDoor(Graphics g, int c[]) {
 		double ratio = ICDoor.getWidth(null) / ICDoor.getHeight(null);
 		double lqs = qs * 0.95;
 
-		g.drawImage(ICDoor, x + 14, y + 12, (int) (lqs), (int) (lqs * ratio), null);
+		g.drawImage(ICDoor, c[0] + 14, c[1] + 12, (int) (lqs), (int) (lqs * ratio), null);
 	}
 
 	/**
@@ -270,25 +270,25 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 
 		switch (ent.getClass().toString().substring(ent.getClass().toString().lastIndexOf(".") + 1)) {
 		case "Hero":
-			drawHero(g, coords[0], coords[1]);
+			drawHero(g, coords);
 			break;
 		case "Wall":
-			drawWall(g, coords[0], coords[1]);
+			drawWall(g, coords);
 			break;
 		case "Ogre":
 			drawOgre(g, ent, coords);
 			break;
 		case "OgreClub":
-			drawClub(g, coords[0], coords[1]);
+			drawClub(g, coords);
 			break;
 		case "PickableClub":
-			drawPClb(g, coords[0], coords[1]);
+			drawPClb(g, coords);
 			break;
 		case "Key":
-			drawPKey(g, coords[0], coords[1]);
+			drawPKey(g, coords);
 			break;
 		case "Guard":
-			drawGuard(g, coords[0], coords[1]);
+			drawGuard(g, coords);
 			break;
 		case "Lever":
 			drawLever(g, ent, coords);
@@ -307,9 +307,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 */
 	private void drawDoor(Graphics g, GenericMapEntity ent, int[] coords) {
 		if (((Door) ent).isOpen()) {
-			drawODoor(g, coords[0], coords[1]);
+			drawODoor(g, coords);
 		} else {
-			drawCDoor(g, coords[0], coords[1]);
+			drawCDoor(g, coords);
 		}
 	}
 
@@ -320,9 +320,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 */
 	private void drawLever(Graphics g, GenericMapEntity ent, int[] coords) {
 		if (((Lever) ent).isOpen()) {
-			drawOLever(g, coords[0], coords[1]);
+			drawOLever(g, coords);
 		} else {
-			drawCLever(g, coords[0], coords[1]);
+			drawCLever(g, coords);
 		}
 	}
 
@@ -333,9 +333,9 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 */
 	private void drawOgre(Graphics g, GenericMapEntity ent, int[] coords) {
 		if (((Ogre) ent).isStunned()) {
-			drawSOgr(g, coords[0], coords[1]);
+			drawSOgr(g, coords);
 		} else {
-			drawOgre(g, coords[0], coords[1]);
+			drawOgre(g, coords);
 		}
 	}
 
