@@ -139,7 +139,6 @@ public class MainWindow {
 					game = new Gameplay(new MapArgs(nOgres, comboBox.getSelectedIndex()));
 					((GameViewPanel) gamePanel).updateGame(game);
 				} catch (Exception e1) {
-					// TODO care bad map (internal error)
 					e1.printStackTrace();
 				}
 				enableButtons(moveButtonsPanel);

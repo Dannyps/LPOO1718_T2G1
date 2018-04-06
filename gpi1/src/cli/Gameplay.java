@@ -58,7 +58,6 @@ public class Gameplay {
 					loadNextLevel();
 					newLevel = true;
 				} catch (Exception e) {
-					// TODO understand this exception
 					e.printStackTrace();
 
 				}
