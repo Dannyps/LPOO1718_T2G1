@@ -37,7 +37,7 @@ public class Hero extends GenericMapEntity {
 	 * @param c a character representing the way the hero should move.
 	 * @return boolean whether the hero was indeed moved or not.
 	 */
-	private boolean move(char c) {
+	public boolean move(char c) {
 		GenericMapEntity futurePos = getFuturePosOccupier(c);
 
 		if (futurePos == null)

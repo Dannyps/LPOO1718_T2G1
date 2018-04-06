@@ -91,6 +91,20 @@ public class TestLogic {
 			lv.input(getRandomDirection());
 		}
 	}
+	
+	/**
+	 * This test assumes that playing randomly will get the hero killed.
+	 * 
+	 * @throws Exception if the map is invalid
+	 */
+	@Test
+	public void testHeroAndOgreV3() throws Exception {
+		Map lv;
+		lv = new Level3(new MapArgs(2, 0));
+		while (!lv.isGameOver()) {
+			lv.input(getRandomDirection());
+		}
+	}
 
 	/**
 	 * This test ensures the drunken guard eventually falls asleep.
@@ -164,6 +178,9 @@ public class TestLogic {
 		assertNotEquals(c2, null);
 		assertNotEquals(c2, new MapArgs(2, 2));
 		
+		assertTrue(c1.equals(c3));
+		assertFalse(c1.equals(c2));
+
 		assertEquals(Coordinates.distance(c4, c4), 0, 0.00001);
 		assertEquals(Coordinates.distance(c1, c2), 1, 0.00001);
 	}
@@ -184,31 +201,31 @@ public class TestLogic {
 
 		assertEquals(e.toString(), " ");
 	}
-	
+
 	@Test
 	public void testPickableClub() {
 		PickableClub e = new PickableClub(0, 0, null);
 
 		assertEquals(e.toString(), "A");
 	}
-	
+
 	@Test
 	public void testOgre() throws Exception {
-		
-		Ogre e = new Ogre(0, 0, new Level1(new MapArgs(0,2)));
-		assertFalse(e.hasClub());
-		e = new Ogre(0, 0, new Level3(new MapArgs(0,2)));
 
-		if(e.isStunned())
-			assertEquals(e.toString(),"8");
-		else if(e.getOldKey() == null)
-			assertEquals(e.toString(),"O");
+		Ogre e = new Ogre(0, 0, new Level1(new MapArgs(0, 2)));
+		assertFalse(e.hasClub());
+		e = new Ogre(0, 0, new Level3(new MapArgs(0, 2)));
+
+		if (e.isStunned())
+			assertEquals(e.toString(), "8");
+		else if (e.getOldKey() == null)
+			assertEquals(e.toString(), "O");
 		else
-			assertEquals(e.toString(),"$");
-		
-		e = new Ogre(0, 0, new Level3(new MapArgs(0,2)));
+			assertEquals(e.toString(), "$");
+
+		e = new Ogre(0, 0, new Level3(new MapArgs(0, 2)));
 		e.setStunned();
-		Coordinates oldpos=e.getCoordinates();
+		Coordinates oldpos = e.getCoordinates();
 		assertTrue(e.tick());
 		assertTrue(Coordinates.distance(e.getCoordinates(), oldpos) < Math.sqrt(2)); // it's got to be either 1 or 0
 		assertTrue(e.isStunned());
@@ -216,9 +233,9 @@ public class TestLogic {
 		assertTrue(e.isStunned());
 		e.tick();
 		assertFalse(e.isStunned());
-			
+
 	}
-	
+
 	@Test
 	public void testOgreClub() throws Exception {
 		Level3 l = new Level3(new MapArgs(0, 0));
@@ -226,6 +243,50 @@ public class TestLogic {
 		assertTrue(e.tick());
 
 		assertEquals(e.toString(), "*");
+	}
+
+	@Test
+	public void testKey() throws Exception {
+		Key e = new Key(5, 5, null);
+		assertEquals(e.toString(), "K");
+	}
+
+	@Test
+	public void testHero() throws Exception {
+		Level3 l3 = new Level3(new MapArgs(0, 0)); // no ogres
+		Hero e = (Hero) l3.getHero();
+		if (e.hasKey) {
+			assertEquals(e.toString(), "K");
+		}
+
+		if (!e.hasKey && e.hasClub) {
+			assertEquals(e.toString(), "A");
+		}
+
+		if (!e.hasKey && !e.hasClub) {
+			assertEquals(e.toString(), "H");
+		}
+
+		assertNotEquals(e.toString(), null);
+
+		assertTrue(e.tick());
+		assertFalse(e.move('a'));
+		assertFalse(e.move('s'));
+		assertTrue(e.move('d'));
+		assertTrue(e.move('d'));
+		assertTrue(e.move('d'));
+		assertTrue(e.move('d'));
+
+		Level1 l1 = new Level1(new MapArgs(0, 0));
+		e = (Hero) l1.getHero();
+		e.setCoordinates(new Coordinates(8, 8)); // should be next to the lever
+		assertFalse(e.move('a'));
+
+		Level2 l2 = new Level2(new MapArgs(0, 0));
+		e = (Hero) l2.getHero();
+		e.setCoordinates(new Coordinates(7, 1)); // should be next to the key
+		System.out.println(l2);
+		assertTrue(e.move('d'));
 	}
 
 	@Test
@@ -261,35 +322,21 @@ public class TestLogic {
 		List<Empty> epl = l.getEmptyPositions();
 
 		for (Empty ent : epl) {
-			assertTrue((GenericMapEntity) ent instanceof Empty );
+			assertTrue((GenericMapEntity) ent instanceof Empty);
 		}
-		
+
 		assertEquals(l.toString(),
-				"┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n" + 
-				"│X│X│X│X│X│X│X│X│X│X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│H│ │ │I│ │X│ │G│X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│X│X│ │X│X│X│ │ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│ │I│ │I│ │X│ │ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│X│X│ │X│X│X│ │ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│I│ │ │ │ │ │ │ │ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│I│ │ │ │ │ │ │ │ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│X│X│ │X│X│X│X│ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│ │I│ │I│ │X│K│ │X│\n" + 
-				"├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + 
-				"│X│X│X│X│X│X│X│X│X│X│\n" + 
-				"└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘\n");
-		
+				"┌─┬─┬─┬─┬─┬─┬─┬─┬─┬─┐\n" + "│X│X│X│X│X│X│X│X│X│X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n"
+						+ "│X│H│ │ │I│ │X│ │G│X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│X│X│X│ │X│X│X│ │ │X│\n"
+						+ "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│X│ │I│ │I│ │X│ │ │X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n"
+						+ "│X│X│X│ │X│X│X│ │ │X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│I│ │ │ │ │ │ │ │ │X│\n"
+						+ "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│I│ │ │ │ │ │ │ │ │X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n"
+						+ "│X│X│X│ │X│X│X│X│ │X│\n" + "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│X│ │I│ │I│ │X│K│ │X│\n"
+						+ "├─┼─┼─┼─┼─┼─┼─┼─┼─┼─┤\n" + "│X│X│X│X│X│X│X│X│X│X│\n" + "└─┴─┴─┴─┴─┴─┴─┴─┴─┴─┘\n");
+
 		assertEquals(l.getEntityAtPos(0, 0), "X");
-		
-		assertEquals(l.getArgs(), new MapArgs(0,0));
+
+		assertEquals(l.getArgs(), new MapArgs(0, 0));
 
 	}
 
