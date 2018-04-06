@@ -23,20 +23,6 @@ public class Level1 extends Map {
 	}
 
 	@Override
-	public boolean heroMetLeverHandler() {
-		getExitDoors().forEach(door -> door.setOpen(true));
-		lever.setOpen();
-		return false;
-	}
-
-	@Override
-	public boolean heroMetKeyHandler() {
-		// this should not happen!
-		assert (1 == 2);
-		return false;
-	}
-
-	@Override
 	public void input(char input) {
 		super.input(input);
 		guard.tick();

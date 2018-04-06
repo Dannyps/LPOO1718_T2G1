@@ -3,6 +3,7 @@ package logic.Levels;
 import java.util.ArrayList;
 import java.util.List;
 
+import logic.Coordinates;
 import logic.Direction;
 import logic.MapEntities.*;
 import logic.MapEntities.Guard.Guard;
@@ -379,12 +380,6 @@ public abstract class Map {
 	/// Handlers return true or false, indicating whether the first entity should be
 	/// moved to the futurePosition or not.
 
-	public abstract boolean heroMetLeverHandler();
-
-	public abstract boolean heroMetKeyHandler();
-
-	public abstract boolean heroMetDoorHandler(Door door);
-
 	public char getBuffer() {
 		return buffer;
 	}
@@ -399,6 +394,31 @@ public abstract class Map {
 
 	public void setArgs(MapArgs args) {
 		this.args = args;
+	}
+
+	public boolean heroMetKeyHandler() {
+		hero.hasKey = true;
+		Coordinates cKC = key.getCoordinates(); // current Key Coordinates
+		map[cKC.x][cKC.y] = new Empty(cKC.x, cKC.y, this); // make the old Key position become empty
+		return true;
+	}
+
+	public boolean heroMetLeverHandler() {
+		getExitDoors().forEach(door -> door.setOpen(true));
+		lever.setOpen();
+		return false;
+	}
+
+	public boolean heroMetDoorHandler(Door door) {
+		if(!door.isOpen() && hero.hasKey) {
+			door.setOpen(true);
+			return false;
+		}else if(door.isOpen()) {
+			this.levelIsOver=true;
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 }

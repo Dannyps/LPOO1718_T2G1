@@ -1,5 +1,4 @@
 package logic.Levels;
-import logic.Coordinates;
 import logic.MapEntities.*;
 
 /**
@@ -19,34 +18,6 @@ public class Level2 extends Map {
 		this.ma = ma;
 	}
 
-	@Override
-	public boolean heroMetLeverHandler() {
-		// this should not happen!
-		assert(1==2);
-		return false;
-	}
-
-	@Override
-	public boolean heroMetKeyHandler() {
-		hero.hasKey=true;
-		Coordinates cKC = key.getCoordinates(); // current Key Coordinates
-		map[cKC.x][cKC.y]= new Empty(cKC.x, cKC.y, this); // make the old Key position become empty
-		return true;
-	}
-
-	@Override
-	public boolean heroMetDoorHandler(Door door) {
-		if(!door.isOpen() && hero.hasKey) {
-			door.setOpen(true);
-			return false;
-		}else if(door.isOpen()) {
-			this.levelIsOver=true;
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
 	@Override
 	public void input(char input) {
 		// check club position
