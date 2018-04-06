@@ -77,13 +77,13 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		int ss = game.getLevel().getMap().length; // squareSide
 		qs = (int) (Integer.min(getSize().width, getSize().height) / (ss + 1));
 
-		makeGrid(g, new int[] {x, y}, qs, ss);
+		makeGrid(g, new int[] { x, y }, qs, ss);
 		for (GenericMapEntity[] mapRows : game.getLevel().getMap()) {
 			for (GenericMapEntity e : mapRows) {
 				int ex = e.getCoordinates().x;
 				int ey = e.getCoordinates().y;
 
-				drawOnQuadricule(g, ey, ex, e);
+				drawOnQuadricule(g, new int[] { ey, ex }, e);
 			}
 		}
 	}
@@ -264,8 +264,8 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 	 * @param y   int grid y
 	 * @param ent String representing the Entity's class name.
 	 */
-	void drawOnQuadricule(Graphics g, int x, int y, GenericMapEntity ent) {
-		int coords[] = calcCoordByQuadricule(x, y);
+	void drawOnQuadricule(Graphics g, int c[], GenericMapEntity ent) {
+		int coords[] = calcCoordByQuadricule(c);
 		// ent.substring(ent.lastIndexOf(".") + 1)) {
 
 		switch (ent.getClass().toString().substring(ent.getClass().toString().lastIndexOf(".") + 1)) {
@@ -339,8 +339,8 @@ public class GameViewPanel extends JPanel implements MouseListener, MouseMotionL
 		}
 	}
 
-	private int[] calcCoordByQuadricule(int x, int y) {
-		return new int[] { x * qs, y * qs };
+	private int[] calcCoordByQuadricule(int c[]) {
+		return new int[] { c[0] * qs, c[1] * qs };
 	}
 
 	/**

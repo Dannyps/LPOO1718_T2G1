@@ -168,7 +168,7 @@ public abstract class Map {
 				line++;
 				column = 0;
 			}
-			buildMapFromStringSwitch(line, column, c);
+			buildMapFromStringSwitch(new int[] {line, column}, c);
 			column++;
 		}
 
@@ -179,7 +179,8 @@ public abstract class Map {
 	 * @param column
 	 * @param c
 	 */
-	private void buildMapFromStringSwitch(int line, int column, char c) {
+	private void buildMapFromStringSwitch(int coords[], char c) {
+		int line = coords[0], column = coords[1];
 		switch (c) {
 		case 'X':
 			makeWall(line, column);
